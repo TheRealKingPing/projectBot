@@ -20,7 +20,7 @@ public class answer {
 	
 	//todo: not only infinitive => every verb
 	//get subject name by infinitive
-	private static String getPropertyName(String infinitive) { 
+	private static String getPropertyName(String infinitive) {
 		switch(infinitive) {
 			case "be":
 				return "is";
@@ -48,7 +48,7 @@ public class answer {
 		
 		OntClass pronoun = m.getOntClass(uri + userName);				
 		
-		ExtendedIterator<OntClass> pronounSuperC = pronoun.listSuperClasses();									
+		ExtendedIterator<OntClass> pronounSuperC = pronoun.listSuperClasses();												
 		
 		while(pronounSuperC.hasNext()) {	
 			OntClass sc = pronounSuperC.next();
@@ -56,7 +56,7 @@ public class answer {
 				Restriction r = sc.asRestriction();					
 				if(property.equals(r.getOnProperty())) {													
 					String scNounName = r.asSomeValuesFromRestriction().getSomeValuesFrom().getURI().toString().replaceAll(uri, "");							
-					if(nounName.equals(nounName)) {
+					if(scNounName.equals(nounName)) {
 						return scNounName;						
 					}
 				}
@@ -71,19 +71,25 @@ public class answer {
 		String questionPointName = "";
 				
 		for(int counter = 0; counter < questionWords.length; counter++) {			
-			String word = questionWords[counter][0];
+			String word = questionWords[counter][0];			
 			switch (questionWords[counter][1]) {
+				case "auxiliary verb":
+					//todo: check present, past and future of verb
+					propertyName = getPropertyName(questionWords[counter][2]);					
+					break;
 				case "verb":
-					propertyName = getPropertyName(questionWords[counter][2]);
 					break;
 				case "pronoun":
 					//todo: convert pronoun to user... for example: his = User1 (now in count 2 [2])									
 					String userName = "";
 					if (word.equals("his")) { userName = "User1"; }
-					
-					String nextWord = questionWords[counter + 1][1];					
-					if (nextWord. equals("noun")) {
-						subjectName = bindPronounAndNoun(userName, nextWord);
+					if (word.equals("him")) { userName = "User1"; }
+																	
+					if (questionWords[counter + 1][1].equals("noun")) {
+						subjectName = bindPronounAndNoun(userName, questionWords[counter + 1][0]);	
+						if(subjectName == null) {
+							return "Which " + questionWords[counter + 1][0] + "?";
+						}						
 					}
 					else {
 						subjectName = getSubjectName(word);			
@@ -97,7 +103,9 @@ public class answer {
 				default:
 					break;
 			}				
-		}									
+		}	
+		System.out.print("Property: " + propertyName + "\nSubject: " + subjectName + "\nQuestion-Point: " + questionPointName + "\n\n");
+		
 		//todo: check if subject is in db
 		OntClass subject = m.getOntClass(uri + subjectName);
 		ExtendedIterator<OntClass> subjectSuperC = subject.listSuperClasses();
@@ -124,27 +132,78 @@ public class answer {
 	public static void main (String[] args) {
 		QuestionType type = QuestionType.closed;
 		String[][] questionWords1 = {
-				{"was", "verb", "be", "past"},
+				{"is", "auxiliary verb", "be", "present"},
+				{"he", "pronoun", "User1", "possesive"},
+				{"working", "verb", "work"},
+				{"very"},
+				{"hard"}
+		};
+		
+		//Do you usually walk to work
+		String[][] questionWords2 = {
+				{"do", "auxiliary verb", "do", "present"},
+				{"you", "pronoun", "me", "possesive"},
+				{"usually", "adverb"},
+				{"walk", "verb"},
+				{"to", "preposition"},
+				{"work", "noun"}
+		};
+		
+		String[][] questionWords3 = {
+				{"was", "auxiliary verb", "be", "past"},
 				{"his", "pronoun", "User1", "possesive"},
 				{"idea", "noun"},
 				{"interesting", "adjective"}
 		};		
 		
 		//Are you hungry?
-		String[][] questionWords = {
-				{"are", "verb", "be", "plural"},
+		String[][] questionWords4 = {
+				{"are", "auxiliary verb", "be", "plural"},
 				{"you", "pronoun", "me", "possesive"},
 				{"hungry", "adjective"}
 		};
 		
 		//Are Spanish and German different languages?
-		String[][] questionWords2 = {
-				{"are", "verb", "be", "present"}, 
+		String[][] questionWords5 = {
+				{"are", "auxiliary verb", "be", "present"}, 
 				{"spanish", "noun", "subject"}, 
 				{"and", "conjunction", "subject"},
 				{"german", "noun", "subject"},
 				{"different", "adjective", "languages"},
 				{"languages", "noun", "language"}
+		};
+		
+		//was it hot outside?
+		String[][] questionWords6 = {
+				{"was", "auxiliary verb", "be", "past"}, 
+				{"it", "pronoun"}, 
+				{"hot"},
+				{"outside"}			
+		};
+		
+		//Have you seen Greg
+		String[][] questionWords7 = {
+				{"have", "auxiliary verb", "have", "present"},
+				{"you", "pronoun", "me", "possesive"},
+				{"seen", "verb", "see", "past participle"},
+				{"greg", "noun", "human"}
+		};
+		
+		//have you talked with him
+		String[][] questionWords8 = {
+				{"have", "auxiliary verb", "have", "present"},
+				{"you", "pronoun", "me", "possesive"},
+				{"talked", "verb", "talk"},
+				{"with", "preposition"},
+				{"him", "noun", "User1"}
+		};
+		
+		//was his story interesting?
+		String[][] questionWords = {
+				{"was", "auxiliary verb", "be", "past"},
+				{"his", "pronoun", "User1", "possesive"},
+				{"story", "noun"},
+				{"interesting", "adjective"}
 		};
 		
 		m.read("src/projectBot/new.xml", "RDF/XML");

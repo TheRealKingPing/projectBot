@@ -22,6 +22,15 @@
     
 
 
+    <!-- http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#do -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#do">
+        <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topObjectProperty"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#WordVerb"/>
+    </owl:ObjectProperty>
+    
+
+
     <!-- http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#has -->
 
     <owl:ObjectProperty rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#has">
@@ -630,16 +639,10 @@ use a tool to complete an action</rdfs:comment>
     
 
 
-    <!-- http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#me -->
+    <!-- http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#person -->
 
-    <owl:Class rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#me">
+    <owl:Class rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#person">
         <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#Knowledge"/>
-        <rdfs:subClassOf>
-            <owl:Restriction>
-                <owl:onProperty rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#is"/>
-                <owl:hasValue rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#hungry"/>
-            </owl:Restriction>
-        </rdfs:subClassOf>
     </owl:Class>
     
 
@@ -648,6 +651,14 @@ use a tool to complete an action</rdfs:comment>
 
     <owl:Class rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#spanish">
         <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#language"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#view -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#view">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#Knowledge"/>
     </owl:Class>
     
 
@@ -663,6 +674,16 @@ use a tool to complete an action</rdfs:comment>
     
 
 
+    <!-- http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#UserMe -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#UserMe">
+        <rdf:type rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#person"/>
+        <has rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#myView"/>
+        <is rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#hungry"/>
+    </owl:NamedIndividual>
+    
+
+
     <!-- http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#am -->
 
     <owl:NamedIndividual rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#am">
@@ -674,7 +695,9 @@ use a tool to complete an action</rdfs:comment>
 
     <!-- http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#are -->
 
-    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#are"/>
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#are">
+        <rdf:type rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#WordVerb"/>
+    </owl:NamedIndividual>
     
 
 
@@ -795,6 +818,14 @@ use a tool to complete an action</rdfs:comment>
     
 
 
+    <!-- http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#myView -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#myView">
+        <rdf:type rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#view"/>
+    </owl:NamedIndividual>
+    
+
+
     <!-- http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#room -->
 
     <owl:NamedIndividual rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#room">
@@ -803,10 +834,26 @@ use a tool to complete an action</rdfs:comment>
     
 
 
+    <!-- http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#see -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#see">
+        <rdf:type rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#WordVerb"/>
+    </owl:NamedIndividual>
+    
+
+
     <!-- http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#sister -->
 
     <owl:NamedIndividual rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#sister">
         <rdf:type rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#WordNoun"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#talk -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#talk">
+        <rdf:type rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#WordVerb"/>
     </owl:NamedIndividual>
     
 

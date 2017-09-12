@@ -1,22 +1,34 @@
 package projectBot;
 
+import java.util.Iterator;
+import java.util.List;
+
 import org.apache.jena.ontology.OntClass;
 import org.apache.jena.ontology.OntModel;
 import org.apache.jena.ontology.OntModelSpec;
 import org.apache.jena.ontology.OntResource;
 import org.apache.jena.ontology.Restriction;
+import org.apache.jena.query.Query;
+import org.apache.jena.query.QueryExecution;
+import org.apache.jena.query.QueryExecutionFactory;
+import org.apache.jena.query.QueryFactory;
+import org.apache.jena.query.QuerySolution;
+import org.apache.jena.query.ResultSet;
+import org.apache.jena.query.ResultSetFormatter;
 import org.apache.jena.rdf.model.ModelFactory;
 import org.apache.jena.rdf.model.NodeIterator;
 import org.apache.jena.rdf.model.Property;
+import org.apache.jena.rdf.model.RDFNode;
 import org.apache.jena.rdf.model.Resource;
 import org.apache.jena.rdf.model.Statement;
 import org.apache.jena.rdf.model.StmtIterator;
+import org.apache.jena.rdf.model.impl.LiteralImpl;
 import org.apache.jena.util.iterator.ExtendedIterator;
 
 public class answer {
 	public final static String uri = "http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#";
 	
-	public static OntModel m = ModelFactory.createOntologyModel(OntModelSpec.OWL_MEM);
+	public static OntModel m = ModelFactory.createOntologyModel(OntModelSpec.OWL_MEM_MICRO_RULE_INF);
 	
 	//todo: not only infinitive => every verb
 	//get subject name by infinitive
@@ -35,7 +47,7 @@ public class answer {
 	private static String getSubjectName(String pronoun) {
 		switch(pronoun) {
 			case "you":
-				return "me";				
+				return "UserMe";				
 			default:
 				return null;
 		}
@@ -129,6 +141,79 @@ public class answer {
 		return "No";														
 	}
 	
+	private static boolean searchRestrictionExist(String subjectName, String propertyName, String objectName) {
+		// Create a new query
+		String queryString =
+				"prefix uri: <" + uri + "> "  +			
+				"SELECT ?isRight WHERE { \r\n" + 				
+				"  BIND( EXISTS { uri:"+ subjectName + " uri:" + propertyName + " uri:" + objectName + " } as ?isRight )\r\n" + 
+				"}";
+		
+		Query query = QueryFactory.create(queryString);
+		 
+		// Execute the query and obtain results
+		QueryExecution qe = QueryExecutionFactory.create(query, m);
+		ResultSet results = qe.execSelect();
+		
+		// return query results 
+		while(results.hasNext()) {		
+			Object n = results.next().get("isRight");
+			LiteralImpl li = (LiteralImpl)n;
+			boolean val = li.getBoolean();
+			qe.close();
+			return val;			
+		}								 		
+		return false;
+	}
+	
+	public static String sparqlAnswer(String[][] questionWords) {		
+		String propertyName = "";
+		String subjectName = "";
+		String questionPointName = "";
+		
+		for(int counter = 0; counter < questionWords.length; counter++) {			
+			String word = questionWords[counter][0];	
+			switch (questionWords[counter][1]) {
+				case "auxiliary verb":
+					//todo: check present, past and future of verb
+					propertyName = getPropertyName(questionWords[counter][2]);					
+					break;
+				case "verb":
+					break;
+				case "pronoun":
+					//todo: convert pronoun to user... for example: his = User1 (now in count 2 [2])									
+					String userName = "";
+					if (word.equals("his")) { userName = "User1"; }
+					if (word.equals("him")) { userName = "User1"; }
+																	
+					if (questionWords[counter + 1][1].equals("noun")) {
+						subjectName = bindPronounAndNoun(userName, questionWords[counter + 1][0]);	
+						if(subjectName == null) {
+							return "Which " + questionWords[counter + 1][0] + "?";
+						}						
+					}
+					else {
+						subjectName = getSubjectName(word);			
+					}												
+					break;
+				case "noun":					
+					break;
+				case "adjective":
+					questionPointName = word;
+					break;
+				default:
+					break;
+			}			
+		}
+		
+		if(searchRestrictionExist(subjectName, propertyName, questionPointName) == true) {
+			return "Yes";
+		}
+		else {
+			return "No";
+		}
+	}
+	
 	public static void main (String[] args) {
 		QuestionType type = QuestionType.closed;
 		String[][] questionWords1 = {
@@ -157,7 +242,7 @@ public class answer {
 		};		
 		
 		//Are you hungry?
-		String[][] questionWords4 = {
+		String[][] questionWords = {
 				{"are", "auxiliary verb", "be", "plural"},
 				{"you", "pronoun", "me", "possesive"},
 				{"hungry", "adjective"}
@@ -199,7 +284,7 @@ public class answer {
 		};
 		
 		//was his story interesting?
-		String[][] questionWords = {
+		String[][] questionWords9 = {
 				{"was", "auxiliary verb", "be", "past"},
 				{"his", "pronoun", "User1", "possesive"},
 				{"story", "noun"},
@@ -213,7 +298,9 @@ public class answer {
 			
 		}
 		else if(type == QuestionType.closed) {						
-			System.out.print(answer(questionWords));					
+			//System.out.print(answer(questionWords));					
+			System.out.print(sparqlAnswer(questionWords));
+			
 			
 			//OntClass user = m1.getOntClass(uri + questionWords[1][1]);	
 			

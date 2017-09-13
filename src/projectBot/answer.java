@@ -1,7 +1,9 @@
 package projectBot;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Scanner;
 
 import org.apache.jena.ontology.OntClass;
 import org.apache.jena.ontology.OntModel;
@@ -24,181 +26,45 @@ import org.apache.jena.rdf.model.Statement;
 import org.apache.jena.rdf.model.StmtIterator;
 import org.apache.jena.rdf.model.impl.LiteralImpl;
 import org.apache.jena.util.iterator.ExtendedIterator;
+import data.dataFunctions;
 
-public class answer {
-	public final static String uri = "http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#";
+public class answer {	
+	private static dataFunctions dataInstance = new dataFunctions();		
 	
-	public static OntModel m = ModelFactory.createOntologyModel(OntModelSpec.OWL_MEM_MICRO_RULE_INF);
-	
-	//todo: not only infinitive => every verb
-	//get subject name by infinitive
-	private static String getPropertyName(String infinitive) {
-		switch(infinitive) {
-			case "be":
-				return "is";
-			case "have":
-				return "has";
-			default:
-				return null;
-		}		
-	}
-	
-	//get subject name by pronoun
-	private static String getSubjectName(String pronoun) {
-		switch(pronoun) {
-			case "you":
-				return "UserMe";				
-			default:
-				return null;
-		}
-	}
-	
-	//Bind pronoun and noun
-	private static String bindPronounAndNoun(String userName, String nounName) {						
-		String propertyName = getPropertyName("have");
-		Property property = m.getProperty(uri + propertyName);			
-		
-		OntClass pronoun = m.getOntClass(uri + userName);				
-		
-		ExtendedIterator<OntClass> pronounSuperC = pronoun.listSuperClasses();												
-		
-		while(pronounSuperC.hasNext()) {	
-			OntClass sc = pronounSuperC.next();
-			if (sc.isRestriction()) {
-				Restriction r = sc.asRestriction();					
-				if(property.equals(r.getOnProperty())) {													
-					String scNounName = r.asSomeValuesFromRestriction().getSomeValuesFrom().getURI().toString().replaceAll(uri, "");							
-					if(scNounName.equals(nounName)) {
-						return scNounName;						
-					}
-				}
-			}
-		}												
-		return null;
-	}
-	
-	public static String answer(String[][] questionWords) {
+	public static String sparqlAnswer(List<Word> questionWords) {		
 		String propertyName = "";
 		String subjectName = "";
 		String questionPointName = "";
-				
-		for(int counter = 0; counter < questionWords.length; counter++) {			
-			String word = questionWords[counter][0];			
-			switch (questionWords[counter][1]) {
-				case "auxiliary verb":
+		
+		WordType type;
+		for(int counter = 0; counter < questionWords.size(); counter++) {			
+			String word = questionWords.get(counter).getValue();	
+			switch (questionWords.get(counter).getType()) {
+				case auxiliaryVerb:
 					//todo: check present, past and future of verb
-					propertyName = getPropertyName(questionWords[counter][2]);					
+					propertyName = dataInstance.getPropertyName(dataInstance.getInfinitive(questionWords.get(counter)));					
 					break;
-				case "verb":
+				case verb:
 					break;
-				case "pronoun":
+				case pronoun:
 					//todo: convert pronoun to user... for example: his = User1 (now in count 2 [2])									
 					String userName = "";
 					if (word.equals("his")) { userName = "User1"; }
 					if (word.equals("him")) { userName = "User1"; }
 																	
-					if (questionWords[counter + 1][1].equals("noun")) {
-						subjectName = bindPronounAndNoun(userName, questionWords[counter + 1][0]);	
+					if (questionWords.get(counter + 1).getType().equals(WordType.noun)) {
+						subjectName = dataInstance.bindPronounAndNoun(userName, questionWords.get(counter + 1).getValue());	
 						if(subjectName == null) {
-							return "Which " + questionWords[counter + 1][0] + "?";
+							return "Which " + questionWords.get(counter + 1).getValue() + "?";
 						}						
 					}
 					else {
-						subjectName = getSubjectName(word);			
+						subjectName = dataInstance.getSubjectName(word);			
 					}												
 					break;
-				case "noun":					
+				case noun:					
 					break;
-				case "adjective":
-					questionPointName = word;
-					break;
-				default:
-					break;
-			}				
-		}	
-		System.out.print("Property: " + propertyName + "\nSubject: " + subjectName + "\nQuestion-Point: " + questionPointName + "\n\n");
-		
-		//todo: check if subject is in db
-		OntClass subject = m.getOntClass(uri + subjectName);
-		ExtendedIterator<OntClass> subjectSuperC = subject.listSuperClasses();
-		
-		//todo: check if property is in db
-		Property property = m.getProperty(uri + propertyName);							
-		
-		while(subjectSuperC.hasNext()) {
-			OntClass sc = subjectSuperC.next();
-			//das gleiche wie oben (Mach ne funktion)
-			if (sc.isRestriction()) {
-				Restriction r = sc.asRestriction();					
-				if(property.equals(r.getOnProperty())) {													
-					String adjectiveName = r.asHasValueRestriction().getHasValue().asResource().getURI().toString().replaceAll(uri, "");
-					if(adjectiveName.equals(questionPointName)) {
-						return "Yes";
-					}
-				}
-			}					
-		}		
-		return "No";														
-	}
-	
-	private static boolean searchRestrictionExist(String subjectName, String propertyName, String objectName) {
-		// Create a new query
-		String queryString =
-				"prefix uri: <" + uri + "> "  +			
-				"SELECT ?isRight WHERE { \r\n" + 				
-				"  BIND( EXISTS { uri:"+ subjectName + " uri:" + propertyName + " uri:" + objectName + " } as ?isRight )\r\n" + 
-				"}";
-		
-		Query query = QueryFactory.create(queryString);
-		 
-		// Execute the query and obtain results
-		QueryExecution qe = QueryExecutionFactory.create(query, m);
-		ResultSet results = qe.execSelect();
-		
-		// return query results 
-		while(results.hasNext()) {		
-			Object n = results.next().get("isRight");
-			LiteralImpl li = (LiteralImpl)n;
-			boolean val = li.getBoolean();
-			qe.close();
-			return val;			
-		}								 		
-		return false;
-	}
-	
-	public static String sparqlAnswer(String[][] questionWords) {		
-		String propertyName = "";
-		String subjectName = "";
-		String questionPointName = "";
-		
-		for(int counter = 0; counter < questionWords.length; counter++) {			
-			String word = questionWords[counter][0];	
-			switch (questionWords[counter][1]) {
-				case "auxiliary verb":
-					//todo: check present, past and future of verb
-					propertyName = getPropertyName(questionWords[counter][2]);					
-					break;
-				case "verb":
-					break;
-				case "pronoun":
-					//todo: convert pronoun to user... for example: his = User1 (now in count 2 [2])									
-					String userName = "";
-					if (word.equals("his")) { userName = "User1"; }
-					if (word.equals("him")) { userName = "User1"; }
-																	
-					if (questionWords[counter + 1][1].equals("noun")) {
-						subjectName = bindPronounAndNoun(userName, questionWords[counter + 1][0]);	
-						if(subjectName == null) {
-							return "Which " + questionWords[counter + 1][0] + "?";
-						}						
-					}
-					else {
-						subjectName = getSubjectName(word);			
-					}												
-					break;
-				case "noun":					
-					break;
-				case "adjective":
+				case adjective:
 					questionPointName = word;
 					break;
 				default:
@@ -206,7 +72,7 @@ public class answer {
 			}			
 		}
 		
-		if(searchRestrictionExist(subjectName, propertyName, questionPointName) == true) {
+		if(dataInstance.searchRestrictionExist(subjectName, propertyName, questionPointName) == true) {
 			return "Yes";
 		}
 		else {
@@ -242,7 +108,7 @@ public class answer {
 		};		
 		
 		//Are you hungry?
-		String[][] questionWords = {
+		String[][] questionWords4 = {
 				{"are", "auxiliary verb", "be", "plural"},
 				{"you", "pronoun", "me", "possesive"},
 				{"hungry", "adjective"}
@@ -291,15 +157,27 @@ public class answer {
 				{"interesting", "adjective"}
 		};
 		
-		m.read("src/projectBot/new.xml", "RDF/XML");
-		m.setStrictMode(false);		
-				
+		dataInstance.openData("src/projectBot/new.xml", "RDF/XML");
+			
+		
+		//get question
+		Scanner scan = new Scanner(System.in);
+		System.out.println("Enter a question:");
+		String input = scan.nextLine();		
+		
+		List<Word> wordList = new ArrayList();
+		String[] words = input.split("\\s+");		
+		for (int i = 0; i < words.length; i++) {			    
+			words[i] = words[i].replaceAll("[^\\w]", "");		    
+		    wordList.add(new Word(words[i], dataInstance.getType(words[i])));
+		}
+		
 		if(type == QuestionType.open) {
 			
 		}
 		else if(type == QuestionType.closed) {						
 			//System.out.print(answer(questionWords));					
-			System.out.print(sparqlAnswer(questionWords));
+			System.out.print(sparqlAnswer(wordList));
 			
 			
 			//OntClass user = m1.getOntClass(uri + questionWords[1][1]);	
@@ -326,5 +204,7 @@ public class answer {
 			    System.out.print(busDriver.getURI() + "\n");
 			}*/
 		}
+		
+		dataInstance.closeData();
 	}	
 }

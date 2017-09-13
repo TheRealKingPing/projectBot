@@ -87,7 +87,7 @@ public class main {
 			String[] words = input.split("\\s+");		
 			for (int i = 0; i < words.length; i++) {			    
 			    words[i] = words[i].replaceAll("[^\\w]", "");
-			}	
+			}
 			
 			//mit einem Question							
 			//create new question

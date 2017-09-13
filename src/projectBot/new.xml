@@ -120,6 +120,14 @@
     
 
 
+    <!-- http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#AuxiliaryVerb -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#AuxiliaryVerb">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#WordVerb"/>
+    </owl:Class>
+    
+
+
     <!-- http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#ClosedQuestion -->
 
     <owl:Class rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#ClosedQuestion">
@@ -696,7 +704,8 @@ use a tool to complete an action</rdfs:comment>
     <!-- http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#are -->
 
     <owl:NamedIndividual rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#are">
-        <rdf:type rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#WordVerb"/>
+        <rdf:type rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#AuxiliaryVerb"/>
+        <hasInfinitive>be</hasInfinitive>
     </owl:NamedIndividual>
     
 

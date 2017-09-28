@@ -73,9 +73,10 @@ public class dataFunctions {
 			ResultSet results = qe.execSelect();
 			
 			// return query results 
-			while(results.hasNext()) {		
-				System.out.print(results.next().get("infinitive").toString());							
-				
+			while(results.hasNext()) {
+				String infinitive = results.next().get("infinitive").toString();
+				qe.close();
+				return infinitive;
 			}								 		
 			
 			qe.close();
@@ -118,12 +119,23 @@ public class dataFunctions {
 					return WordType.pronoun;					
 				case "WordAdjective":
 					qe.close();
-					return WordType.adjective;					
-				default: 				
+					return WordType.adjective;		
+				case "QuestionWord":
+					qe.close();
+					return WordType.questionWord;
+				case "ProperNoun":
+					qe.close();
+					return WordType.properNoun;
+				case "Article":
+					qe.close();
+					return WordType.article;
+				default:					
+					System.out.print("'" + word + "' type not found\n");
 					break;
 			}				
-		}			
+		}		
 		qe.close();
+		System.out.print("'" + word + "' not found\n");
 		return null;
 	}
 	
@@ -151,13 +163,19 @@ public class dataFunctions {
 		return null;
 	}
 	
-	public boolean searchRestrictionExist(String subjectName, String propertyName, String objectName) {
+	public boolean searchRestrictionExist(String subjectName, String propertyName, Word objectName) {
 		// Create a new query
 		String queryString =
-				prefixUri +	
-				"SELECT ?isRight WHERE { \r\n" + 				
-				"  BIND( EXISTS { uri:"+ subjectName + " uri:" + propertyName + " uri:" + objectName + " } as ?isRight )\r\n" + 
-				"}";
+				prefixUri +	prefixRdf +
+				" SELECT ?isRight WHERE { \r\n"; 				
+						
+		if(objectName.getType().equals(WordType.noun) && propertyName.equals("is")) {
+			queryString = queryString + "  BIND( EXISTS { uri:" + subjectName + " rdf:type uri:" + objectName.getValue() + " } as ?isRight ) \r\n ";			
+		}
+		else {
+			queryString = queryString + "  BIND( EXISTS { uri:"+ subjectName + " uri:" + propertyName + " uri:" + objectName.getValue() + " } as ?isRight )\r\n";
+		}		
+		queryString = queryString + "}";
 		
 		Query query = QueryFactory.create(queryString);
 		 
@@ -172,7 +190,32 @@ public class dataFunctions {
 			boolean val = li.getBoolean();
 			qe.close();
 			return val;			
-		}								 		
+		}		
+		qe.close();
 		return false;
 	}	
+	
+	public String getPersonByName (String firstname, String surname) {
+		String queryString =
+				prefixUri +	prefixRdf +				
+				"SELECT ?person WHERE { \r\n" + 				
+				" ?person rdf:type uri:person . \r\n" + 
+				" ?person uri:hasFirstname uri:" + firstname + " . \r\n" +
+				" ?person uri:hasSurname uri:" + surname + " . \r\n" +
+				"}";		
+		Query query = QueryFactory.create(queryString);
+				 
+		// Execute the query and obtain results
+		QueryExecution qe = QueryExecutionFactory.create(query, m);
+		ResultSet results = qe.execSelect();
+		
+		// return query results 
+		while(results.hasNext()) {							
+			String person = results.next().get("person").toString().replaceAll(uri, "");
+			qe.close();
+			return person;
+		}		
+		qe.close();				
+		return null;
+	}		
 }

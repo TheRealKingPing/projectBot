@@ -31,10 +31,28 @@ import data.dataFunctions;
 public class answer {	
 	private static dataFunctions dataInstance = new dataFunctions();		
 	
-	public static String sparqlAnswer(List<Word> questionWords) {		
+	private static void wordNotFound(String word) {
+		System.out.print("'" + word + "' not found");
+	}
+	
+	private static String openAnswer(List<Word> questionWords) {
+		for(int counter = 0; counter < questionWords.size(); counter++) {			
+			String word = questionWords.get(counter).getValue();	
+			switch (questionWords.get(counter).getType()) {
+				case questionWord:					
+						
+					break;
+				default:
+					break;
+			}
+		}
+		return null;
+	}
+	
+	private static String closedAnswer(List<Word> questionWords) {		
 		String propertyName = "";
 		String subjectName = "";
-		String questionPointName = "";
+		Word objectName = null;		
 		
 		WordType type;
 		for(int counter = 0; counter < questionWords.size(); counter++) {			
@@ -63,16 +81,26 @@ public class answer {
 					}												
 					break;
 				case noun:					
+					objectName = new Word(questionWords.get(counter).getValue(), WordType.noun);					
 					break;
-				case adjective:
-					questionPointName = word;
+				case properNoun:
+					//firstname and surname to id
+					//is next word also a proper noun?					
+					if (questionWords.get(counter + 1).getType().equals(WordType.properNoun)) {						
+						 subjectName = dataInstance.getPersonByName(questionWords.get(counter).getValue(), questionWords.get(counter + 1).getValue());						
+						//skip next word
+						counter++;
+					}
+					break;
+				case adjective:					
+					objectName = new Word(word, WordType.adjective);
 					break;
 				default:
 					break;
 			}			
 		}
 		
-		if(dataInstance.searchRestrictionExist(subjectName, propertyName, questionPointName) == true) {
+		if(dataInstance.searchRestrictionExist(subjectName, propertyName, objectName) == true) {
 			return "Yes";
 		}
 		else {
@@ -82,80 +110,6 @@ public class answer {
 	
 	public static void main (String[] args) {
 		QuestionType type = QuestionType.closed;
-		String[][] questionWords1 = {
-				{"is", "auxiliary verb", "be", "present"},
-				{"he", "pronoun", "User1", "possesive"},
-				{"working", "verb", "work"},
-				{"very"},
-				{"hard"}
-		};
-		
-		//Do you usually walk to work
-		String[][] questionWords2 = {
-				{"do", "auxiliary verb", "do", "present"},
-				{"you", "pronoun", "me", "possesive"},
-				{"usually", "adverb"},
-				{"walk", "verb"},
-				{"to", "preposition"},
-				{"work", "noun"}
-		};
-		
-		String[][] questionWords3 = {
-				{"was", "auxiliary verb", "be", "past"},
-				{"his", "pronoun", "User1", "possesive"},
-				{"idea", "noun"},
-				{"interesting", "adjective"}
-		};		
-		
-		//Are you hungry?
-		String[][] questionWords4 = {
-				{"are", "auxiliary verb", "be", "plural"},
-				{"you", "pronoun", "me", "possesive"},
-				{"hungry", "adjective"}
-		};
-		
-		//Are Spanish and German different languages?
-		String[][] questionWords5 = {
-				{"are", "auxiliary verb", "be", "present"}, 
-				{"spanish", "noun", "subject"}, 
-				{"and", "conjunction", "subject"},
-				{"german", "noun", "subject"},
-				{"different", "adjective", "languages"},
-				{"languages", "noun", "language"}
-		};
-		
-		//was it hot outside?
-		String[][] questionWords6 = {
-				{"was", "auxiliary verb", "be", "past"}, 
-				{"it", "pronoun"}, 
-				{"hot"},
-				{"outside"}			
-		};
-		
-		//Have you seen Greg
-		String[][] questionWords7 = {
-				{"have", "auxiliary verb", "have", "present"},
-				{"you", "pronoun", "me", "possesive"},
-				{"seen", "verb", "see", "past participle"},
-				{"greg", "noun", "human"}
-		};
-		
-		//have you talked with him
-		String[][] questionWords8 = {
-				{"have", "auxiliary verb", "have", "present"},
-				{"you", "pronoun", "me", "possesive"},
-				{"talked", "verb", "talk"},
-				{"with", "preposition"},
-				{"him", "noun", "User1"}
-		};
-		
-		//was his story interesting?
-		String[][] questionWords9 = {
-				{"was", "auxiliary verb", "be", "past"},
-				{"his", "pronoun", "User1", "possesive"},
-				{"story", "noun"},
-				{"interesting", "adjective"}
-		};
 		
 		dataInstance.openData("src/projectBot/new.xml", "RDF/XML");
 			
@@ -173,36 +127,10 @@ public class answer {
 		}
 		
 		if(type == QuestionType.open) {
-			
+			System.out.print(openAnswer(wordList));
 		}
-		else if(type == QuestionType.closed) {						
-			//System.out.print(answer(questionWords));					
-			System.out.print(sparqlAnswer(wordList));
-			
-			
-			//OntClass user = m1.getOntClass(uri + questionWords[1][1]);	
-			
-			/*while ( it.hasNext() ) {				
-			  System.out.print( it.next());
-			}
-			
-			/*Statement statement = user.getRequiredProperty(has);			
-			System.out.print(statement.getResource().getURI());
-			
-			/*
-			// Get the property and the subject
-			Property driverOf = m1.getProperty(uri + "has");
-			Resource bus = m1.getResource(uri + questionWords[1][1]);
-
-			// Get all statements/triples of the form (****, driverOf, bus)
-			StmtIterator stmtIterator = m1.listStatements(null, driverOf, bus);
-			//StmtIterator stmtIterator = m1.listStatements();
-			while (stmtIterator.hasNext()){
-			    Statement s = stmtIterator.nextStatement();
-			    Resource busDriver = s.getResource();
-			    // do something to the busdriver (only nice things, everybody likes busdrivers)
-			    System.out.print(busDriver.getURI() + "\n");
-			}*/
+		else if(type == QuestionType.closed) {										
+			System.out.print(closedAnswer(wordList));
 		}
 		
 		dataInstance.closeData();

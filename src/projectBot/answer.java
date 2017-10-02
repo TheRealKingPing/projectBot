@@ -81,19 +81,37 @@ public class answer {
 					}												
 					break;
 				case noun:					
-					objectName = new Word(questionWords.get(counter).getValue(), WordType.noun);					
+					objectName = new Word(word, WordType.noun);					
 					break;
 				case properNoun:
 					//firstname and surname to id
 					//is next word also a proper noun?					
-					if (questionWords.get(counter + 1).getType().equals(WordType.properNoun)) {						
-						 subjectName = dataInstance.getPersonByName(questionWords.get(counter).getValue(), questionWords.get(counter + 1).getValue());						
+					if (questionWords.size() > counter + 1 && questionWords.get(counter + 1).getType().equals(WordType.properNoun)) {						
+						String personID = dataInstance.getPersonByName(questionWords.get(counter).getValue(), questionWords.get(counter + 1).getValue());
+						//object or subject
+						//is next word a pronoun (f.E. "your")
+						if(questionWords.size() > counter + 2 && questionWords.get(counter + 2).getType().equals(WordType.pronoun)) {
+							objectName = new Word(personID, null);
+						}
+						else {
+							subjectName = personID;													
+						}	
 						//skip next word
 						counter++;
 					}
 					break;
-				case adjective:					
-					objectName = new Word(word, WordType.adjective);
+				case adjective:							
+					if(questionWords.size() > counter + 1 && questionWords.get(counter + 1).getType() == WordType.noun) {
+						if(dataInstance.searchRestrictionExist(objectName.getValue(), propertyName, questionWords.get(counter + 1)) == false) {
+							return "No";
+						}										
+						propertyName = propertyName + word.substring(0, 1).toUpperCase() + word.substring(1);							
+						
+						counter++;
+					}
+					else {
+						objectName = new Word(word, WordType.adjective);
+					}					
 					break;
 				default:
 					break;

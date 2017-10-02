@@ -44,6 +44,8 @@ public class dataFunctions {
 		switch(pronoun) {
 			case "you":
 				return "UserMe";				
+			case "your":
+				return "UserMe";
 			default:
 				return null;
 		}
@@ -169,7 +171,7 @@ public class dataFunctions {
 				prefixUri +	prefixRdf +
 				" SELECT ?isRight WHERE { \r\n"; 				
 						
-		if(objectName.getType().equals(WordType.noun) && propertyName.equals("is")) {
+		if(objectName.getType() != null && objectName.getType().equals(WordType.noun) && propertyName.equals("is")) {
 			queryString = queryString + "  BIND( EXISTS { uri:" + subjectName + " rdf:type uri:" + objectName.getValue() + " } as ?isRight ) \r\n ";			
 		}
 		else {

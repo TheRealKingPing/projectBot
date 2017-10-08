@@ -49,18 +49,19 @@ public class answer {
 		return null;
 	}
 	
-	private static String closedAnswer(List<Word> questionWords) {		
-		String propertyName = "";
-		String subjectName = "";
-		Word objectName = null;		
+	public static UsableStatement getUsableStatement(List<Word> sentence) {
+		//create new Statement
+		UsableStatement output = new UsableStatement();
 		
-		WordType type;
-		for(int counter = 0; counter < questionWords.size(); counter++) {			
-			String word = questionWords.get(counter).getValue();	
-			switch (questionWords.get(counter).getType()) {
+		//passiv voice?
+		//verb = add to predicate (or auxiliaryVerb because it is already defined as predicate)
+		for(int counter = 0; counter < sentence.size(); counter++) {			
+			String word = sentence.get(counter).getValue();	
+			switch (sentence.get(counter).getType()) {
+				//auxiliaryVerb = instant predicate
 				case auxiliaryVerb:
 					//todo: check present, past and future of verb
-					propertyName = dataInstance.getPropertyName(dataInstance.getInfinitive(questionWords.get(counter)));					
+					output.predicate = dataInstance.getPropertyName(dataInstance.getInfinitive(sentence.get(counter)));
 					break;
 				case verb:
 					break;
@@ -70,55 +71,65 @@ public class answer {
 					if (word.equals("his")) { userName = "User1"; }
 					if (word.equals("him")) { userName = "User1"; }
 																	
-					if (questionWords.get(counter + 1).getType().equals(WordType.noun)) {
-						subjectName = dataInstance.bindPronounAndNoun(userName, questionWords.get(counter + 1).getValue());	
-						if(subjectName == null) {
-							return "Which " + questionWords.get(counter + 1).getValue() + "?";
+					if (sentence.get(counter + 1).getType().equals(WordType.noun)) {
+						output.subject = dataInstance.bindPronounAndNoun(userName, sentence.get(counter + 1).getValue());	
+						if(output.subject == null) {
+							//return "Which " + questionWords.get(counter + 1).getValue() + "?";
 						}						
 					}
 					else {
-						subjectName = dataInstance.getSubjectName(word);			
+						output.subject = dataInstance.getSubjectName(word);			
 					}												
 					break;
-				case noun:					
-					objectName = new Word(word, WordType.noun);					
+				//noun = subject (as actor) or object
+				case noun:			
+					//todo: sentence from passic voice to active voice!
+					if(output.subject == null) {
+						output.subject = word;
+					}								
+					output.object = new Word(word, WordType.noun);					
 					break;
 				case properNoun:
 					//firstname and surname to id
 					//is next word also a proper noun?					
-					if (questionWords.size() > counter + 1 && questionWords.get(counter + 1).getType().equals(WordType.properNoun)) {						
-						String personID = dataInstance.getPersonByName(questionWords.get(counter).getValue(), questionWords.get(counter + 1).getValue());
+					if (sentence.size() > counter + 1 && sentence.get(counter + 1).getType().equals(WordType.properNoun)) {						
+						String personID = dataInstance.getPersonByName(sentence.get(counter).getValue(), sentence.get(counter + 1).getValue());
 						//object or subject
 						//is next word a pronoun (f.E. "your")
-						if(questionWords.size() > counter + 2 && questionWords.get(counter + 2).getType().equals(WordType.pronoun)) {
-							objectName = new Word(personID, null);
+						if(sentence.size() > counter + 2 && sentence.get(counter + 2).getType().equals(WordType.pronoun)) {
+							output.object = new Word(personID, null);
 						}
 						else {
-							subjectName = personID;													
+							output.subject = personID;													
 						}	
 						//skip next word
 						counter++;
 					}
 					break;
 				case adjective:							
-					if(questionWords.size() > counter + 1 && questionWords.get(counter + 1).getType() == WordType.noun) {
-						if(dataInstance.searchRestrictionExist(objectName.getValue(), propertyName, questionWords.get(counter + 1)) == false) {
-							return "No";
+					if(sentence.size() > counter + 1 && sentence.get(counter + 1).getType() == WordType.noun) {
+						if(dataInstance.searchRestrictionExist(output.object.getValue(), output.predicate, sentence.get(counter + 1)) == false) {
+							//return "No";
 						}										
-						propertyName = propertyName + word.substring(0, 1).toUpperCase() + word.substring(1);							
+						output.predicate = output.predicate + word.substring(0, 1).toUpperCase() + word.substring(1);							
 						
 						counter++;
 					}
 					else {
-						objectName = new Word(word, WordType.adjective);
+						output.object = new Word(word, WordType.adjective);
 					}					
 					break;
 				default:
-					break;
-			}			
-		}
+					break;			
+			}
+		}	
+		return output;
+	}
+	
+	private static String closedAnswer(List<Word> questionWords) {		
+		UsableStatement statement = getUsableStatement(questionWords);
 		
-		if(dataInstance.searchRestrictionExist(subjectName, propertyName, objectName) == true) {
+		if(dataInstance.searchRestrictionExist(statement.subject, statement.predicate, statement.object) == true) {
 			return "Yes";
 		}
 		else {

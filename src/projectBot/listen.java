@@ -10,27 +10,10 @@ public class listen {
 	private static dataFunctions dataInstance = new dataFunctions();	
 	private static Boolean learnMode = true;
 	
-	private static void memoriseStatement(List<Word> statement) {
-		for(int counter = 0; counter < statement.size(); counter++) {			
-			String word = statement.get(counter).getValue();	
-			switch (statement.get(counter).getType()) {
-				case auxiliaryVerb:									
-					break;
-				case verb:
-					break;
-				case pronoun:																
-					break;				
-				case noun:
-					
-					break;
-				case properNoun:					
-					break;
-				case adjective:										
-					break;
-				default:
-					break;
-			}			
-		}
+	private static void memoriseSentence(List<Word> sentence) {
+		UsableStatement test = answer.getUsableStatement(sentence);
+		
+		System.out.print(test.subject + " " + test.predicate + " " + test.object.getValue());
 	}
 	
 	public static void main(String[] args) {
@@ -49,7 +32,7 @@ public class listen {
 		}
 		
 		if(learnMode == true) {
-			memoriseStatement(wordList);
+			memoriseSentence(wordList);
 		}
 		else {
 			

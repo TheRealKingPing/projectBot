@@ -131,6 +131,9 @@ public class dataFunctions {
 				case "Article":
 					qe.close();
 					return WordType.article;
+				case "CoordinatingConjunction":
+					qe.close();
+					return WordType.coordinatingConjunction;
 				default:					
 					System.out.print("'" + word + "' type not found\n");
 					break;

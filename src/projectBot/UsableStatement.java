@@ -1,7 +1,15 @@
 package projectBot;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class UsableStatement {
-	public String subject;
+	
+	public UsableStatement () {
+		subjects = new ArrayList<String>();
+		objects = new ArrayList<Word>();
+	}
+	public List<String> subjects;
 	public String predicate;
-	public Word object;
+	public List<Word> objects;
 }

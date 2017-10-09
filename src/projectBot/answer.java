@@ -51,7 +51,7 @@ public class answer {
 	
 	public static UsableStatement getUsableStatement(List<Word> sentence) {
 		//create new Statement
-		UsableStatement output = new UsableStatement();
+		UsableStatement output = new UsableStatement();			
 		
 		//passiv voice?
 		//verb = add to predicate (or auxiliaryVerb because it is already defined as predicate)
@@ -72,22 +72,22 @@ public class answer {
 					if (word.equals("him")) { userName = "User1"; }
 																	
 					if (sentence.get(counter + 1).getType().equals(WordType.noun)) {
-						output.subject = dataInstance.bindPronounAndNoun(userName, sentence.get(counter + 1).getValue());	
-						if(output.subject == null) {
+						output.subjects.add(dataInstance.bindPronounAndNoun(userName, sentence.get(counter + 1).getValue()));	
+						if(output.subjects == null) {
 							//return "Which " + questionWords.get(counter + 1).getValue() + "?";
 						}						
 					}
 					else {
-						output.subject = dataInstance.getSubjectName(word);			
+						output.subjects.add(dataInstance.getSubjectName(word));			
 					}												
 					break;
 				//noun = subject (as actor) or object
 				case noun:			
 					//todo: sentence from passic voice to active voice!
-					if(output.subject == null) {
-						output.subject = word;
+					if(output.subjects.size() == 0) {
+						output.subjects.add(word);
 					}								
-					output.object = new Word(word, WordType.noun);					
+					output.objects.add(new Word(word, WordType.noun));					
 					break;
 				case properNoun:
 					//firstname and surname to id
@@ -97,10 +97,10 @@ public class answer {
 						//object or subject
 						//is next word a pronoun (f.E. "your")
 						if(sentence.size() > counter + 2 && sentence.get(counter + 2).getType().equals(WordType.pronoun)) {
-							output.object = new Word(personID, null);
+							output.objects.add(new Word(personID, null));
 						}
 						else {
-							output.subject = personID;													
+							output.subjects.add(personID);													
 						}	
 						//skip next word
 						counter++;
@@ -108,7 +108,7 @@ public class answer {
 					break;
 				case adjective:							
 					if(sentence.size() > counter + 1 && sentence.get(counter + 1).getType() == WordType.noun) {
-						if(dataInstance.searchRestrictionExist(output.object.getValue(), output.predicate, sentence.get(counter + 1)) == false) {
+						if(dataInstance.searchRestrictionExist(output.objects.get(0).getValue(), output.predicate, sentence.get(counter + 1)) == false) {
 							//return "No";
 						}										
 						output.predicate = output.predicate + word.substring(0, 1).toUpperCase() + word.substring(1);							
@@ -116,8 +116,11 @@ public class answer {
 						counter++;
 					}
 					else {
-						output.object = new Word(word, WordType.adjective);
+						output.objects.set(0, new Word(word, WordType.adjective)); 								
 					}					
+					break;
+				case coordinatingConjunction:
+					
 					break;
 				default:
 					break;			
@@ -126,10 +129,33 @@ public class answer {
 		return output;
 	}
 	
+	//doofi idee
+	/*//list vo enere list lul kei lust gah irgendöbis gschids mache odr was
+	private static List<List<Word>> splitSentence(List<Word> sentence) {
+		List<List<Word>> output = null;
+		
+		for(int counter = 0; counter < sentence.size(); counter++) {			
+			String word = sentence.get(counter).getValue();	
+			switch (sentence.get(counter).getType()) {
+				case coordinatingConjunction:
+					List<Word> newSentece = null;
+					for(int nScounter = 0; nScounter < sentence.size(); nScounter++) {
+						newSentece.add(sentence.get(nScounter));
+					}
+					output.add(new List<Word>					
+					break;
+				default:
+					break;
+			}
+		}
+		
+		return output;	
+	}*/
+	
 	private static String closedAnswer(List<Word> questionWords) {		
 		UsableStatement statement = getUsableStatement(questionWords);
 		
-		if(dataInstance.searchRestrictionExist(statement.subject, statement.predicate, statement.object) == true) {
+		if(dataInstance.searchRestrictionExist(statement.subjects.get(0), statement.predicate, statement.objects.get(0)) == true) {
 			return "Yes";
 		}
 		else {

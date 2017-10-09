@@ -13,7 +13,12 @@ public class listen {
 	private static void memoriseSentence(List<Word> sentence) {
 		UsableStatement test = answer.getUsableStatement(sentence);
 		
-		System.out.print(test.subject + " " + test.predicate + " " + test.object.getValue());
+		for(int sCounter = 0; sCounter < test.subjects.size(); sCounter++) {					
+			for(int oCounter = 0; oCounter < test.objects.size(); oCounter++) {
+				System.out.print(test.subjects.get(sCounter) + " " + test.predicate + " " + test.objects.get(oCounter).getValue() + "\n");
+			}
+			
+		}				
 	}
 	
 	public static void main(String[] args) {

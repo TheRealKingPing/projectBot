@@ -803,6 +803,14 @@ use a tool to complete an action</rdfs:comment>
     
 
 
+    <!-- http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#and -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#and">
+        <rdf:type rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#CoordinatingConjunction"/>
+    </owl:NamedIndividual>
+    
+
+
     <!-- http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#are -->
 
     <owl:NamedIndividual rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#are">
@@ -1029,6 +1037,14 @@ use a tool to complete an action</rdfs:comment>
 
     <owl:NamedIndividual rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#the">
         <rdf:type rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#Article"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#verbal -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#verbal">
+        <rdf:type rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#WordAdjective"/>
     </owl:NamedIndividual>
     
 

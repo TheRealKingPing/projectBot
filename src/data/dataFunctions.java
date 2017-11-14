@@ -1,5 +1,10 @@
 package data;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+
 import org.apache.jena.ontology.OntClass;
 import org.apache.jena.ontology.OntModel;
 import org.apache.jena.ontology.OntModelSpec;
@@ -222,5 +227,53 @@ public class dataFunctions {
 		}		
 		qe.close();				
 		return null;
-	}		
+	}
+	
+	public WordType getWordTypeViaDictionary(String word) {
+		File file = new File("src/data/Oxford_English_Dictionary.txt");
+		if (!file.canRead() || !file.isFile()) 
+		    System.exit(0); 
+		
+		    BufferedReader in = null; 
+		try { 
+		    in = new BufferedReader(new FileReader("src/data/Oxford_English_Dictionary.txt")); 
+		    String zeile = null;
+		    int counter = 0;
+		    while ((zeile = in.readLine()) != null) { 
+		    	counter++;
+		        //System.out.println("Gelesene Zeile: " + zeile);
+		    	//System.out.print(zeile.length() + "\n");
+		        if(zeile.length() != 0) {		 
+		        	String zeilenWord = "";
+		        	if (zeile.indexOf(" ") != -1) {
+		        		zeilenWord= zeile.substring(0, zeile.indexOf(" "));
+		        	}		 
+		        	
+		        		//String test = zeile.substring(zeilenWord.length() + 2, zeile.length() - 1);
+			        	
+			        	String test = zeile.replace(zeilenWord + "  ", "");
+			        	
+			        	String nextWord = zeile.replace(zeilenWord + "  ", "").substring(0, test.indexOf(" "));
+						if (word.equals(zeilenWord.toLowerCase()) == true && nextWord.equals("n.") == true) {						
+							System.out.print("line: " + counter + " | das wort '" + zeilenWord + "' gibt es!\n");
+							System.out.print(zeile + "\n");
+							break;
+						}
+		        			        	
+		        }
+		    } 
+		} catch (IOException e) { 
+		    e.printStackTrace(); 
+		} finally { 
+		    if (in != null) 
+		        try { 
+		        	in.close();
+		        } catch (IOException e) { 
+		        	System.out.print(e.getMessage());
+		        } 		    
+		    
+		}
+		return null;
+	}
 }
+

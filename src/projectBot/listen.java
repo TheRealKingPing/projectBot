@@ -22,7 +22,7 @@ public class listen {
 	}
 	
 	public static void main(String[] args) {
-		dataInstance.openData("src/projectBot/new.xml", "RDF/XML");
+		/*dataInstance.openData("src/projectBot/new.xml", "RDF/XML");
 		
 		//get statement
 		Scanner scan = new Scanner(System.in);
@@ -41,7 +41,8 @@ public class listen {
 		}
 		else {
 			
-		}
+		}*/
+		dataInstance.getWordTypeViaDictionary("body");
 	}
 
 }

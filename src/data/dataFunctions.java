@@ -4,6 +4,9 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
 import org.apache.jena.ontology.OntClass;
 import org.apache.jena.ontology.OntModel;
@@ -145,8 +148,14 @@ public class dataFunctions {
 			}				
 		}		
 		qe.close();
-		System.out.print("'" + word + "' not found\n");
-		return null;
+		WordType dictonaryType = getWordTypeViaDictionary(word);
+		if (dictonaryType != null) {
+			return dictonaryType;
+		}
+		else {
+			System.out.print("'" + word + "' not found\n");
+			return null;
+		}		
 	}
 	
 	//Bind pronoun and noun todo: delete
@@ -230,35 +239,74 @@ public class dataFunctions {
 	}
 	
 	public WordType getWordTypeViaDictionary(String word) {
+		WordType returnType = null;
+		
 		File file = new File("src/data/Oxford_English_Dictionary.txt");
 		if (!file.canRead() || !file.isFile()) 
 		    System.exit(0); 
 		
 		    BufferedReader in = null; 
 		try { 
-		    in = new BufferedReader(new FileReader("src/data/Oxford_English_Dictionary.txt")); 
+		    in = Files.newBufferedReader(Paths.get("src/data/Oxford_English_Dictionary.txt")); 
 		    String zeile = null;
 		    int counter = 0;
 		    while ((zeile = in.readLine()) != null) { 
 		    	counter++;
 		        //System.out.println("Gelesene Zeile: " + zeile);
 		    	//System.out.print(zeile.length() + "\n");
-		        if(zeile.length() != 0) {		 
+		        if(zeile.length() != 0 && zeile.contains("  ")) {		 
 		        	String zeilenWord = "";
-		        	if (zeile.indexOf(" ") != -1) {
-		        		zeilenWord= zeile.substring(0, zeile.indexOf(" "));
-		        	}		 
+		        	if (zeile.indexOf("  ") != -1) {
+		        		zeilenWord= zeile.substring(0, zeile.indexOf("  "));
+		        	}
+		        	//idk what that means, but i will delete it
+		        	//int countWordTypes
+		        	/*if(zeile.contains("—")) {		        		
+		        		System.out.print("oh wow\n");
+		        	}*/
+		        	zeile = zeile.replace("—", "");
 		        	
-		        		//String test = zeile.substring(zeilenWord.length() + 2, zeile.length() - 1);
-			        	
-			        	String test = zeile.replace(zeilenWord + "  ", "");
-			        	
-			        	String nextWord = zeile.replace(zeilenWord + "  ", "").substring(0, test.indexOf(" "));
-						if (word.equals(zeilenWord.toLowerCase()) == true && nextWord.equals("n.") == true) {						
-							System.out.print("line: " + counter + " | das wort '" + zeilenWord + "' gibt es!\n");
-							System.out.print(zeile + "\n");
-							break;
+		        	String nextWord = zeile.replace(zeilenWord + "  ", "").substring(0, zeile.replace(zeilenWord + "  ", "").indexOf(" "));
+		        	if(nextWord.equals("artc.")) {
+		        		System.out.print(zeile + "\n\n");
+		        	}		        			        	
+	        		//String test = zeile.substring(zeilenWord.length() + 2, zeile.length() - 1);			        				        	
+					if (word.equals(zeilenWord.toLowerCase()) == true) {						
+						System.out.print("line: " + counter + " | das wort '" + zeilenWord + "' gibt es!\n");
+						System.out.print(zeile + "\n");
+						//String test = zeile.replace(zeilenWord + "  ", "");														
+						
+						
+						System.out.print("Wortart: " + nextWord + "\n");
+			        	switch(nextWord) {		        	
+		        			case "n.":
+		        				returnType = WordType.noun;
+								break;
+		        			case "v.":
+		        				returnType = WordType.verb;
+		        				break;
+		        			case "adj.":
+		        				returnType = WordType.adjective;
+		        				break;
+		        			case "adv.":
+		        				returnType = WordType.adverb;
+		        				//adverb
+		        				break;
+		        			case "abbr.":
+		        				//Abbreviation
+		        				break;
+		        			case "symb.":
+		        				//symbol
+		        			case "past":
+		        				//verb
+		        				//check past and past part.!
+		        				break;
+							default:
+								System.out.print("L: " + counter + " " + zeilenWord + ": " + nextWord + ": " + zeile + "\n");
+								break;
 						}
+						break;
+					}
 		        			        	
 		        }
 		    } 
@@ -273,7 +321,7 @@ public class dataFunctions {
 		        } 		    
 		    
 		}
-		return null;
+		return returnType;
 	}
 }
 

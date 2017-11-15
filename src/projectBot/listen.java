@@ -22,7 +22,7 @@ public class listen {
 	}
 	
 	public static void main(String[] args) {
-		/*dataInstance.openData("src/projectBot/new.xml", "RDF/XML");
+		dataInstance.openData("src/projectBot/new.xml", "RDF/XML");
 		
 		//get statement
 		Scanner scan = new Scanner(System.in);
@@ -33,7 +33,8 @@ public class listen {
 		String[] words = input.split("\\s+");		
 		for (int i = 0; i < words.length; i++) {			    
 			words[i] = words[i].replaceAll("[^\\w]", "");		    
-		    wordList.add(new Word(words[i], dataInstance.getType(words[i])));
+			//remove to lower case!
+		    wordList.add(new Word(words[i], dataInstance.getType(words[i].toLowerCase())));
 		}
 		
 		if(learnMode == true) {
@@ -41,8 +42,8 @@ public class listen {
 		}
 		else {
 			
-		}*/
-		dataInstance.getWordTypeViaDictionary("body");
+		}
+		
 	}
 
 }

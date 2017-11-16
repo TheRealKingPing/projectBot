@@ -238,9 +238,7 @@ public class dataFunctions {
 		return null;
 	}
 	
-	public WordType getWordTypeViaDictionary(String word) {
-		WordType returnType = null;
-		
+	public WordType getWordTypeViaDictionary(String word) {				
 		File file = new File("src/data/Oxford_English_Dictionary.txt");
 		if (!file.canRead() || !file.isFile()) 
 		    System.exit(0); 
@@ -270,42 +268,50 @@ public class dataFunctions {
 		        	if(nextWord.equals("artc.")) {
 		        		System.out.print(zeile + "\n\n");
 		        	}		        			        	
-	        		//String test = zeile.substring(zeilenWord.length() + 2, zeile.length() - 1);			        				        	
+	        		//String test = zeile.substring(zeilenWord.length() + 2, zeile.length() - 1);	
+	        		
+		        	//schlechte lösung?
+		        	if(word.length() >3 && word.substring(word.length() - 2, word.length()).equals("ed")) {
+		        		word = word.replace("ed", "");
+		        	}
+		        	
+
 					if (word.equals(zeilenWord.toLowerCase()) == true) {						
-						System.out.print("line: " + counter + " | das wort '" + zeilenWord + "' gibt es!\n");
-						System.out.print(zeile + "\n");
+						//System.out.print("line: " + counter + " | das wort '" + zeilenWord + "' gibt es!\n");
+						//System.out.print(zeile + "\n");
 						//String test = zeile.replace(zeilenWord + "  ", "");														
 						
 						
-						System.out.print("Wortart: " + nextWord + "\n");
+						//System.out.print("Wortart: " + nextWord + "\n");
 			        	switch(nextWord) {		        	
 		        			case "n.":
-		        				returnType = WordType.noun;
-								break;
+		        				return WordType.noun;								
 		        			case "v.":
-		        				returnType = WordType.verb;
-		        				break;
+		        				return WordType.verb;		        				
 		        			case "adj.":
-		        				returnType = WordType.adjective;
-		        				break;
+		        				return WordType.adjective;		        				
 		        			case "adv.":
-		        				returnType = WordType.adverb;
-		        				//adverb
-		        				break;
+		        				return WordType.adverb;
+		        				//adverb		        				
 		        			case "abbr.":
 		        				//Abbreviation
 		        				break;
 		        			case "symb.":
 		        				//symbol
+		        				break;
 		        			case "past":
 		        				//verb
 		        				//check past and past part.!
 		        				break;
+		        			case "article":
+		        				return WordType.article;		        				
+		        			case "n.pl.":
+		        				//noun plural!
+		        				return WordType.noun;		        				
 							default:
 								System.out.print("L: " + counter + " " + zeilenWord + ": " + nextWord + ": " + zeile + "\n");
-								break;
-						}
-						break;
+								return null;								
+						}						
 					}
 		        			        	
 		        }
@@ -321,7 +327,14 @@ public class dataFunctions {
 		        } 		    
 		    
 		}
-		return returnType;
+		
+		//mehrzahl?
+		if(word.substring(word.length() - 1, word.length()).equals("s")) {
+    		word = word.replace("s", "");
+    		return getWordTypeViaDictionary(word);
+    	}		
+		
+		return null;
 	}
 }
 

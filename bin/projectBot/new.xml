@@ -22,6 +22,30 @@
     
 
 
+    <!-- http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#canBeMeasuredFrom -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#canBeMeasuredFrom">
+        <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topObjectProperty"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#canBeSeenFrom -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#canBeSeenFrom">
+        <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topObjectProperty"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#canBeTouchedFrom -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#canBeTouchedFrom">
+        <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topObjectProperty"/>
+    </owl:ObjectProperty>
+    
+
+
     <!-- http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#do -->
 
     <owl:ObjectProperty rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#do">
@@ -95,6 +119,42 @@
     <owl:ObjectProperty rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#isRelatedTo">
         <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topObjectProperty"/>
     </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#maybeHasToPass -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#maybeHasToPass"/>
+    
+
+
+    <!-- http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#usedToBuy -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#usedToBuy">
+        <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topObjectProperty"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#usedToMake -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#usedToMake">
+        <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topObjectProperty"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#usedToTest -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#usedToTest">
+        <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topObjectProperty"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#usuallyHasToPay -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#usuallyHasToPay"/>
     
 
 
@@ -562,20 +622,6 @@ use a tool to complete an action</rdfs:comment>
     
 
 
-    <!-- http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#User1 -->
-
-    <owl:Class rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#User1">
-        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#Knowledge"/>
-        <rdfs:subClassOf>
-            <owl:Restriction>
-                <owl:onProperty rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#has"/>
-                <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#idea"/>
-            </owl:Restriction>
-        </rdfs:subClassOf>
-    </owl:Class>
-    
-
-
     <!-- http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#Word -->
 
     <owl:Class rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#Word"/>
@@ -664,6 +710,14 @@ use a tool to complete an action</rdfs:comment>
     
 
 
+    <!-- http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#eye -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#eye">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#observer"/>
+    </owl:Class>
+    
+
+
     <!-- http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#german -->
 
     <owl:Class rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#german">
@@ -676,7 +730,7 @@ use a tool to complete an action</rdfs:comment>
     <!-- http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#idea -->
 
     <owl:Class rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#idea">
-        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#Knowledge"/>
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#immaterial_thing"/>
         <rdfs:subClassOf>
             <owl:Restriction>
                 <owl:onProperty rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#is"/>
@@ -687,10 +741,83 @@ use a tool to complete an action</rdfs:comment>
     
 
 
+    <!-- http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#immaterial_thing -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#immaterial_thing">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#thing"/>
+    </owl:Class>
+    
+
+
     <!-- http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#language -->
 
     <owl:Class rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#language">
-        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#Knowledge"/>
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#physical_thing"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#license -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#license">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#physical_thing"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#usuallyHasToPay"/>
+                <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#money"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#maybeHasToPass"/>
+                <owl:minQualifiedCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:minQualifiedCardinality>
+                <owl:onClass rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#test"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#machine -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#machine">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#observer"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#material -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#material">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#physical_thing"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#usedToMake"/>
+                <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#physical_thing"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#money -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#money">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#physical_thing"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#usedToBuy"/>
+                <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#thing"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#observer -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#observer">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#physical_thing"/>
     </owl:Class>
     
 
@@ -698,7 +825,15 @@ use a tool to complete an action</rdfs:comment>
     <!-- http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#person -->
 
     <owl:Class rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#person">
-        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#Knowledge"/>
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#observer"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#physical_thing -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#physical_thing">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#thing"/>
     </owl:Class>
     
 
@@ -719,10 +854,58 @@ use a tool to complete an action</rdfs:comment>
     
 
 
+    <!-- http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#substance -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#substance">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#physical_thing"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#canBeMeasuredFrom"/>
+                <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#observer"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#canBeSeenFrom"/>
+                <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#eye"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#canBeTouchedFrom"/>
+                <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#physical_thing"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#test -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#test">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#physical_thing"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#usedToTest"/>
+                <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#person"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#thing -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#thing">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#Knowledge"/>
+    </owl:Class>
+    
+
+
     <!-- http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#view -->
 
     <owl:Class rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#view">
-        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#Knowledge"/>
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#physical_thing"/>
     </owl:Class>
     
 

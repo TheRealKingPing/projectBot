@@ -38,7 +38,7 @@ public class answer {
 	private static String openAnswer(List<Word> questionWords) {
 		for(int counter = 0; counter < questionWords.size(); counter++) {			
 			String word = questionWords.get(counter).getValue();	
-			switch (questionWords.get(counter).getType()) {
+			switch (questionWords.get(counter).getWordType()) {
 				case questionWord:					
 						
 					break;
@@ -50,6 +50,121 @@ public class answer {
 	}
 	
 	public static UsableStatement getUsableStatement(List<Word> sentence) {
+		//cut unnecessary parts
+		List<Word> cuttedSentence = sentence;
+		
+		//find verb with "to" in front (infinitives)
+		List<Word> infinitives = new ArrayList<Word>();
+		
+		Word wTo = new Word("to", WordType.preposition); 
+		int i = cuttedSentence.indexOf(wTo);		
+		while (i >= 0) {
+			Word nextWord = cuttedSentence.get(i++);
+			if (nextWord.getWordType() == WordType.verb) {
+				infinitives.add(nextWord);
+				cuttedSentence.remove(i);
+				cuttedSentence.remove(i + 1);
+			}			
+			i = cuttedSentence.indexOf(wTo);
+		}
+		
+		//find auxiliary verb
+		List<Word> auxiliaryVerbs = new ArrayList<Word>();
+		
+		//add auxiliary verbs
+		for (Word w : cuttedSentence) {
+			if(w.getWordType() == WordType.auxiliaryVerb) {
+				auxiliaryVerbs.add(w);
+				
+			}
+		}
+		
+		//remove auxiliary verbs
+		for (Word w : auxiliaryVerbs) {
+			cuttedSentence.remove(w);
+		}
+		
+		//find main verb (last verb)
+		Word mainVerb = null;
+		int mVIndex = 0;
+		
+		for (Word w : cuttedSentence) {
+			if (w.getWordType() == WordType.verb) {
+				mainVerb = w;
+				mVIndex = cuttedSentence.indexOf(w);				
+				cuttedSentence.remove(w);				
+				break;
+			}
+		}
+		
+		//find subject (in front of main verb)
+		List<Word> subjects = new ArrayList<Word>();
+				
+		while(subjects.size() == 0) {
+			Word wBehindMVerb = cuttedSentence.get(mVIndex - 1);
+			switch(wBehindMVerb.getWordType()) {
+				case adjective:
+					//todo define adj. of verb
+					cuttedSentence.remove(wBehindMVerb);
+					mVIndex--;	
+					break;
+				case preposition:
+					//todo define prep. of verb
+					cuttedSentence.remove(wBehindMVerb);
+					mVIndex--;	
+					break;
+				default:
+					subjects.add(wBehindMVerb);
+					cuttedSentence.remove(wBehindMVerb);
+					mVIndex--;				
+					break;
+			}							
+		}		
+		
+		//is in front of the subject (, and or...) => make new statement
+		
+		List<Word> removableWords = new ArrayList<Word>();
+		
+		//add second subject
+		for (Word w : cuttedSentence) {
+			if(cuttedSentence.indexOf(w) >= mVIndex) {
+				break;
+			}
+			if(w.getWordType() == WordType.coordinatingConjunction) {
+				Word secondSubject = cuttedSentence.get(cuttedSentence.indexOf(w) - 1);
+				subjects.add(secondSubject);
+				removableWords.add(w);
+				removableWords.add(secondSubject);			
+			}
+		}
+							
+		//remove coordinatingConjungtion and subject
+		for (Word w : removableWords) {
+			cuttedSentence.remove(w);
+		}
+		
+		
+		//rest is object
+		List<Word> objects = new ArrayList<Word>();
+		
+		for (Word w : cuttedSentence) {
+			if(w.getWordType() == WordType.noun || w.getWordType() == WordType.properNoun || w.getWordType() == WordType.pronoun) {
+				objects.add(w);
+			}
+		}
+		
+		//todo: is in front of the object (, and or..) => make new statement
+		
+		//arange usabale statements
+		UsableStatement respond = new UsableStatement();
+		respond.subjects = subjects;
+		respond.predicate = mainVerb.getValue();
+		respond.objects = objects;		
+		
+		return respond;
+	}
+	
+	/*public static UsableStatement getUsableStatement(List<Word> sentence) {
 		//create new Statement
 		UsableStatement output = new UsableStatement();			
 		
@@ -127,7 +242,7 @@ public class answer {
 			}
 		}	
 		return output;
-	}
+	}*/
 	
 	//doofi idee
 	/*//list vo enere list lul kei lust gah irgendöbis gschids mache odr was

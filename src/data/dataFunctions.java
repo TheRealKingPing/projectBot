@@ -69,7 +69,7 @@ public class dataFunctions {
 	}
 	
 	public String getInfinitive(Word word) {
-		if (word.getType().equals(WordType.auxiliaryVerb) || word.getType().equals(WordType.verb)) {
+		if (word.getWordType().equals(WordType.auxiliaryVerb) || word.getWordType().equals(WordType.verb)) {
 			// Create a new query
 			String queryString =
 					prefixUri + 			
@@ -142,6 +142,9 @@ public class dataFunctions {
 				case "CoordinatingConjunction":
 					qe.close();
 					return WordType.coordinatingConjunction;
+				case "WordPreposition":
+					qe.close();
+					return WordType.preposition;
 				default:					
 					System.out.print("'" + word + "' type not found\n");
 					break;
@@ -182,17 +185,17 @@ public class dataFunctions {
 		return null;
 	}
 	
-	public boolean searchRestrictionExist(String subjectName, String propertyName, Word objectName) {
+	public boolean searchRestrictionExist(Word subjectName, String propertyName, Word objectName) {
 		// Create a new query
 		String queryString =
 				prefixUri +	prefixRdf +
 				" SELECT ?isRight WHERE { \r\n"; 				
 						
-		if(objectName.getType() != null && objectName.getType().equals(WordType.noun) && propertyName.equals("is")) {
-			queryString = queryString + "  BIND( EXISTS { uri:" + subjectName + " rdf:type uri:" + objectName.getValue() + " } as ?isRight ) \r\n ";			
+		if(objectName.getWordType() != null && objectName.getWordType().equals(WordType.noun) && propertyName.equals("is")) {
+			queryString = queryString + "  BIND( EXISTS { uri:" + subjectName.getValue() + " rdf:type uri:" + objectName.getValue() + " } as ?isRight ) \r\n ";			
 		}
 		else {
-			queryString = queryString + "  BIND( EXISTS { uri:"+ subjectName + " uri:" + propertyName + " uri:" + objectName.getValue() + " } as ?isRight )\r\n";
+			queryString = queryString + "  BIND( EXISTS { uri:"+ subjectName.getValue() + " uri:" + propertyName + " uri:" + objectName.getValue() + " } as ?isRight )\r\n";
 		}		
 		queryString = queryString + "}";
 		

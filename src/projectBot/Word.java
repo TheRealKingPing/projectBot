@@ -14,7 +14,7 @@ public class Word {
 		value = _value;
 	}
 	
-	public void setType(WordType _type) {
+	public void setWordType(WordType _type) {
 		type = _type;
 	}
 
@@ -23,7 +23,7 @@ public class Word {
 		return value;
 	}
 	
-	public WordType getType() {
+	public WordType getWordType() {
 		return type;
 	}		
 }

@@ -15,7 +15,7 @@ public class listen {
 		
 		for(int sCounter = 0; sCounter < test.subjects.size(); sCounter++) {					
 			for(int oCounter = 0; oCounter < test.objects.size(); oCounter++) {
-				System.out.print(test.subjects.get(sCounter) + " " + test.predicate + " " + test.objects.get(oCounter).getValue() + "\n");
+				System.out.print(test.subjects.get(sCounter).getValue() + " " + test.predicate + " " + test.objects.get(oCounter).getValue() + "\n");
 			}
 			
 		}				

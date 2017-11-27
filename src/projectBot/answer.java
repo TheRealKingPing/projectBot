@@ -55,27 +55,38 @@ public class answer {
 		
 		//find verb with "to" in front (infinitives)
 		List<Word> infinitives = new ArrayList<Word>();
+		List<Word> removableWords = new ArrayList<Word>();		 				
 		
-		Word wTo = new Word("to", WordType.preposition); 
-		int i = cuttedSentence.indexOf(wTo);		
-		while (i >= 0) {
-			Word nextWord = cuttedSentence.get(i++);
-			if (nextWord.getWordType() == WordType.verb) {
-				infinitives.add(nextWord);
-				cuttedSentence.remove(i);
-				cuttedSentence.remove(i + 1);
-			}			
-			i = cuttedSentence.indexOf(wTo);
+		for(Word w : cuttedSentence ) {	
+			String test = w.getValue();
+			WordType test2 = w.getWordType();
+			if(w.getValue().equals("to") && w.getWordType() == WordType.preposition) {
+				int indexOfW = cuttedSentence.indexOf(w);
+				Word nextWord = cuttedSentence.get(indexOfW + 1);
+				if (nextWord.getWordType() == WordType.verb) {
+					infinitives.add(nextWord);
+					removableWords.add(w);
+					removableWords.add(nextWord);
+				}							
+			}
+		}
+		
+		//remove "to" and verb from cuttedSentence 
+		for(Word w : removableWords) {
+			cuttedSentence.remove(w);
 		}
 		
 		//find auxiliary verb
 		List<Word> auxiliaryVerbs = new ArrayList<Word>();
+		int firstAVIndex = 0; 
 		
 		//add auxiliary verbs
 		for (Word w : cuttedSentence) {
 			if(w.getWordType() == WordType.auxiliaryVerb) {
-				auxiliaryVerbs.add(w);
-				
+				auxiliaryVerbs.add(w);	
+				if(firstAVIndex == 0) {
+					firstAVIndex = cuttedSentence.indexOf(w);
+				}
 			}
 		}
 		
@@ -85,45 +96,58 @@ public class answer {
 		}
 		
 		//find main verb (last verb)
+		Word inFrontOfMainVerb = null;
 		Word mainVerb = null;
+		Word afterMainVerb = null;
 		int mVIndex = 0;
 		
 		for (Word w : cuttedSentence) {
 			if (w.getWordType() == WordType.verb) {
 				mainVerb = w;
-				mVIndex = cuttedSentence.indexOf(w);				
+				mVIndex = cuttedSentence.indexOf(w);					
+				
+				//does it have a preposition behind it
+				if(mVIndex + 1 < cuttedSentence.size()) {					
+					Word nextWord = cuttedSentence.get(mVIndex + 1);
+					if(nextWord.getWordType() == WordType.preposition) {
+						afterMainVerb = nextWord;
+						cuttedSentence.remove(nextWord);
+					}
+				}
+				
 				cuttedSentence.remove(w);				
 				break;
 			}
+		}
+		//the auxiliary verb is the main verb, if no other verb is found
+		if(mainVerb == null) {
+			mainVerb = auxiliaryVerbs.get(0);
+			mVIndex = firstAVIndex;
 		}
 		
 		//find subject (in front of main verb)
 		List<Word> subjects = new ArrayList<Word>();
 				
 		while(subjects.size() == 0) {
-			Word wBehindMVerb = cuttedSentence.get(mVIndex - 1);
-			switch(wBehindMVerb.getWordType()) {
-				case adjective:
-					//todo define adj. of verb
-					cuttedSentence.remove(wBehindMVerb);
-					mVIndex--;	
-					break;
-				case preposition:
-					//todo define prep. of verb
-					cuttedSentence.remove(wBehindMVerb);
-					mVIndex--;	
-					break;
-				default:
-					subjects.add(wBehindMVerb);
-					cuttedSentence.remove(wBehindMVerb);
-					mVIndex--;				
-					break;
-			}							
+			Word wInFOfMVerb = cuttedSentence.get(mVIndex - 1);			
+			if (wInFOfMVerb.getWordType() == WordType.adjective
+			 || wInFOfMVerb.getWordType() == WordType.preposition
+			 || wInFOfMVerb.getWordType() == WordType.adverb			
+			) {
+				inFrontOfMainVerb = wInFOfMVerb;
+				cuttedSentence.remove(wInFOfMVerb);
+				mVIndex--;	
+			}
+			else {
+				subjects.add(wInFOfMVerb);
+				cuttedSentence.remove(wInFOfMVerb);
+				mVIndex--;	
+			}
 		}		
 		
 		//is in front of the subject (, and or...) => make new statement
 		
-		List<Word> removableWords = new ArrayList<Word>();
+		removableWords = new ArrayList<Word>();
 		
 		//add second subject
 		for (Word w : cuttedSentence) {
@@ -148,6 +172,8 @@ public class answer {
 		List<Word> objects = new ArrayList<Word>();
 		
 		for (Word w : cuttedSentence) {
+			//todo: adj. !
+			//todo: preposition !
 			if(w.getWordType() == WordType.noun || w.getWordType() == WordType.properNoun || w.getWordType() == WordType.pronoun) {
 				objects.add(w);
 			}
@@ -155,10 +181,26 @@ public class answer {
 		
 		//todo: is in front of the object (, and or..) => make new statement
 		
+		//arange predicate
+		String predicate = "";
+		if(inFrontOfMainVerb != null) {
+			predicate = inFrontOfMainVerb.getValue();			
+		}
+		if(predicate == "") {
+			predicate = mainVerb.getValue();
+		}
+		else {
+			predicate += mainVerb.getValue().substring(0, 1).toUpperCase() + mainVerb.getValue().substring(1);
+		}
+		if(afterMainVerb != null) {
+			predicate += afterMainVerb.getValue().substring(0, 1).toUpperCase() + afterMainVerb.getValue().substring(1);
+		}
+		
+		
 		//arange usabale statements
 		UsableStatement respond = new UsableStatement();
 		respond.subjects = subjects;
-		respond.predicate = mainVerb.getValue();
+		respond.predicate = predicate;												 				
 		respond.objects = objects;		
 		
 		return respond;

@@ -151,14 +151,24 @@ public class dataFunctions {
 			}				
 		}		
 		qe.close();
+		//search in dictionary
 		WordType dictonaryType = getWordTypeViaDictionary(word);
 		if (dictonaryType != null) {
 			return dictonaryType;
 		}
 		else {
-			System.out.print("'" + word + "' not found\n");
-			return null;
-		}		
+			//search again with base verb
+			String baseVerb = getBaseOfVerb(word);
+			
+			if(baseVerb != null) {
+				dictonaryType = getWordTypeViaDictionary(baseVerb);
+				if (dictonaryType != null) {
+					return dictonaryType;
+				}
+			}					
+		}					
+		System.out.print("'" + word + "' not found\n");
+		return null;
 	}
 	
 	//Bind pronoun and noun todo: delete
@@ -241,7 +251,71 @@ public class dataFunctions {
 		return null;
 	}
 	
-	public WordType getWordTypeViaDictionary(String word) {				
+	public String getBaseOfVerb(String word) {
+		//3rd person singular present tense -es -s		
+		if (word.substring(word.length() - 2, word.length()).equals("es")) {
+			return word.substring(0, word.length() - 2);
+		}
+		if (word.substring(word.length() - 1, word.length()).equals("s")) {
+			return word.substring(0, word.length() - 1);
+		}		
+		
+		//past tense & past participle -ied -ed		
+		if (word.substring(word.length() - 3, word.length()).equals("ied")) {
+			return word.substring(0, word.length() - 3) + "y";
+		}		
+		if (word.substring(word.length() - 2, word.length()).equals("ed")) {
+			return word.substring(0, word.length() - 2);
+		}
+		
+		//present participle -ing
+		if (word.substring(word.length() - 3, word.length()).equals("ing")) {
+			return word.substring(0, word.length() - 3);
+		}
+		
+		//irregular verbs
+		String iVerb = getBaseVerbInIrregularVerbs(word);
+		if(iVerb != null) {
+			return iVerb;
+		}			
+		else {
+			return null;
+		}
+	}
+	
+	public String getBaseVerbInIrregularVerbs(String sWord) {
+		String path = "src/data/irregular_verbs.txt";
+		File file = new File(path);
+		if (!file.canRead() || !file.isFile()) 
+		    System.exit(0); 
+		
+		    BufferedReader in = null; 
+		try { 
+		    in = Files.newBufferedReader(Paths.get(path)); 
+		    String zeile = null;
+		    int counter = 0;
+		    while ((zeile = in.readLine()) != null) { 
+		    	counter++;
+		    	
+		    	if(zeile.contains(sWord)) {
+		    		int firstSpaceIndex = zeile.indexOf(" ");
+		    		return zeile.substring(0, firstSpaceIndex);
+		    	}		    			        			        			      
+		    } 
+		} catch (IOException e) { 
+		    e.printStackTrace(); 
+		} finally { 
+		    if (in != null) 
+		        try { 
+		        	in.close();
+		        } catch (IOException e) { 
+		        	System.out.print(e.getMessage());
+		        } 		    		    
+		}
+		return null;
+	}
+	
+	public WordType getWordTypeViaDictionary(String word) {						
 		File file = new File("src/data/Oxford_English_Dictionary.txt");
 		if (!file.canRead() || !file.isFile()) 
 		    System.exit(0); 
@@ -255,6 +329,16 @@ public class dataFunctions {
 		    	counter++;
 		        //System.out.println("Gelesene Zeile: " + zeile);
 		    	//System.out.print(zeile.length() + "\n");
+		    	
+		    	//ignore () part
+		    	if(zeile.length() != 0 && zeile.contains("  (") && zeile.contains(") ")) {		    		
+		    		if(zeile.indexOf(" ") == zeile.indexOf("  (")) {
+		    			int firstBracketIndex = zeile.indexOf("  (");
+			    		int lastBracketIndex = zeile.indexOf(") ");
+			    		zeile = zeile.substring(0, firstBracketIndex) + " " + zeile.substring(lastBracketIndex + 1);
+		    		}		    		
+		    	}
+		    	
 		        if(zeile.length() != 0 && zeile.contains("  ")) {		 
 		        	String zeilenWord = "";
 		        	if (zeile.indexOf("  ") != -1) {
@@ -271,14 +355,8 @@ public class dataFunctions {
 		        	if(nextWord.equals("artc.")) {
 		        		System.out.print(zeile + "\n\n");
 		        	}		        			        	
-	        		//String test = zeile.substring(zeilenWord.length() + 2, zeile.length() - 1);	
-	        		
-		        	//schlechte lösung?
-		        	if(word.length() >3 && word.substring(word.length() - 2, word.length()).equals("ed")) {
-		        		word = word.replace("ed", "");
-		        	}
+	        		//String test = zeile.substring(zeilenWord.length() + 2, zeile.length() - 1);		        				        		        			        
 		        	
-
 					if (word.equals(zeilenWord.toLowerCase()) == true) {						
 						//System.out.print("line: " + counter + " | das wort '" + zeilenWord + "' gibt es!\n");
 						//System.out.print(zeile + "\n");
@@ -299,6 +377,12 @@ public class dataFunctions {
 		        			case "abbr.":
 		        				//Abbreviation
 		        				break;
+		        			case "conj.":
+		        				return WordType.conjunction;
+		        			case "pron.":
+		        				return WordType.pronoun;		        				
+		        			case "prep.":
+		        				return WordType.preposition;		        				
 		        			case "symb.":
 		        				//symbol
 		        				break;

@@ -1240,6 +1240,14 @@ use a tool to complete an action</rdfs:comment>
     
 
 
+    <!-- http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#to -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#to">
+        <rdf:type rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#WordPreposition"/>
+    </owl:NamedIndividual>
+    
+
+
     <!-- http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#usually -->
 
     <owl:NamedIndividual rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#usually">

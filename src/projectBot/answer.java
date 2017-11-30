@@ -38,32 +38,108 @@ public class answer {
 	private static String openAnswer(List<Word> questionWords) {
 		for(int counter = 0; counter < questionWords.size(); counter++) {			
 			String word = questionWords.get(counter).getValue();	
-			switch (questionWords.get(counter).getWordType()) {
-				case questionWord:					
-						
-					break;
-				default:
-					break;
-			}
+			
 		}
 		return null;
 	}
 	
-	public static UsableStatement getUsableStatement(List<Word> sentence) {
+	public static List<Word> getSentence(UsableStatement statement) {
+		
+		
+		
+		
+		return null;
+	}
+	
+	public static List<UsableStatement> getUsableStatement(List<Word> sentence) {
+		List<UsableStatement> respondStatements = new ArrayList<UsableStatement>();
+		
 		//cut unnecessary parts
-		List<Word> cuttedSentence = sentence;
+		List<Word> cuttedSentence = new ArrayList<Word>(sentence);		
+		//cut 'also'
+		for(Word w : sentence) {
+			if(w.getValue().equals("also")) {
+				cuttedSentence.remove(w);
+			}
+		}		
+		
+		//name to person id
+		for(int c = 0; c < cuttedSentence.size(); c++) {
+			Word wFn = cuttedSentence.get(c);
+			if(cuttedSentence.size() > c + 1) {
+				Word wSn = cuttedSentence.get(c + 1);
+				if(wFn.getWordTypes().get(0) == WordType.properNoun && wSn.getWordTypes().get(0) == WordType.properNoun) {
+					String personId = dataInstance.getPersonByName(wFn.getValue(), wSn.getValue());
+					List<WordType> typeList = new ArrayList<WordType>();
+					typeList.add(WordType.properNoun);
+					Word person = new Word(personId, typeList, c);
+					cuttedSentence.add(c, person);
+					cuttedSentence.remove(wFn);
+					cuttedSentence.remove(wSn);
+					
+				}
+			}			
+		}			
+		
+		//find adjective-noun constructions, create new statement and cut adjective
+		List<Word> removableAdj = new ArrayList<Word>();
+		
+		for(int c = 1; c < cuttedSentence.size(); c++) {
+			Word w = cuttedSentence.get(c);
+			Word lW = cuttedSentence.get(c - 1);
+			if(lW.getWordTypes().contains(WordType.adjective) && w.getWordTypes().contains(WordType.noun)) {
+				UsableStatement adjNounStatement = new UsableStatement();
+				adjNounStatement.subjects.add(w);
+				adjNounStatement.predicate = "is";
+				adjNounStatement.objects.add(lW);
+				
+				respondStatements.add(adjNounStatement);
+				removableAdj.add(lW);
+				
+				//define potential noun as noun
+				List<WordType> nounType = new ArrayList<WordType>();
+				nounType.add(WordType.noun);
+				w.setWordTypes(nounType);
+			}
+		}
+		
+		//remove adj.
+		for(Word w : removableAdj) {
+			cuttedSentence.remove(w);
+		}	
+		
+		//find article-noun construction and cut article
+				List<Word> removableArt = new ArrayList<Word>();	
+				
+				for(int c = 1; c < cuttedSentence.size(); c++) {
+					Word w = cuttedSentence.get(c);
+					Word lW = cuttedSentence.get(c - 1);
+					if(lW.getWordTypes().contains(WordType.article) && w.getWordTypes().contains(WordType.noun)) {
+						removableArt.add(lW);
+						
+						//define potential noun as noun
+						List<WordType> nounType = new ArrayList<WordType>();
+						nounType.add(WordType.noun);
+						w.setWordTypes(nounType);
+					}
+				}
+				
+				//remove article
+				for(Word w : removableArt) {
+					cuttedSentence.remove(w);
+				}	
 		
 		//find verb with "to" in front (infinitives)
 		List<Word> infinitives = new ArrayList<Word>();
 		List<Word> removableWords = new ArrayList<Word>();		 				
 		
-		for(Word w : cuttedSentence ) {	
-			String test = w.getValue();
-			WordType test2 = w.getWordType();
-			if(w.getValue().equals("to") && w.getWordType() == WordType.preposition) {
+		for(Word w : cuttedSentence) {	
+			String wv = w.getValue();
+			List<WordType> wtl = w.getWordTypes();
+			if(w.getValue().equals("to") && w.getWordTypes().contains(WordType.preposition)) {
 				int indexOfW = cuttedSentence.indexOf(w);
 				Word nextWord = cuttedSentence.get(indexOfW + 1);
-				if (nextWord.getWordType() == WordType.verb) {
+				if (nextWord.getWordTypes().contains(WordType.verb)) {
 					infinitives.add(nextWord);
 					removableWords.add(w);
 					removableWords.add(nextWord);
@@ -82,7 +158,7 @@ public class answer {
 		
 		//add auxiliary verbs
 		for (Word w : cuttedSentence) {
-			if(w.getWordType() == WordType.auxiliaryVerb) {
+			if(w.getWordTypes().contains(WordType.auxiliaryVerb)) {
 				auxiliaryVerbs.add(w);	
 				if(firstAVIndex == 0) {
 					firstAVIndex = cuttedSentence.indexOf(w);
@@ -98,19 +174,19 @@ public class answer {
 		//find main verb (last verb)
 		Word inFrontOfMainVerb = null;
 		Word mainVerb = null;
-		Word afterMainVerb = null;
+		List<Word> afterMainVerb = new ArrayList<Word>();
 		int mVIndex = 0;
 		
 		for (Word w : cuttedSentence) {
-			if (w.getWordType() == WordType.verb) {
+			if (w.getWordTypes().get(0) == WordType.verb) {
 				mainVerb = w;
 				mVIndex = cuttedSentence.indexOf(w);					
 				
 				//does it have a preposition behind it
 				if(mVIndex + 1 < cuttedSentence.size()) {					
 					Word nextWord = cuttedSentence.get(mVIndex + 1);
-					if(nextWord.getWordType() == WordType.preposition) {
-						afterMainVerb = nextWord;
+					if(nextWord.getWordTypes().contains(WordType.preposition)) {
+						afterMainVerb.add(nextWord);
 						cuttedSentence.remove(nextWord);
 					}
 				}
@@ -126,41 +202,62 @@ public class answer {
 		}
 		
 		//find subject (in front of main verb)
-		List<Word> subjects = new ArrayList<Word>();
-				
-		while(subjects.size() == 0) {
-			Word wInFOfMVerb = cuttedSentence.get(mVIndex - 1);			
-			if (wInFOfMVerb.getWordType() == WordType.adjective
-			 || wInFOfMVerb.getWordType() == WordType.preposition
-			 || wInFOfMVerb.getWordType() == WordType.adverb			
-			) {
-				inFrontOfMainVerb = wInFOfMVerb;
-				cuttedSentence.remove(wInFOfMVerb);
-				mVIndex--;	
-			}
-			else {
-				subjects.add(wInFOfMVerb);
-				cuttedSentence.remove(wInFOfMVerb);
-				mVIndex--;	
-			}
-		}		
+		List<Word> subjects = new ArrayList<Word>();		
+		Word verbInFrontOfMV = null;
 		
+		for(Word w : auxiliaryVerbs) {
+			if(w.getIndex() < mainVerb.getIndex()) {
+				if(w.getIndex() + 1 != mainVerb.getIndex()) {
+					verbInFrontOfMV = w;
+				}
+			}
+		}
+		if(verbInFrontOfMV == null) {
+			for(int c = 0; c < mainVerb.getIndex(); c++) {
+				if(cuttedSentence.contains(sentence.get(c))) {
+					subjects.add(sentence.get(c));	
+				}				
+			}
+		}
+		else {
+			for(int c = verbInFrontOfMV.getIndex(); c < mainVerb.getIndex(); c++) {
+				if(cuttedSentence.contains(sentence.get(c))) {
+					subjects.add(sentence.get(c));	
+				}	
+			}
+		}
+		
+		//divide subjects
+		List<Word> usableSubjects = new ArrayList<Word>();
+		
+		if(subjects.size() == 1) {			
+			usableSubjects = subjects;
+			cuttedSentence.remove(usableSubjects.get(0));
+		}	
+		else {
+			for (Word w : subjects) {
+				for (WordType wt : w.getWordTypes()) {
+					switch(wt) {
+						case adverb:
+							inFrontOfMainVerb = w;
+							cuttedSentence.remove(w);
+							break;
+						case noun:
+						case pronoun:
+							usableSubjects.add(w);
+							cuttedSentence.remove(w);
+							break;		
+						default:
+							break;
+				}
+				}
+				
+			}
+		}
+				
 		//is in front of the subject (, and or...) => make new statement
 		
 		removableWords = new ArrayList<Word>();
-		
-		//add second subject
-		for (Word w : cuttedSentence) {
-			if(cuttedSentence.indexOf(w) >= mVIndex) {
-				break;
-			}
-			if(w.getWordType() == WordType.coordinatingConjunction) {
-				Word secondSubject = cuttedSentence.get(cuttedSentence.indexOf(w) - 1);
-				subjects.add(secondSubject);
-				removableWords.add(w);
-				removableWords.add(secondSubject);			
-			}
-		}
 							
 		//remove coordinatingConjungtion and subject
 		for (Word w : removableWords) {
@@ -170,13 +267,32 @@ public class answer {
 		
 		//rest is object
 		List<Word> objects = new ArrayList<Word>();
+		List<Word> modifier = new ArrayList<Word>();
 		
 		for (Word w : cuttedSentence) {
 			//todo: adj. !
 			//todo: preposition !
-			if(w.getWordType() == WordType.noun || w.getWordType() == WordType.properNoun || w.getWordType() == WordType.pronoun) {
-				objects.add(w);
+			if(w.getWordTypes().get(0) == WordType.adjective 
+			|| w.getWordTypes().get(0) == WordType.preposition
+			|| w.getWordTypes().get(0) == WordType.verb
+			|| w.getWordTypes().get(0) == WordType.prossessivePronoun) {
+				modifier.add(w);
 			}
+			if(w.getWordTypes().get(0) == WordType.noun 
+			|| w.getWordTypes().get(0) == WordType.properNoun 
+			|| w.getWordTypes().get(0) == WordType.pronoun) {				
+				for(Word m : modifier) {
+					w.setValue(m.getValue() + "_" + w.getValue());
+				}
+				objects.add(w);
+			}			
+		}
+		
+		//take the modifier as object, if no object is already in the list
+		if(objects.size() == 0 && modifier.size() != 0) {
+			for(Word w : modifier) {
+				objects.add(w);
+			}			
 		}
 		
 		//todo: is in front of the object (, and or..) => make new statement
@@ -192,18 +308,21 @@ public class answer {
 		else {
 			predicate += mainVerb.getValue().substring(0, 1).toUpperCase() + mainVerb.getValue().substring(1);
 		}
-		if(afterMainVerb != null) {
-			predicate += afterMainVerb.getValue().substring(0, 1).toUpperCase() + afterMainVerb.getValue().substring(1);
+		if(afterMainVerb.size() != 0) {
+			for(Word w : afterMainVerb) {
+				predicate += w.getValue().substring(0, 1).toUpperCase() + w.getValue().substring(1);
+			}			
 		}
 		
 		
 		//arange usabale statements
 		UsableStatement respond = new UsableStatement();
-		respond.subjects = subjects;
+		respond.subjects = usableSubjects;
 		respond.predicate = predicate;												 				
-		respond.objects = objects;		
+		respond.objects = objects;
+		respondStatements.add(respond);
 		
-		return respond;
+		return respondStatements;
 	}
 	
 	/*public static UsableStatement getUsableStatement(List<Word> sentence) {
@@ -310,14 +429,14 @@ public class answer {
 	}*/
 	
 	private static String closedAnswer(List<Word> questionWords) {		
-		UsableStatement statement = getUsableStatement(questionWords);
+		List<UsableStatement> statement = getUsableStatement(questionWords);
 		
-		if(dataInstance.searchRestrictionExist(statement.subjects.get(0), statement.predicate, statement.objects.get(0)) == true) {
-			return "Yes";
-		}
-		else {
-			return "No";
-		}
+		for(UsableStatement uS : statement) {
+			if(dataInstance.searchRestrictionExist(uS.subjects.get(0), uS.predicate, uS.objects.get(0)) == true) {
+				return "Yes";
+			}			
+		}	
+		return "No";
 	}
 	
 	public static void main (String[] args) {
@@ -335,7 +454,7 @@ public class answer {
 		String[] words = input.split("\\s+");		
 		for (int i = 0; i < words.length; i++) {			    
 			words[i] = words[i].replaceAll("[^\\w]", "");		    
-		    wordList.add(new Word(words[i], dataInstance.getType(words[i])));
+		    wordList.add(new Word(words[i], dataInstance.getType(words[i]), i));
 		}
 		
 		if(type == QuestionType.open) {

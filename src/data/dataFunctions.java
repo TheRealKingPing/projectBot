@@ -7,7 +7,10 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.List;
 
+import org.apache.http.protocol.ResponseDate;
 import org.apache.jena.ontology.OntClass;
 import org.apache.jena.ontology.OntModel;
 import org.apache.jena.ontology.OntModelSpec;
@@ -69,7 +72,7 @@ public class dataFunctions {
 	}
 	
 	public String getInfinitive(Word word) {
-		if (word.getWordType().equals(WordType.auxiliaryVerb) || word.getWordType().equals(WordType.verb)) {
+		if (word.getWordTypes().equals(WordType.auxiliaryVerb) || word.getWordTypes().equals(WordType.verb)) {
 			// Create a new query
 			String queryString =
 					prefixUri + 			
@@ -95,8 +98,8 @@ public class dataFunctions {
 		return null;
 	}
 	
-	public WordType getType(String word) {
-		WordType type = null;
+	public List<WordType> getType(String word) {
+		List<WordType> respondTypes = new ArrayList<WordType>();
 		// Create a new query
 		String queryString =
 				prefixUri +	prefixRdf +	prefixRdfs +			
@@ -115,60 +118,83 @@ public class dataFunctions {
 		// return query results 
 		while(results.hasNext()) {					
 			switch(results.next().getResource("type").getURI().toString().replaceAll(uri, "")) {
-				case "WordVerb":
-					qe.close();
-					return WordType.verb;					
-				case "AuxiliaryVerb":
-					qe.close();
-					return WordType.auxiliaryVerb;					
-				case "WordNoun":
-					qe.close();
-					return WordType.noun;					
-				case "WordPronoun":
-					qe.close();
-					return WordType.pronoun;					
-				case "WordAdjective":
-					qe.close();
-					return WordType.adjective;		
-				case "QuestionWord":
-					qe.close();
-					return WordType.questionWord;
-				case "ProperNoun":
-					qe.close();
-					return WordType.properNoun;
-				case "Article":
-					qe.close();
-					return WordType.article;
-				case "CoordinatingConjunction":
-					qe.close();
-					return WordType.coordinatingConjunction;
-				case "WordPreposition":
-					qe.close();
-					return WordType.preposition;
-				default:					
-					System.out.print("'" + word + "' type not found\n");
+				case "WordVerb":					
+					respondTypes.add(WordType.verb);
+					break;
+				case "AuxiliaryVerb":					
+					respondTypes.add(WordType.auxiliaryVerb);
+					break;
+				case "WordNoun":					
+					respondTypes.add(WordType.noun);
+					break;
+				case "WordPronoun":					
+					respondTypes.add(WordType.pronoun);
+					break;
+				case "WordAdjective":					
+					respondTypes.add(WordType.adjective);
+					break;
+				case "QuestionWord":					
+					respondTypes.add(WordType.questionWord);
+					break;
+				case "ProperNoun":					
+					respondTypes.add(WordType.properNoun);
+					break;
+				case "Article":					
+					respondTypes.add(WordType.article);
+					break;
+				case "CoordinatingConjunction":					
+					respondTypes.add(WordType.coordinatingConjunction);
+					break;
+				case "WordPreposition":					
+					respondTypes.add(WordType.preposition);
+					break;
+				default:		
+					System.out.print("'" + word + "' not found");
 					break;
 			}				
 		}		
 		qe.close();
-		//search in dictionary
-		WordType dictonaryType = getWordTypeViaDictionary(word);
-		if (dictonaryType != null) {
-			return dictonaryType;
-		}
-		else {
-			//search again with base verb
-			String baseVerb = getBaseOfVerb(word);
-			
-			if(baseVerb != null) {
-				dictonaryType = getWordTypeViaDictionary(baseVerb);
-				if (dictonaryType != null) {
-					return dictonaryType;
+		if(respondTypes.size() == 0) {
+			//search in dictionary
+			List<WordType> dictonaryType = getWordTypeViaDictionary(word);
+			if (dictonaryType != null) {
+				return dictonaryType;
+			}
+			else {
+				//search again with base verb
+				String baseVerb = getBaseOfVerb(word);
+				
+				if(baseVerb != null) {
+					dictonaryType = getWordTypeViaDictionary(baseVerb);
+					if (dictonaryType != null) {
+						return dictonaryType;
+					}
+				}		
+				else {
+					//search again with adjective
+					String adjective = getAdjectiveOfAdverb(word);
+					if(adjective != null) {
+						dictonaryType = getWordTypeViaDictionary(adjective);											
+						if (dictonaryType != null) {
+							List<WordType> respond = new ArrayList<WordType>();
+							respond.add(WordType.adverb);
+							return respond;
+						}						
+					}
+					else {
+						//search again with singular noun
+						String singularNoun = getSingularOfPlural(word);
+						if(singularNoun != null) {
+							dictonaryType = getWordTypeViaDictionary(singularNoun);											
+							if (dictonaryType != null) {
+								return dictonaryType;
+							}
+						}
+					}
 				}
-			}					
-		}					
-		System.out.print("'" + word + "' not found\n");
-		return null;
+			}
+		}								
+		return respondTypes;
 	}
 	
 	//Bind pronoun and noun todo: delete
@@ -201,7 +227,7 @@ public class dataFunctions {
 				prefixUri +	prefixRdf +
 				" SELECT ?isRight WHERE { \r\n"; 				
 						
-		if(objectName.getWordType() != null && objectName.getWordType().equals(WordType.noun) && propertyName.equals("is")) {
+		if(objectName.getWordTypes() != null && objectName.getWordTypes().equals(WordType.noun) && propertyName.equals("is")) {
 			queryString = queryString + "  BIND( EXISTS { uri:" + subjectName.getValue() + " rdf:type uri:" + objectName.getValue() + " } as ?isRight ) \r\n ";			
 		}
 		else {
@@ -251,25 +277,90 @@ public class dataFunctions {
 		return null;
 	}
 	
+	public String getSingularOfPlural(String word) {
+		//-es
+		if (word.length() > 3 && word.substring(word.length() - 3, word.length()).equals("ses")) {
+			return word.substring(0, word.length() - 3) + "s";
+		}
+		if (word.length() > 4 && word.substring(word.length() - 4, word.length()).equals("shes")) {
+			return word.substring(0, word.length() - 4) + "sh";
+		}
+		if (word.length() > 4 && word.substring(word.length() - 4, word.length()).equals("ches")) {
+			return word.substring(0, word.length() - 4) + "ch";
+		}
+		if (word.length() > 3 && word.substring(word.length() - 3, word.length()).equals("xes")) {
+			return word.substring(0, word.length() - 3) + "x";
+		}
+		if (word.length() > 3 && word.substring(word.length() - 3, word.length()).equals("zes")) {
+			return word.substring(0, word.length() - 3) + "z";
+		}	
+		
+		//ies
+		if (word.length() > 3 && word.substring(word.length() - 3, word.length()).equals("ies")) {
+			return word.substring(0, word.length() - 3) + "y";
+		}	
+				
+		//-s
+		if (word.length() > 1 && word.substring(word.length() - 1, word.length()).equals("s")) {
+			return word.substring(0, word.length() - 1);
+		}				
+		
+		//irregular nouns
+		String iNoun = getSingularNounInIrregularNouns(word);
+		if(iNoun != null) {
+			return iNoun;
+		}			
+		else {
+			return null;
+		}
+	}
+	
+	public String getAdjectiveOfAdverb(String word) {		
+		//-ably -ibly -ly
+		if (word.length() > 4 && word.substring(word.length() - 4, word.length()).equals("ably")) {
+			return word.substring(0, word.length() - 4) + "able";
+		}
+		if (word.length() > 4 && word.substring(word.length() - 4, word.length()).equals("ibly")) {
+			return word.substring(0, word.length() - 4) + "ible";
+		}
+		
+		//-ally. Exception: public -> publicly
+		if (word.length() > 6 && word.substring(word.length() - 6, word.length()).equals("ically")) {
+			return word.substring(0, word.length() - 6) + "ic";
+		}
+		
+		//-ily
+		if (word.length() > 3 && word.substring(word.length() - 3, word.length()).equals("ily")) {
+			return word.substring(0, word.length() - 3) + "y";
+		}	
+		
+		//-ly
+		if (word.length() > 2 && word.substring(word.length() - 2, word.length()).equals("ly")) {
+			return word.substring(0, word.length() - 2);
+		}	
+		
+		return null;
+	}
+	
 	public String getBaseOfVerb(String word) {
 		//3rd person singular present tense -es -s		
-		if (word.substring(word.length() - 2, word.length()).equals("es")) {
+		if (word.length() > 2 && word.substring(word.length() - 2, word.length()).equals("es")) {
 			return word.substring(0, word.length() - 2);
 		}
-		if (word.substring(word.length() - 1, word.length()).equals("s")) {
+		if (word.length() > 1 && word.substring(word.length() - 1, word.length()).equals("s")) {
 			return word.substring(0, word.length() - 1);
 		}		
 		
 		//past tense & past participle -ied -ed		
-		if (word.substring(word.length() - 3, word.length()).equals("ied")) {
+		if (word.length() > 3 && word.substring(word.length() - 3, word.length()).equals("ied")) {
 			return word.substring(0, word.length() - 3) + "y";
 		}		
-		if (word.substring(word.length() - 2, word.length()).equals("ed")) {
+		if (word.length() > 2 && word.substring(word.length() - 2, word.length()).equals("ed")) {
 			return word.substring(0, word.length() - 2);
 		}
 		
 		//present participle -ing
-		if (word.substring(word.length() - 3, word.length()).equals("ing")) {
+		if (word.length() > 3 && word.substring(word.length() - 3, word.length()).equals("ing")) {
 			return word.substring(0, word.length() - 3);
 		}
 		
@@ -283,8 +374,8 @@ public class dataFunctions {
 		}
 	}
 	
-	public String getBaseVerbInIrregularVerbs(String sWord) {
-		String path = "src/data/irregular_verbs.txt";
+	public String getSingularNounInIrregularNouns(String sWord) {
+		String path = "src/data/irregular_nouns.txt";
 		File file = new File(path);
 		if (!file.canRead() || !file.isFile()) 
 		    System.exit(0); 
@@ -292,12 +383,10 @@ public class dataFunctions {
 		    BufferedReader in = null; 
 		try { 
 		    in = Files.newBufferedReader(Paths.get(path)); 
-		    String zeile = null;
-		    int counter = 0;
-		    while ((zeile = in.readLine()) != null) { 
-		    	counter++;
+		    String zeile = null;		    
+		    while ((zeile = in.readLine()) != null) { 		    	
 		    	
-		    	if(zeile.contains(sWord)) {
+		    	if(zeile.contains(" " + sWord)) {
 		    		int firstSpaceIndex = zeile.indexOf(" ");
 		    		return zeile.substring(0, firstSpaceIndex);
 		    	}		    			        			        			      
@@ -315,7 +404,39 @@ public class dataFunctions {
 		return null;
 	}
 	
-	public WordType getWordTypeViaDictionary(String word) {						
+	public String getBaseVerbInIrregularVerbs(String sWord) {
+		String path = "src/data/irregular_verbs.txt";
+		File file = new File(path);
+		if (!file.canRead() || !file.isFile()) 
+		    System.exit(0); 
+		
+		    BufferedReader in = null; 
+		try { 
+		    in = Files.newBufferedReader(Paths.get(path)); 
+		    String zeile = null;
+		    
+		    while ((zeile = in.readLine()) != null) { 		    			    	
+		    	if(zeile.contains(" " + sWord)) {
+		    		int firstSpaceIndex = zeile.indexOf(" ");
+		    		return zeile.substring(0, firstSpaceIndex);
+		    	}		    			        			        			      
+		    } 
+		} catch (IOException e) { 
+		    e.printStackTrace(); 
+		} finally { 
+		    if (in != null) 
+		        try { 
+		        	in.close();
+		        } catch (IOException e) { 
+		        	System.out.print(e.getMessage());
+		        } 		    		    
+		}
+		return null;
+	}
+		
+	public List<WordType> getWordTypeViaDictionary(String word) {						
+		List<WordType> respondTypes = new ArrayList<WordType>();
+		
 		File file = new File("src/data/Oxford_English_Dictionary.txt");
 		if (!file.canRead() || !file.isFile()) 
 		    System.exit(0); 
@@ -327,8 +448,6 @@ public class dataFunctions {
 		    int counter = 0;
 		    while ((zeile = in.readLine()) != null) { 
 		    	counter++;
-		        //System.out.println("Gelesene Zeile: " + zeile);
-		    	//System.out.print(zeile.length() + "\n");
 		    	
 		    	//ignore () part
 		    	if(zeile.length() != 0 && zeile.contains("  (") && zeile.contains(") ")) {		    		
@@ -344,63 +463,80 @@ public class dataFunctions {
 		        	if (zeile.indexOf("  ") != -1) {
 		        		zeilenWord= zeile.substring(0, zeile.indexOf("  "));
 		        	}
-		        	//idk what that means, but i will delete it
-		        	//int countWordTypes
-		        	/*if(zeile.contains("—")) {		        		
-		        		System.out.print("oh wow\n");
-		        	}*/
-		        	zeile = zeile.replace("—", "");
 		        	
 		        	String nextWord = zeile.replace(zeilenWord + "  ", "").substring(0, zeile.replace(zeilenWord + "  ", "").indexOf(" "));
 		        	if(nextWord.equals("artc.")) {
 		        		System.out.print(zeile + "\n\n");
-		        	}		        			        	
-	        		//String test = zeile.substring(zeilenWord.length() + 2, zeile.length() - 1);		        				        		        			        
-		        	
-					if (word.equals(zeilenWord.toLowerCase()) == true) {						
-						//System.out.print("line: " + counter + " | das wort '" + zeilenWord + "' gibt es!\n");
-						//System.out.print(zeile + "\n");
-						//String test = zeile.replace(zeilenWord + "  ", "");														
-						
-						
-						//System.out.print("Wortart: " + nextWord + "\n");
-			        	switch(nextWord) {		        	
-		        			case "n.":
-		        				return WordType.noun;								
-		        			case "v.":
-		        				return WordType.verb;		        				
-		        			case "adj.":
-		        				return WordType.adjective;		        				
-		        			case "adv.":
-		        				return WordType.adverb;
-		        				//adverb		        				
-		        			case "abbr.":
-		        				//Abbreviation
-		        				break;
-		        			case "conj.":
-		        				return WordType.conjunction;
-		        			case "pron.":
-		        				return WordType.pronoun;		        				
-		        			case "prep.":
-		        				return WordType.preposition;		        				
-		        			case "symb.":
-		        				//symbol
-		        				break;
-		        			case "past":
-		        				//verb
-		        				//check past and past part.!
-		        				break;
-		        			case "article":
-		        				return WordType.article;		        				
-		        			case "n.pl.":
-		        				//noun plural!
-		        				return WordType.noun;		        				
-							default:
-								System.out.print("L: " + counter + " " + zeilenWord + ": " + nextWord + ": " + zeile + "\n");
-								return null;								
-						}						
-					}
-		        			        	
+		        	}
+		        	if (word.trim().equals(zeilenWord.toLowerCase()) == true || zeilenWord.toLowerCase().equals(word + "e")) {
+		        		do {	
+		        			if(zeile.contains("—")) {
+								zeile = zeile.substring(zeile.indexOf("—") + 1);
+								if(zeile.contains(" ")) {
+									nextWord = zeile.substring(0, zeile.indexOf(" "));								
+								}
+								else {
+									nextWord = zeile;
+								}							
+							}
+							if(nextWord.contains("—")) {
+			        			nextWord = nextWord.replace("—", "");
+			        		}
+				        	switch(nextWord) {		        	
+			        			case "n.":
+			        				respondTypes.add(WordType.noun);	
+			        				break;
+			        			case "v.":
+			        				respondTypes.add(WordType.verb);
+			        				break;
+			        			case "adj.":
+			        				respondTypes.add(WordType.adjective);
+			        				break;
+			        			case "adv.":
+			        				respondTypes.add(WordType.adverb);
+			        				break;
+			        				//adverb		        				
+			        			case "abbr.":
+			        				//Abbreviation
+			        				break;
+			        			case "conj.":
+			        				respondTypes.add(WordType.conjunction);
+			        				break;
+			        			case "pron.":
+			        				respondTypes.add(WordType.pronoun);
+			        				break;
+			        			case "prep.":
+			        				respondTypes.add(WordType.preposition);
+			        				break;
+			        			case "symb.":
+			        				//symbol		
+			        				break;
+			        			case "past":
+			        				//verb
+			        				//check past and past part.!
+			        				break;
+			        			case "interrog.":
+			        				//idk
+			        				respondTypes.add(WordType.pronoun);
+			        				break;
+			        			case "poss.":
+			        				//possessive pronoun
+			        				respondTypes.add(WordType.prossessivePronoun);
+			        				break;
+			        			case "article":
+			        				respondTypes.add(WordType.article);
+			        				break;
+			        			case "n.pl.":
+			        				//noun plural!
+			        				respondTypes.add(WordType.noun);
+			        				break;
+								default:									
+									break;								
+							}										        	
+		        		} while (zeile.indexOf("—") != -1);	
+		        		break;
+		        	}
+		        	        			        			        			        	
 		        }
 		    } 
 		} catch (IOException e) { 
@@ -415,9 +551,13 @@ public class dataFunctions {
 		    
 		}
 		
+		if(respondTypes.size() != 0) {
+			return respondTypes;
+		}
+		
 		//mehrzahl?
 		if(word.substring(word.length() - 1, word.length()).equals("s")) {
-    		word = word.replace("s", "");
+    		word = word.substring(0, word.length() - 1);
     		return getWordTypeViaDictionary(word);
     	}		
 		

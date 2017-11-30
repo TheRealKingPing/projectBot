@@ -15,6 +15,7 @@ public enum WordType {
 	preposition, 
 	pronoun,
 	properNoun,
+	prossessivePronoun,
 	questionWord, 
 	verb
 }

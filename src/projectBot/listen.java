@@ -11,14 +11,15 @@ public class listen {
 	private static Boolean learnMode = true;
 	
 	private static void memoriseSentence(List<Word> sentence) {
-		UsableStatement test = answer.getUsableStatement(sentence);
+		List<UsableStatement> test = answer.getUsableStatement(sentence);
 		
-		for(int sCounter = 0; sCounter < test.subjects.size(); sCounter++) {					
-			for(int oCounter = 0; oCounter < test.objects.size(); oCounter++) {
-				System.out.print(test.subjects.get(sCounter).getValue() + " " + test.predicate + " " + test.objects.get(oCounter).getValue() + "\n");				
+		for(UsableStatement uS : test) {
+			for(int sCounter = 0; sCounter < uS.subjects.size(); sCounter++) {					
+				for(int oCounter = 0; oCounter < uS.objects.size(); oCounter++) {
+					System.out.print(uS.subjects.get(sCounter).getValue() + " " + uS.predicate + " " + uS.objects.get(oCounter).getValue() + "\n");				
+				}			
 			}
-			
-		}				
+		}						
 	}
 	
 	public static void main(String[] args) {
@@ -34,7 +35,7 @@ public class listen {
 		for (int i = 0; i < words.length; i++) {			    
 			words[i] = words[i].replaceAll("[^\\w]", "");		    
 			//remove to lower case!
-		    wordList.add(new Word(words[i], dataInstance.getType(words[i].toLowerCase())));
+		    wordList.add(new Word(words[i], dataInstance.getType(words[i].toLowerCase()), i));
 		}
 		
 		if(learnMode == true) {

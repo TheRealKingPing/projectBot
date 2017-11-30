@@ -1,12 +1,17 @@
 package projectBot;
 
+import java.util.List;
+import java.util.Optional;
+
 public class Word {	
 	private String value;
-	private WordType type;
+	private List<WordType> types;
+	private int index;
 	
-	public Word(String _value, WordType _type) {				
+	public Word(String _value, List<WordType> _types, int _index) {				
 		value = _value;		
-		type = _type;
+		types = _types;
+		index = _index;
 	}
 	
 	//set
@@ -14,8 +19,12 @@ public class Word {
 		value = _value;
 	}
 	
-	public void setWordType(WordType _type) {
-		type = _type;
+	public void setWordTypes(List<WordType> _types) {
+		types = _types;
+	}
+	
+	public void setIndex(int _index) {
+		index = _index;
 	}
 
 	//get
@@ -23,7 +32,11 @@ public class Word {
 		return value;
 	}
 	
-	public WordType getWordType() {
-		return type;
-	}		
+	public List<WordType> getWordTypes() {
+		return types;
+	}
+	
+	public int getIndex() {
+		return index;
+	}
 }

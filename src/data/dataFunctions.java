@@ -251,7 +251,52 @@ public class dataFunctions {
 		}		
 		qe.close();
 		return false;
-	}	
+	}
+	
+	//todo: getSubject, getPredicate und getObject zusammen tun?
+	public String getSubject(String predicate, String object) {
+		String queryString =
+				prefixUri +	prefixRdf +				
+				"SELECT ?subject WHERE { \r\n" + 								
+				"?subject uri:" + predicate + " uri:" +	object +			
+				"}";		
+		Query query = QueryFactory.create(queryString);
+				 
+		// Execute the query and obtain results
+		QueryExecution qe = QueryExecutionFactory.create(query, m);
+		ResultSet results = qe.execSelect();
+		
+		// return query results 
+		while(results.hasNext()) {							
+			String subject = results.next().get("subject").toString().replaceAll(uri, "");
+			qe.close();
+			return subject;
+		}		
+		qe.close();				
+		return null;
+	}
+	
+	public String getObject(String subject, String predicate) {
+		String queryString =
+				prefixUri +	prefixRdf +				
+				"SELECT ?object WHERE { \r\n" + 								
+				"uri:" + subject + " uri:" + predicate + " ?object " +				
+				"}";		
+		Query query = QueryFactory.create(queryString);
+				 
+		// Execute the query and obtain results
+		QueryExecution qe = QueryExecutionFactory.create(query, m);
+		ResultSet results = qe.execSelect();
+		
+		// return query results 
+		while(results.hasNext()) {							
+			String object = results.next().get("object").toString().replaceAll(uri, "");
+			qe.close();
+			return object;
+		}		
+		qe.close();				
+		return null;
+	}
 	
 	public String getPersonByName (String firstname, String surname) {
 		String queryString =

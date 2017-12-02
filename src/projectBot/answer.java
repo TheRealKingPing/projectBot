@@ -1,6 +1,8 @@
 package projectBot;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Scanner;
@@ -35,20 +37,49 @@ public class answer {
 		System.out.print("'" + word + "' not found");
 	}
 	
-	private static String openAnswer(List<Word> questionWords) {
-		for(int counter = 0; counter < questionWords.size(); counter++) {			
-			String word = questionWords.get(counter).getValue();	
-			
-		}
-		return null;
-	}
-	
 	public static List<Word> getSentence(UsableStatement statement) {
 		
 		
 		
 		
 		return null;
+	}
+	
+	private static List<Word> transformQuestionToSentence(List<Word> question) {
+		//You to I
+		for(Word w : question) {
+			if(w.getValue().toLowerCase().equals("you")) {
+				w.setValue("I");
+			}
+		}		
+		
+		//todo: eigene funktion machen und auch bei getusablestatement benutzen
+		//identify subject				
+		int subjectEndIndex = 0;
+		
+		for(int c = 1; c < question.size(); c++) {
+			Word w = question.get(c);
+			Word nW = question.get(c + 1);
+			if(w.getWordTypes().get(0) == WordType.noun && nW.getWordTypes().get(0) != WordType.coordinatingConjunction) {
+				subjectEndIndex = c;
+				break;
+			}
+		}
+		
+		//switch position verb and subject
+		question.add(subjectEndIndex + 1, question.get(0));
+		question.remove(0);		
+		
+		//define index again
+		List<Word> respond = new ArrayList<Word>();
+		int counter = 0;
+		for(Word w : question) {			
+			w.setIndex(counter);
+			respond.add(w);
+			counter++;
+		}
+		
+		return respond;
 	}
 	
 	public static List<UsableStatement> getUsableStatement(List<Word> sentence) {
@@ -108,26 +139,27 @@ public class answer {
 			cuttedSentence.remove(w);
 		}	
 		
+		//todo: create findconstruction method
 		//find article-noun construction and cut article
-				List<Word> removableArt = new ArrayList<Word>();	
+		List<Word> removableArt = new ArrayList<Word>();	
+		
+		for(int c = 1; c < cuttedSentence.size(); c++) {
+			Word w = cuttedSentence.get(c);
+			Word lW = cuttedSentence.get(c - 1);
+			if(lW.getWordTypes().contains(WordType.article) && w.getWordTypes().contains(WordType.noun)) {
+				removableArt.add(lW);
 				
-				for(int c = 1; c < cuttedSentence.size(); c++) {
-					Word w = cuttedSentence.get(c);
-					Word lW = cuttedSentence.get(c - 1);
-					if(lW.getWordTypes().contains(WordType.article) && w.getWordTypes().contains(WordType.noun)) {
-						removableArt.add(lW);
-						
-						//define potential noun as noun
-						List<WordType> nounType = new ArrayList<WordType>();
-						nounType.add(WordType.noun);
-						w.setWordTypes(nounType);
-					}
-				}
-				
-				//remove article
-				for(Word w : removableArt) {
-					cuttedSentence.remove(w);
-				}	
+				//define potential noun as noun
+				List<WordType> nounType = new ArrayList<WordType>();
+				nounType.add(WordType.noun);
+				w.setWordTypes(nounType);
+			}			
+		}
+		
+		//remove article
+		for(Word w : removableArt) {
+			cuttedSentence.remove(w);
+		}				
 		
 		//find verb with "to" in front (infinitives)
 		List<Word> infinitives = new ArrayList<Word>();
@@ -178,8 +210,15 @@ public class answer {
 		int mVIndex = 0;
 		
 		for (Word w : cuttedSentence) {
-			if (w.getWordTypes().get(0) == WordType.verb) {
+			if (w.getWordTypes().get(0) == WordType.verb) {								
+				//define potential verb as verb
+				List<WordType> verbType = new ArrayList<WordType>();
+				verbType.add(WordType.verb);
+				w.setWordTypes(verbType);
+				
 				mainVerb = w;
+				
+				cuttedSentence.set(cuttedSentence.indexOf(w), w);
 				mVIndex = cuttedSentence.indexOf(w);					
 				
 				//does it have a preposition behind it
@@ -189,9 +228,7 @@ public class answer {
 						afterMainVerb.add(nextWord);
 						cuttedSentence.remove(nextWord);
 					}
-				}
-				
-				cuttedSentence.remove(w);				
+				}											
 				break;
 			}
 		}
@@ -200,6 +237,27 @@ public class answer {
 			mainVerb = auxiliaryVerbs.get(0);
 			mVIndex = firstAVIndex;
 		}
+		
+		//find pronoun-noun construction and cut pronoun
+		List<Word> removablePronoun = new ArrayList<Word>();	
+		
+		for(int c = 1; c < cuttedSentence.size(); c++) {
+			Word w = cuttedSentence.get(c);
+			Word lW = cuttedSentence.get(c - 1);
+			if(lW.getWordTypes().contains(WordType.pronoun) && w.getWordTypes().contains(WordType.noun)) {
+				removablePronoun.add(lW);
+				
+				//define potential noun as noun
+				List<WordType> nounType = new ArrayList<WordType>();
+				nounType.add(WordType.noun);
+				w.setWordTypes(nounType);
+			}
+		}
+		
+		//remove pronoun
+		for(Word w : removablePronoun) {
+			cuttedSentence.remove(w);
+		}	
 		
 		//find subject (in front of main verb)
 		List<Word> subjects = new ArrayList<Word>();		
@@ -273,8 +331,7 @@ public class answer {
 			//todo: adj. !
 			//todo: preposition !
 			if(w.getWordTypes().get(0) == WordType.adjective 
-			|| w.getWordTypes().get(0) == WordType.preposition
-			|| w.getWordTypes().get(0) == WordType.verb
+			|| w.getWordTypes().get(0) == WordType.preposition			
 			|| w.getWordTypes().get(0) == WordType.prossessivePronoun) {
 				modifier.add(w);
 			}
@@ -317,7 +374,7 @@ public class answer {
 		
 		//arange usabale statements
 		UsableStatement respond = new UsableStatement();
-		respond.subjects = usableSubjects;
+		respond.subjects = usableSubjects;		
 		respond.predicate = predicate;												 				
 		respond.objects = objects;
 		respondStatements.add(respond);
@@ -428,8 +485,8 @@ public class answer {
 		return output;	
 	}*/
 	
-	private static String closedAnswer(List<Word> questionWords) {		
-		List<UsableStatement> statement = getUsableStatement(questionWords);
+	private static String closedAnswer(List<Word> questionWords) {				
+		List<UsableStatement> statement = getUsableStatement(transformQuestionToSentence(questionWords));
 		
 		for(UsableStatement uS : statement) {
 			if(dataInstance.searchRestrictionExist(uS.subjects.get(0), uS.predicate, uS.objects.get(0)) == true) {
@@ -437,6 +494,30 @@ public class answer {
 			}			
 		}	
 		return "No";
+	}	
+	
+	private static String openAnswer(List<Word> questionWords) {		
+		for(Word w : questionWords) {
+			if(w.getWordTypes().get(0) == WordType.questionWord) {
+				List<UsableStatement> uS = new ArrayList<UsableStatement>();
+				switch(w.getValue()) {
+					case "who":						
+						questionWords.remove(w);
+						uS = getUsableStatement(questionWords);
+						
+						return dataInstance.getSubject(uS.get(0).predicate, uS.get(0).objects.get(0).getValue());						
+					case "what":
+						questionWords.remove(w);
+						uS = getUsableStatement(questionWords);
+						
+						return dataInstance.getObject(uS.get(0).subjects.get(0).getValue(), uS.get(0).predicate);
+					default:
+						break;
+				}
+			}
+		}
+		
+		return null;
 	}
 	
 	public static void main (String[] args) {

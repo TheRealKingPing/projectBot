@@ -521,7 +521,17 @@ public class answer {
 	}
 	
 	public static void main (String[] args) {
-		QuestionType type = QuestionType.closed;
+		String state = "ok";
+		
+		SearchWiki a = new SearchWiki();
+		try {
+			a.searchWiki(state);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			System.out.print(e.getMessage());
+		} 
+		
+		/*QuestionType type = QuestionType.closed;
 		
 		dataInstance.openData("src/projectBot/new.xml", "RDF/XML");
 			
@@ -545,6 +555,6 @@ public class answer {
 			System.out.print(closedAnswer(wordList));
 		}
 		
-		dataInstance.closeData();
+		dataInstance.closeData();*/
 	}	
 }

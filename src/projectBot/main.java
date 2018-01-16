@@ -68,9 +68,17 @@ public class main {
 	public static void main (String[] args) {		
 		String state = "learn";
 		
+		SearchWiki a = new SearchWiki();
+		try {
+			a.searchWiki(state);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			System.out.print(e.getMessage());
+		} 
+		
 		//inf.write(System.out, "JSON-LD");																						
 		
-		while(0 == 0) {
+		/*while(0 == 0) {
 		
 			OntModel m1 = ModelFactory.createOntologyModel(OntModelSpec.OWL_MEM);
 			m1.read("src/projectBot/new.xml", "RDF/XML");
@@ -163,7 +171,7 @@ public class main {
 			m1.write(System.out);*/					    			
 						
 			
-			saveModel(m1, "src/projectBot/new.xml", "RDF/XML");
+			/*saveModel(m1, "src/projectBot/new.xml", "RDF/XML");
 			
 			OntModel m2 = ModelFactory.createOntologyModel(OntModelSpec.OWL_MEM);
 			m2.read("src/projectBot/new.xml", "RDF/XML");											
@@ -192,6 +200,6 @@ public class main {
 			}			
 		    
 			saveModel(m2, "src/projectBot/new.xml", "RDF/XML");
-		}
+		}*/
 	}	
 }

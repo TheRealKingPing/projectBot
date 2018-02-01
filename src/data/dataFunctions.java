@@ -298,6 +298,44 @@ public class dataFunctions {
 		return null;
 	}
 	
+	public int createNewPersonID (String firstname, String surname) {
+		int newID = 0;
+		//number
+		String queryString =
+				prefixUri +	prefixRdf +				
+				"SELECT ?person WHERE { \r\n" + 				
+				" ?person rdf:type uri:person \r\n" + 
+				"}";		
+		Query query = QueryFactory.create(queryString);
+				 
+		// Execute the query and obtain results
+		QueryExecution qe = QueryExecutionFactory.create(query, m);
+		ResultSet results = qe.execSelect();
+		
+		// return query results 
+		while(results.hasNext()) {							
+			int personID = Integer.parseInt(results.next().get("person").toString().replaceAll(uri, "").replaceAll("Person", ""));
+			if(newID < personID) {
+				newID = personID;
+			}			
+		}		
+		qe.close();						
+		
+		
+		queryString =
+				prefixUri +	prefixRdf +	prefixOwl +			
+				"INSERT DATA { \r\n" +
+				"'Person'" + newID + " rdf:type uri:SomeClassName, owl:NamedIndividual \r\n" +				
+				"}";
+		query = QueryFactory.create(queryString);
+		
+		//Execute the query and obtain results
+		qe = QueryExecutionFactory.create(query, m);
+		
+		qe.close();
+		return newID; 
+	}
+	
 	public String getPersonByName (String firstname, String surname) {
 		String queryString =
 				prefixUri +	prefixRdf +				

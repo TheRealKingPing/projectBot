@@ -98,17 +98,30 @@ public class answer {
 		for(int c = 0; c < cuttedSentence.size(); c++) {
 			Word wFn = cuttedSentence.get(c);
 			if(cuttedSentence.size() > c + 1) {
-				Word wSn = cuttedSentence.get(c + 1);
-				if(wFn.getWordTypes().get(0) == WordType.properNoun && wSn.getWordTypes().get(0) == WordType.properNoun) {
-					String personId = dataInstance.getPersonByName(wFn.getValue(), wSn.getValue());
-					List<WordType> typeList = new ArrayList<WordType>();
-					typeList.add(WordType.properNoun);
-					Word person = new Word(personId, typeList, c);
-					cuttedSentence.add(c, person);
-					cuttedSentence.remove(wFn);
-					cuttedSentence.remove(wSn);
-					
-				}
+				Word wSn = cuttedSentence.get(c + 1);				
+				if(wFn.getWordTypes().isEmpty() == wSn.getWordTypes().isEmpty()) {
+					if(
+							(wFn.getWordTypes().isEmpty() == true && wSn.getWordTypes().isEmpty() == true) ||
+							(wFn.getWordTypes().get(0) == WordType.properNoun && wSn.getWordTypes().get(0) == WordType.properNoun)				
+						) {
+							
+							String personID = dataInstance.getPersonByName(wFn.getValue(), wSn.getValue());
+							//create new person id
+							if(personID == "") {
+								personID = "Person" + dataInstance.createNewPersonID(wFn.getValue(), wSn.getValue());
+							}
+								
+							//überprüfen ob id wirklich erstellt!
+								
+							List<WordType> typeList = new ArrayList<WordType>();
+							typeList.add(WordType.properNoun);
+							Word person = new Word(personID, typeList, c);
+							cuttedSentence.add(c, person);
+							cuttedSentence.remove(wFn);
+							cuttedSentence.remove(wSn);
+							
+						}
+				}				
 			}			
 		}			
 		

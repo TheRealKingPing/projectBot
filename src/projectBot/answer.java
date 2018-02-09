@@ -83,6 +83,18 @@ public class answer {
 	}
 	
 	public static List<UsableStatement> getUsableStatement(List<Word> sentence) {
+		//fill empty type list with "properNoun"	
+		int counter = 0;
+		List<WordType> typeList = new ArrayList<WordType>();
+		typeList.add(WordType.properNoun);
+		for(Word w : sentence) {					
+			if(w.getWordTypes().size() == 0) {
+				w.setWordTypes(typeList);
+				sentence.set(counter, w);
+			}
+			counter++;
+		}
+		
 		List<UsableStatement> respondStatements = new ArrayList<UsableStatement>();
 		
 		//cut unnecessary parts
@@ -100,25 +112,36 @@ public class answer {
 			if(cuttedSentence.size() > c + 1) {
 				Word wSn = cuttedSentence.get(c + 1);				
 				if(wFn.getWordTypes().isEmpty() == wSn.getWordTypes().isEmpty()) {
-					if(
-							(wFn.getWordTypes().isEmpty() == true && wSn.getWordTypes().isEmpty() == true) ||
-							(wFn.getWordTypes().get(0) == WordType.properNoun && wSn.getWordTypes().get(0) == WordType.properNoun)				
-						) {
-							
+					if(wFn.getWordTypes().get(0) == WordType.properNoun && wSn.getWordTypes().get(0) == WordType.properNoun) {
+						
+							//todo people with middlename
+						
 							String personID = dataInstance.getPersonByName(wFn.getValue(), wSn.getValue());
 							//create new person id
-							if(personID == "") {
+							if(personID == null) {
 								personID = "Person" + dataInstance.createNewPersonID(wFn.getValue(), wSn.getValue());
 							}
 								
 							//überprüfen ob id wirklich erstellt!
-								
-							List<WordType> typeList = new ArrayList<WordType>();
-							typeList.add(WordType.properNoun);
-							Word person = new Word(personID, typeList, c);
+										
+							//todo: is people as WordType rational
+							
+							List<WordType> pTypeList = new ArrayList<WordType>();
+							pTypeList.add(WordType.person);
+							Word person = new Word(personID, pTypeList, c);
 							cuttedSentence.add(c, person);
 							cuttedSentence.remove(wFn);
 							cuttedSentence.remove(wSn);
+							
+							sentence.add(c, person);
+							sentence.remove(wFn);
+							sentence.remove(wSn);
+							//if you want to change the sentence list you have to refresh the index of each item
+							int index = 0; 
+							for(Word w : sentence) {
+								w.setIndex(index);
+								index++;
+							}
 							
 						}
 				}				
@@ -132,18 +155,23 @@ public class answer {
 			Word w = cuttedSentence.get(c);
 			Word lW = cuttedSentence.get(c - 1);
 			if(lW.getWordTypes().contains(WordType.adjective) && w.getWordTypes().contains(WordType.noun)) {
-				UsableStatement adjNounStatement = new UsableStatement();
+				//create this construct in database
+				dataInstance.insertClass(w.getValue(), null);
+				dataInstance.insertClass(lW.getValue() + "_" + w.getValue(), w.getValue());
+				
+				/*UsableStatement adjNounStatement = new UsableStatement();
 				adjNounStatement.subjects.add(w);
 				adjNounStatement.predicate = "is";
 				adjNounStatement.objects.add(lW);
 				
-				respondStatements.add(adjNounStatement);
+				respondStatements.add(adjNounStatement);*/
 				removableAdj.add(lW);
 				
 				//define potential noun as noun
 				List<WordType> nounType = new ArrayList<WordType>();
 				nounType.add(WordType.noun);
 				w.setWordTypes(nounType);
+				w.setValue(lW.getValue() + "_" + w.getValue());
 			}
 		}
 		
@@ -315,6 +343,7 @@ public class answer {
 							break;
 						case noun:
 						case pronoun:
+						case properNoun:
 							usableSubjects.add(w);
 							cuttedSentence.remove(w);
 							break;		

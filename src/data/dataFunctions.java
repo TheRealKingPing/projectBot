@@ -3,12 +3,14 @@ package data;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.*;
 
 import org.apache.http.protocol.ResponseDate;
 import org.apache.jena.ontology.OntClass;
@@ -24,18 +26,31 @@ import org.apache.jena.rdf.model.ModelFactory;
 import org.apache.jena.rdf.model.Property;
 import org.apache.jena.rdf.model.RDFNode;
 import org.apache.jena.rdf.model.impl.LiteralImpl;
+import org.apache.jena.sparql.lang.UpdateParserFactory;
+import org.apache.jena.sparql.util.Context;
+import org.apache.jena.update.GraphStore;
+import org.apache.jena.update.GraphStoreFactory;
+import org.apache.jena.update.Update;
+import org.apache.jena.update.UpdateExecutionFactory;
+import org.apache.jena.update.UpdateFactory;
+import org.apache.jena.update.UpdateProcessor;
+import org.apache.jena.update.UpdateRequest;
 import org.apache.jena.util.iterator.ExtendedIterator;
 
+import projectBot.UsableStatement;
 import projectBot.Word;
 import projectBot.WordType;
 
 public class dataFunctions {	
 	private static String uri = "http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#";
-	private static OntModel m = ModelFactory.createOntologyModel(OntModelSpec.OWL_MEM_MICRO_RULE_INF);	
+	private static OntModel m = ModelFactory.createOntologyModel(OntModelSpec.OWL_MEM_MICRO_RULE_INF);
+	private String fileSource = "";
+	private String type = "RDF/XML";
 	private String prefixUri = "prefix uri: <" + uri + "> ";
 	private String prefixRdf = "prefix rdf:<http://www.w3.org/1999/02/22-rdf-syntax-ns#>";
 	private String prefixRdfs = "prefix rdfs:<http://www.w3.org/2000/01/rdf-schema#>";
 	private String prefixOwl = "prefix owl:<http://www.w3.org/2002/07/owl#>";
+	private String prefixFoaf = "prefix foaf:<http://xmlns.com/foaf/0.1/>";	
 	
 	//todo: not only infinitive => every verb
 	//get subject name by infinitive todo: delete
@@ -62,13 +77,29 @@ public class dataFunctions {
 		}
 	}	
 	
-	public void openData(String fileSource, String type) {
+	public void openData(String _fileSource, String _type) {
+		fileSource = _fileSource;
+		type = _type;
+		
 		m.read(fileSource, type);
 		m.setStrictMode(false);		
 	}
 	
-	public void closeData() {
-		m.close();
+	public void closeData() {					
+		try {	
+			FileWriter fw = null;
+		    try {
+		    	fw = new FileWriter(fileSource);		
+			    m.write( fw, type );
+		    }
+		    finally {
+		    	fw.close();	
+		    }
+		}
+		catch(IOException e) {
+			System.out.print(e);
+		}
+		m.close();	
 	}
 	
 	public String getInfinitive(Word word) {
@@ -100,6 +131,13 @@ public class dataFunctions {
 	
 	public List<WordType> getType(String word) {
 		List<WordType> respondTypes = new ArrayList<WordType>();
+		
+		//number
+		//todo: to a regex
+		if (word.matches("^[0-9]+$") == true) {					
+			respondTypes.add(WordType.numeral);
+			return respondTypes;
+		}				
 		// Create a new query
 		String queryString =
 				prefixUri +	prefixRdf +	prefixRdfs +			
@@ -154,7 +192,8 @@ public class dataFunctions {
 			}				
 		}		
 		qe.close();
-		if(respondTypes.size() == 0) {
+		//todo: search everything or not ?
+		/*if(respondTypes.size() == 0) {
 			//search in dictionary
 			List<WordType> dictonaryType = getWordTypeViaDictionary(word);
 			if (dictonaryType != null) {
@@ -193,7 +232,46 @@ public class dataFunctions {
 					}
 				}
 			}
-		}								
+		}	*/	
+					
+		//search in dictionary
+		List<WordType> dictionaryTypes = getWordTypeViaDictionary(word);		
+					
+		//search again with base verb
+		String baseVerb = getBaseOfVerb(word);
+	
+		if(baseVerb != null) {
+			dictionaryTypes = getWordTypeViaDictionary(baseVerb);
+		}
+		
+		//todo: dk bout that
+		
+		//search again with adjective
+		/*String adjective = getAdjectiveOfAdverb(word);
+		if(adjective != null) {
+			dictonaryType = getWordTypeViaDictionary(adjective);											
+			if (dictonaryType != null) {
+				List<WordType> respond = new ArrayList<WordType>();
+				respond.add(WordType.adverb);
+				return respond;
+			}						
+		}*/
+			
+		//search again with singular noun
+		String singularNoun = getSingularOfPlural(word);
+		if(singularNoun != null) {
+			dictionaryTypes = getWordTypeViaDictionary(singularNoun);											
+		}		
+		
+		//add those dictionary types to the respond
+		if(dictionaryTypes != null) {
+			for(WordType type : dictionaryTypes) {
+				if(!respondTypes.contains(type)) {
+					respondTypes.add(type);
+				}			
+			}
+		}			
+		
 		return respondTypes;
 	}
 	
@@ -219,6 +297,51 @@ public class dataFunctions {
 			}
 		}												
 		return null;
+	}
+	
+	public void insertRestriction(Word subjectName, String propertyName, Word objectName) {						
+		String updateString =
+				prefixUri +	prefixRdf + prefixOwl +
+				"INSERT DATA { \r\n" +
+				"uri:" + propertyName + " rdf:type owl:ObjectProperty . \r\n" +
+				"uri:" + subjectName.getValue() + " uri:" + propertyName + " uri:" + objectName.getValue() + " . \r\n" +
+				"uri:" + subjectName.getValue() + " rdf:type uri:" + subjectName.getWordTypes().get(0) + " . \r\n" +
+				"uri:" + objectName.getValue() + " rdf:type uri:" + objectName.getWordTypes().get(0) + " . \r\n" +
+				"}";
+		
+		if(propertyName.equals("is" )) {
+			//is object a class?
+			String queryString =
+					prefixUri +	prefixRdfs +			
+					"SELECT ?object WHERE { \r\n" + 								
+					"uri:" + objectName.getValue() + " rdfs:subClassOf ?object . \r\n" + 					
+					"}";		
+			Query query = QueryFactory.create(queryString);
+			
+			//todo: nach namen suchen anstatt subclassof (btw subclassof ist evt falsch
+			
+			// Execute the query and obtain results
+			QueryExecution qe = QueryExecutionFactory.create(query, m);
+			ResultSet results = qe.execSelect();
+				
+			if(results.hasNext() == true) {
+				updateString =
+						prefixUri +	prefixRdf +		
+						"INSERT DATA { \r\n" +
+						"uri:" + subjectName.getValue() + " rdf:type uri:" + objectName.getValue() + " . \r\n" +						
+						"}";
+			}
+			
+			qe.close();							
+			
+		}				
+		
+		GraphStore graphStore = GraphStoreFactory.create(m);
+		UpdateRequest request = UpdateFactory.create(updateString);			
+		
+		//Execute the update
+		UpdateProcessor proc = UpdateExecutionFactory.create(request, graphStore);		
+		proc.execute();					
 	}
 	
 	public boolean searchRestrictionExist(Word subjectName, String propertyName, Word objectName) {
@@ -298,7 +421,10 @@ public class dataFunctions {
 		return null;
 	}
 	
-	public int createNewPersonID (String firstname, String surname) {
+	public int createNewPersonID (String _firstname, String _surname) {		
+		String firstname = _firstname.toLowerCase();
+		String surname = _surname.toLowerCase();
+		
 		int newID = 0;
 		//number
 		String queryString =
@@ -313,26 +439,40 @@ public class dataFunctions {
 		ResultSet results = qe.execSelect();
 		
 		// return query results 
-		while(results.hasNext()) {							
-			int personID = Integer.parseInt(results.next().get("person").toString().replaceAll(uri, "").replaceAll("Person", ""));
-			if(newID < personID) {
-				newID = personID;
-			}			
-		}		
-		qe.close();						
+		while(results.hasNext()) {			
+			String resultPerson = results.next().get("person").toString().replaceAll(uri, "");
+			if(resultPerson.contains("Person")) {
+				int personID = Integer.parseInt(resultPerson.replaceAll("Person", ""));
+				if(newID < personID) {
+					newID = personID;
+				}			
+			}					
+		}	
+		newID++;
+		qe.close();									
 		
-		
-		queryString =
+		GraphStore graphStore = GraphStoreFactory.create(m);
+		String updateString =
 				prefixUri +	prefixRdf +	prefixOwl +			
 				"INSERT DATA { \r\n" +
-				"'Person'" + newID + " rdf:type uri:SomeClassName, owl:NamedIndividual \r\n" +				
+				"uri:" + firstname + " rdf:type owl:NamedIndividual . \r\n" +
+				"uri:" + firstname + " rdf:type uri:ProperNoun . \r\n" +
+				"uri:" + surname + " rdf:type owl:NamedIndividual . \r\n" +
+				"uri:" + surname + " rdf:type uri:ProperNoun . \r\n" +
+				"uri:Person" + newID + " rdf:type owl:NamedIndividual . \r\n" +
+				"uri:Person" + newID + " rdf:type uri:person . \r\n" +
+				"uri:Person" + newID + " uri:hasFirstname uri:" + firstname + " . \r\n" +
+				"uri:Person" + newID + " uri:hasSurname uri:" + surname + " . \r\n" +				
 				"}";
-		query = QueryFactory.create(queryString);
+		UpdateRequest request = UpdateFactory.create(updateString);			
 		
-		//Execute the query and obtain results
-		qe = QueryExecutionFactory.create(query, m);
+		//Execute the update
+		UpdateProcessor proc = UpdateExecutionFactory.create(request, graphStore);		
+		proc.execute();
+			
+		//todo: delete me
+		System.out.print("created a person; " + firstname + " " + surname + " => Person" + newID + "\n");
 		
-		qe.close();
 		return newID; 
 	}
 	
@@ -426,6 +566,12 @@ public class dataFunctions {
 	}
 	
 	public String getBaseOfVerb(String word) {
+		//irregular verbs
+		String iVerb = getBaseVerbInIrregularVerbs(word);
+		if(iVerb != null) {
+			return iVerb;
+		}			
+		
 		//3rd person singular present tense -es -s		
 		if (word.length() > 2 && word.substring(word.length() - 2, word.length()).equals("es")) {
 			return word.substring(0, word.length() - 2);
@@ -445,13 +591,8 @@ public class dataFunctions {
 		//present participle -ing
 		if (word.length() > 3 && word.substring(word.length() - 3, word.length()).equals("ing")) {
 			return word.substring(0, word.length() - 3);
-		}
+		}		
 		
-		//irregular verbs
-		String iVerb = getBaseVerbInIrregularVerbs(word);
-		if(iVerb != null) {
-			return iVerb;
-		}			
 		else {
 			return null;
 		}
@@ -645,6 +786,31 @@ public class dataFunctions {
     	}		
 		
 		return null;
+	}
+	
+	//insert a class with the specific superclass (if <null> => Knowledge)
+	public void insertClass(String className, String subClassOf) {
+		if(className != null) {
+			if(subClassOf == null) {
+				subClassOf = "Knowledge";
+			}		
+			
+			GraphStore graphStore = GraphStoreFactory.create(m);
+			String updateString =
+					prefixUri +	prefixRdfs +			
+					"INSERT DATA { \r\n" +
+					"uri:" + className + " rdfs:subClassOf uri:" + subClassOf + " . \r\n" +				
+					"}";					
+			
+			UpdateRequest request = UpdateFactory.create(updateString);			
+			
+			//Execute the update
+			UpdateProcessor proc = UpdateExecutionFactory.create(request, graphStore);		
+			proc.execute();		
+			
+			//todo: delete me
+			System.out.print("\"" + className + "\" with super class \"" + subClassOf + "\"\n");
+		}				
 	}
 }
 

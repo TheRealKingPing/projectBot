@@ -757,8 +757,18 @@ public class dataFunctions {
 								default:									
 									break;								
 							}										        	
-		        		} while (zeile.indexOf("—") != -1);	
-		        		break;
+		        		} while (zeile.indexOf("—") != -1);			        		
+		        		if (zeilenWord.toLowerCase().equals(word + "e")) {
+		        			if(!respondTypes.contains(WordType.verb) || !respondTypes.contains(WordType.auxiliaryVerb)) {
+		        				respondTypes = new ArrayList<WordType>();
+		        			}
+		        			else {
+		        				break;
+		        			}
+		        		}
+		        		else {
+		        			break;
+		        		}		        		
 		        	}
 		        	        			        			        			        	
 		        }

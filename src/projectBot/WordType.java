@@ -18,5 +18,6 @@ public enum WordType {
 	person,
 	prossessivePronoun,
 	questionWord, 
-	verb
+	verb,
+	modalVerb
 }

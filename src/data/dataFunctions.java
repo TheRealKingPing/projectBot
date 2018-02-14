@@ -108,7 +108,7 @@ public class dataFunctions {
 			String queryString =
 					prefixUri + 			
 					"SELECT ?infinitive \n" +
-					"WHERE { uri:" + word.getValue() + " uri:hasInfinitive ?infinitive }";
+					"WHERE { uri:" + word.getValue().toLowerCase() + " uri:hasInfinitive ?infinitive }";
 			
 			Query query = QueryFactory.create(queryString);
 			 
@@ -142,7 +142,7 @@ public class dataFunctions {
 		String queryString =
 				prefixUri +	prefixRdf +	prefixRdfs +			
 				"SELECT ?type WHERE { \r\n" + 				
-				" uri:" + word + " rdf:type ?type . \r\n" + 
+				" uri:" + word.toLowerCase() + " rdf:type ?type . \r\n" + 
 				" ?type rdfs:subClassOf uri:Word . \r\n" +
 				" FILTER( ?type != uri:Word ) \r\n" + 
 				"}";
@@ -156,38 +156,41 @@ public class dataFunctions {
 		// return query results 
 		while(results.hasNext()) {					
 			switch(results.next().getResource("type").getURI().toString().replaceAll(uri, "")) {
-				case "WordVerb":					
-					respondTypes.add(WordType.verb);
+				case "verb":					
+					respondTypes.add(WordType.verb);					
 					break;
-				case "AuxiliaryVerb":					
+				case "modalVerb":
+					respondTypes.add(WordType.modalVerb);
+					break;
+				case "auxiliaryVerb":					
 					respondTypes.add(WordType.auxiliaryVerb);
 					break;
-				case "WordNoun":					
+				case "noun":					
 					respondTypes.add(WordType.noun);
 					break;
-				case "WordPronoun":					
+				case "pronoun":					
 					respondTypes.add(WordType.pronoun);
 					break;
-				case "WordAdjective":					
+				case "adjective":					
 					respondTypes.add(WordType.adjective);
 					break;
-				case "QuestionWord":					
+				case "questionWord":					
 					respondTypes.add(WordType.questionWord);
 					break;
-				case "ProperNoun":					
+				case "properNoun":					
 					respondTypes.add(WordType.properNoun);
 					break;
-				case "Article":					
+				case "article":					
 					respondTypes.add(WordType.article);
 					break;
-				case "CoordinatingConjunction":					
+				case "coordinatingConjunction":					
 					respondTypes.add(WordType.coordinatingConjunction);
 					break;
-				case "WordPreposition":					
+				case "preposition":					
 					respondTypes.add(WordType.preposition);
 					break;
 				default:		
-					System.out.print("'" + word + "' not found");
+					System.out.print("'" + word + "' not found in the database\n--\n");
 					break;
 			}				
 		}		
@@ -233,17 +236,10 @@ public class dataFunctions {
 				}
 			}
 		}	*/	
-					
-		//search in dictionary
-		List<WordType> dictionaryTypes = getWordTypeViaDictionary(word);		
-					
-		//search again with base verb
+												
+		//get base verb
 		String baseVerb = getBaseOfVerb(word);
-	
-		if(baseVerb != null) {
-			dictionaryTypes = getWordTypeViaDictionary(baseVerb);
-		}
-		
+	    				
 		//todo: dk bout that
 		
 		//search again with adjective
@@ -257,21 +253,25 @@ public class dataFunctions {
 			}						
 		}*/
 			
-		//search again with singular noun
-		String singularNoun = getSingularOfPlural(word);
-		if(singularNoun != null) {
-			dictionaryTypes = getWordTypeViaDictionary(singularNoun);											
-		}		
-		
-		//add those dictionary types to the respond
-		if(dictionaryTypes != null) {
-			for(WordType type : dictionaryTypes) {
-				if(!respondTypes.contains(type)) {
-					respondTypes.add(type);
-				}			
-			}
-		}			
-		
+		//get singular noun
+		String singularNoun = getSingularOfPlural(word);	
+
+		//search in dictionary
+		List<WordType> dictionaryList = new ArrayList<WordType>();
+		String[] thoseWords = {word, baseVerb, singularNoun};
+		for(int c = 0; c < thoseWords.length; c++) {
+			if(thoseWords[c] != null) {
+				dictionaryList = getWordTypeViaDictionary(thoseWords[c]);
+				if(dictionaryList != null) {
+					for(WordType type : dictionaryList) {
+						if(!respondTypes.contains(type)) {
+							respondTypes.add(type);
+						}
+					}
+				}				
+			}			
+		}
+					
 		return respondTypes;
 	}
 	
@@ -303,10 +303,10 @@ public class dataFunctions {
 		String updateString =
 				prefixUri +	prefixRdf + prefixOwl +
 				"INSERT DATA { \r\n" +
-				"uri:" + propertyName + " rdf:type owl:ObjectProperty . \r\n" +
-				"uri:" + subjectName.getValue() + " uri:" + propertyName + " uri:" + objectName.getValue() + " . \r\n" +
-				"uri:" + subjectName.getValue() + " rdf:type uri:" + subjectName.getWordTypes().get(0) + " . \r\n" +
-				"uri:" + objectName.getValue() + " rdf:type uri:" + objectName.getWordTypes().get(0) + " . \r\n" +
+				"uri:" + propertyName.toLowerCase() + " rdf:type owl:ObjectProperty . \r\n" +
+				"uri:" + subjectName.getValue().toLowerCase() + " uri:" + propertyName + " uri:" + objectName.getValue().toLowerCase() + " . \r\n" +
+				"uri:" + subjectName.getValue().toLowerCase() + " rdf:type uri:" + subjectName.getWordTypes().get(0) + " . \r\n" +
+				"uri:" + objectName.getValue().toLowerCase() + " rdf:type uri:" + objectName.getWordTypes().get(0) + " . \r\n" +
 				"}";
 		
 		if(propertyName.equals("is" )) {
@@ -314,7 +314,7 @@ public class dataFunctions {
 			String queryString =
 					prefixUri +	prefixRdfs +			
 					"SELECT ?object WHERE { \r\n" + 								
-					"uri:" + objectName.getValue() + " rdfs:subClassOf ?object . \r\n" + 					
+					"uri:" + objectName.getValue().toLowerCase() + " rdfs:subClassOf ?object . \r\n" + 					
 					"}";		
 			Query query = QueryFactory.create(queryString);
 			
@@ -351,10 +351,10 @@ public class dataFunctions {
 				" SELECT ?isRight WHERE { \r\n"; 				
 						
 		if(objectName.getWordTypes() != null && objectName.getWordTypes().equals(WordType.noun) && propertyName.equals("is")) {
-			queryString = queryString + "  BIND( EXISTS { uri:" + subjectName.getValue() + " rdf:type uri:" + objectName.getValue() + " } as ?isRight ) \r\n ";			
+			queryString = queryString + "  BIND( EXISTS { uri:" + subjectName.getValue().toLowerCase() + " rdf:type uri:" + objectName.getValue().toLowerCase() + " } as ?isRight ) \r\n ";			
 		}
 		else {
-			queryString = queryString + "  BIND( EXISTS { uri:"+ subjectName.getValue() + " uri:" + propertyName + " uri:" + objectName.getValue() + " } as ?isRight )\r\n";
+			queryString = queryString + "  BIND( EXISTS { uri:"+ subjectName.getValue().toLowerCase() + " uri:" + propertyName + " uri:" + objectName.getValue().toLowerCase() + " } as ?isRight )\r\n";
 		}		
 		queryString = queryString + "}";
 		
@@ -381,7 +381,7 @@ public class dataFunctions {
 		String queryString =
 				prefixUri +	prefixRdf +				
 				"SELECT ?subject WHERE { \r\n" + 								
-				"?subject uri:" + predicate + " uri:" +	object +			
+				"?subject uri:" + predicate.toLowerCase() + " uri:" +	object.toLowerCase() +			
 				"}";		
 		Query query = QueryFactory.create(queryString);
 				 
@@ -403,7 +403,7 @@ public class dataFunctions {
 		String queryString =
 				prefixUri +	prefixRdf +				
 				"SELECT ?object WHERE { \r\n" + 								
-				"uri:" + subject + " uri:" + predicate + " ?object " +				
+				"uri:" + subject.toLowerCase() + " uri:" + predicate.toLowerCase() + " ?object " +				
 				"}";		
 		Query query = QueryFactory.create(queryString);
 				 
@@ -455,14 +455,14 @@ public class dataFunctions {
 		String updateString =
 				prefixUri +	prefixRdf +	prefixOwl +			
 				"INSERT DATA { \r\n" +
-				"uri:" + firstname + " rdf:type owl:NamedIndividual . \r\n" +
-				"uri:" + firstname + " rdf:type uri:ProperNoun . \r\n" +
-				"uri:" + surname + " rdf:type owl:NamedIndividual . \r\n" +
-				"uri:" + surname + " rdf:type uri:ProperNoun . \r\n" +
+				"uri:" + firstname.toLowerCase() + " rdf:type owl:NamedIndividual . \r\n" +
+				"uri:" + firstname.toLowerCase() + " rdf:type uri:ProperNoun . \r\n" +
+				"uri:" + surname.toLowerCase() + " rdf:type owl:NamedIndividual . \r\n" +
+				"uri:" + surname.toLowerCase() + " rdf:type uri:ProperNoun . \r\n" +
 				"uri:Person" + newID + " rdf:type owl:NamedIndividual . \r\n" +
 				"uri:Person" + newID + " rdf:type uri:person . \r\n" +
-				"uri:Person" + newID + " uri:hasFirstname uri:" + firstname + " . \r\n" +
-				"uri:Person" + newID + " uri:hasSurname uri:" + surname + " . \r\n" +				
+				"uri:Person" + newID + " uri:hasFirstname uri:" + firstname.toLowerCase() + " . \r\n" +
+				"uri:Person" + newID + " uri:hasSurname uri:" + surname.toLowerCase() + " . \r\n" +				
 				"}";
 		UpdateRequest request = UpdateFactory.create(updateString);			
 		
@@ -471,7 +471,7 @@ public class dataFunctions {
 		proc.execute();
 			
 		//todo: delete me
-		System.out.print("created a person; " + firstname + " " + surname + " => Person" + newID + "\n");
+		System.out.print("created a person; " + firstname.toLowerCase() + " " + surname.toLowerCase() + " => Person" + newID + "\n");
 		
 		return newID; 
 	}
@@ -481,8 +481,8 @@ public class dataFunctions {
 				prefixUri +	prefixRdf +				
 				"SELECT ?person WHERE { \r\n" + 				
 				" ?person rdf:type uri:person . \r\n" + 
-				" ?person uri:hasFirstname uri:" + firstname + " . \r\n" +
-				" ?person uri:hasSurname uri:" + surname + " . \r\n" +
+				" ?person uri:hasFirstname uri:" + firstname.toLowerCase() + " . \r\n" +
+				" ?person uri:hasSurname uri:" + surname.toLowerCase() + " . \r\n" +
 				"}";		
 		Query query = QueryFactory.create(queryString);
 				 
@@ -692,7 +692,12 @@ public class dataFunctions {
 		        	if(nextWord.equals("artc.")) {
 		        		System.out.print(zeile + "\n\n");
 		        	}
-		        	if (word.trim().equals(zeilenWord.toLowerCase()) == true || zeilenWord.toLowerCase().equals(word + "e")) {
+		        	if (
+		        			word.trim().equals(zeilenWord.toLowerCase()) == true ||
+		        			zeilenWord.toLowerCase().equals(word + "e") ||
+		        			zeilenWord.toLowerCase().equals(word + "1")
+		        			
+		        			) {
 		        		do {	
 		        			if(zeile.contains("—")) {
 								zeile = zeile.substring(zeile.indexOf("—") + 1);
@@ -707,7 +712,10 @@ public class dataFunctions {
 			        			nextWord = nextWord.replace("—", "");
 			        		}
 				        	switch(nextWord) {		        	
-			        			case "n.":
+				        		case "int.":
+				        			respondTypes.add(WordType.interjection);
+				        			break;
+				        		case "n.":
 			        				respondTypes.add(WordType.noun);	
 			        				break;
 			        			case "v.":
@@ -809,7 +817,7 @@ public class dataFunctions {
 			String updateString =
 					prefixUri +	prefixRdfs +			
 					"INSERT DATA { \r\n" +
-					"uri:" + className + " rdfs:subClassOf uri:" + subClassOf + " . \r\n" +				
+					"uri:" + className.toLowerCase() + " rdfs:subClassOf uri:" + subClassOf.toLowerCase() + " . \r\n" +				
 					"}";					
 			
 			UpdateRequest request = UpdateFactory.create(updateString);			
@@ -819,7 +827,7 @@ public class dataFunctions {
 			proc.execute();		
 			
 			//todo: delete me
-			System.out.print("\"" + className + "\" with super class \"" + subClassOf + "\"\n");
+			System.out.print("\"" + className.toLowerCase() + "\" with super class \"" + subClassOf.toLowerCase() + "\"\n");
 		}				
 	}
 }

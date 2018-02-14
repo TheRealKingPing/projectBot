@@ -1,817 +1,1613 @@
-<?xml version="1.0" encoding="windows-1252"?>
-<rdf:RDF
-    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
-    xmlns:dc="http://purl.org/dc/elements/1.1/"
-    xmlns:owl="http://www.w3.org/2002/07/owl#"
-    xmlns:j.0="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#"
-    xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
-    xmlns:xsd="http://www.w3.org/2001/XMLSchema#">
-  <owl:Ontology rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3"/>
-  <owl:Class rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#InterrogativeAdjective">
-    <rdfs:subClassOf>
-      <owl:Class rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#WordAdjective"/>
-    </rdfs:subClassOf>
-  </owl:Class>
-  <owl:Class rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#SentenceImperative">
-    <rdfs:subClassOf>
-      <owl:Class rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#Sentence"/>
-    </rdfs:subClassOf>
-  </owl:Class>
-  <owl:Class rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#ReflexivePronoun">
-    <rdfs:subClassOf>
-      <owl:Class rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#WordPronoun"/>
-    </rdfs:subClassOf>
-  </owl:Class>
-  <owl:Class rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#PossessivePronoun">
-    <rdfs:subClassOf>
-      <owl:Class rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#WordPronoun"/>
-    </rdfs:subClassOf>
-  </owl:Class>
-  <owl:Class rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#SentenceStatement">
-    <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#Sentence"/>
-  </owl:Class>
-  <owl:Class rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#chemical_element">
-    <rdfs:subClassOf>
-      <owl:Class rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#element"/>
-    </rdfs:subClassOf>
-  </owl:Class>
-  <owl:Class rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#QuestionWord">
-    <rdfs:subClassOf>
-      <owl:Class rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#WordAdverb"/>
-    </rdfs:subClassOf>
-  </owl:Class>
-  <owl:Class rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#Word"/>
-  <owl:Class rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#IndefinitePronoun">
-    <rdfs:subClassOf>
-      <owl:Class rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#WordPronoun"/>
-    </rdfs:subClassOf>
-  </owl:Class>
-  <owl:Class rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#User"/>
-  <owl:Class rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#SentenceExclamations">
-    <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#Sentence"/>
-  </owl:Class>
-  <owl:Class rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#element">
-    <rdfs:subClassOf>
-      <owl:Class rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#Knowledge"/>
-    </rdfs:subClassOf>
-  </owl:Class>
-  <owl:Class rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#WordNumeral">
-    <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#Word"/>
-  </owl:Class>
-  <owl:Class rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#IntensivePronoun">
-    <rdfs:subClassOf>
-      <owl:Class rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#WordPronoun"/>
-    </rdfs:subClassOf>
-  </owl:Class>
-  <owl:Class rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#eye">
-    <rdfs:subClassOf>
-      <owl:Class rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#observer"/>
-    </rdfs:subClassOf>
-  </owl:Class>
-  <owl:Class rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#ConjunctionAdverbs">
-    <rdfs:subClassOf>
-      <owl:Class rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#WordConjunction"/>
-    </rdfs:subClassOf>
-  </owl:Class>
-  <owl:Class rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#SentenceFromUser">
-    <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#Sentence"/>
-  </owl:Class>
-  <owl:Class rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#WordVerb">
-    <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#Word"/>
-  </owl:Class>
-  <owl:Class rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#WordConjunction">
-    <rdfs:comment>Conjunctions are useful for making lists.</rdfs:comment>
-    <rdfs:comment>Conjunctions are for connecting thoughts, actions, and ideas as well as nouns, clauses, and other parts of speech</rdfs:comment>
-    <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#Word"/>
-  </owl:Class>
-  <owl:Class rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#Article">
-    <rdfs:subClassOf>
-      <owl:Class rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#WordAdjective"/>
-    </rdfs:subClassOf>
-  </owl:Class>
-  <owl:Class rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#TimePrepositions">
-    <rdfs:subClassOf>
-      <owl:Class rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#WordPreposition"/>
-    </rdfs:subClassOf>
-  </owl:Class>
-  <owl:Class rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#WordInterjection">
-    <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#Word"/>
-  </owl:Class>
-  <owl:Class rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#money">
-    <rdfs:subClassOf>
-      <owl:Restriction>
-        <owl:someValuesFrom>
-          <owl:Class rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#thing"/>
-        </owl:someValuesFrom>
-        <owl:onProperty>
-          <owl:ObjectProperty rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#usedToBuy"/>
-        </owl:onProperty>
-      </owl:Restriction>
-    </rdfs:subClassOf>
-    <rdfs:subClassOf>
-      <owl:Class rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#physical_thing"/>
-    </rdfs:subClassOf>
-  </owl:Class>
-  <owl:Class rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#substance">
-    <rdfs:subClassOf>
-      <owl:Restriction>
-        <owl:someValuesFrom>
-          <owl:Class rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#physical_thing"/>
-        </owl:someValuesFrom>
-        <owl:onProperty>
-          <owl:ObjectProperty rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#canBeTouchedFrom"/>
-        </owl:onProperty>
-      </owl:Restriction>
-    </rdfs:subClassOf>
-    <rdfs:subClassOf>
-      <owl:Restriction>
-        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#eye"/>
-        <owl:onProperty>
-          <owl:ObjectProperty rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#canBeSeenFrom"/>
-        </owl:onProperty>
-      </owl:Restriction>
-    </rdfs:subClassOf>
-    <rdfs:subClassOf>
-      <owl:Restriction>
-        <owl:someValuesFrom>
-          <owl:Class rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#observer"/>
-        </owl:someValuesFrom>
-        <owl:onProperty>
-          <owl:ObjectProperty rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#canBeMeasuredFrom"/>
-        </owl:onProperty>
-      </owl:Restriction>
-    </rdfs:subClassOf>
-    <rdfs:subClassOf>
-      <owl:Class rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#physical_thing"/>
-    </rdfs:subClassOf>
-  </owl:Class>
-  <owl:Class rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#CoordinateAdjective">
-    <rdfs:subClassOf>
-      <owl:Class rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#WordAdjective"/>
-    </rdfs:subClassOf>
-  </owl:Class>
-  <owl:Class rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#thing">
-    <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#Knowledge"/>
-  </owl:Class>
-  <owl:Class rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#DemonstrativeAdjective">
-    <rdfs:subClassOf>
-      <owl:Class rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#WordAdjective"/>
-    </rdfs:subClassOf>
-  </owl:Class>
-  <owl:Class rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#InterrogativePronoun">
-    <rdfs:subClassOf>
-      <owl:Class rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#WordPronoun"/>
-    </rdfs:subClassOf>
-  </owl:Class>
-  <owl:Class rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#adjective"/>
-  <owl:Class rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#SubordinatingConjunction">
-    <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#WordConjunction"/>
-  </owl:Class>
-  <owl:Class rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#RelativePronoun">
-    <rdfs:subClassOf>
-      <owl:Class rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#WordPronoun"/>
-    </rdfs:subClassOf>
-  </owl:Class>
-  <owl:Class rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#ModalVerb">
-    <rdfs:comment>type of auxiliary (helping) verb that is used to express
+<?xml version="1.0"?>
+<rdf:RDF xmlns="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#"
+     xml:base="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:owl="http://www.w3.org/2002/07/owl#"
+     xmlns:xml="http://www.w3.org/XML/1998/namespace"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+     xmlns:j.0="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#"
+     xmlns:dc="http://purl.org/dc/elements/1.1/">
+    <owl:Ontology rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3"/>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Annotation properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://purl.org/dc/elements/1.1/creator -->
+
+    <owl:AnnotationProperty rdf:about="http://purl.org/dc/elements/1.1/creator"/>
+    
+
+
+    <!-- http://purl.org/dc/elements/1.1/title -->
+
+    <owl:AnnotationProperty rdf:about="http://purl.org/dc/elements/1.1/title"/>
+    
+
+
+    <!-- http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#are -->
+
+    <owl:AnnotationProperty rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#are"/>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Object Properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#canBeMeasuredFrom -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#canBeMeasuredFrom">
+        <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topObjectProperty"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#canBeSeenFrom -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#canBeSeenFrom">
+        <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topObjectProperty"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#canBeTouchedFrom -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#canBeTouchedFrom">
+        <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topObjectProperty"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#do -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#do">
+        <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topObjectProperty"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#verb"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#has -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#has">
+        <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topObjectProperty"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#noun"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#hasFirstname -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#hasFirstname">
+        <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topObjectProperty"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#hasSurname -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#hasSurname">
+        <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topObjectProperty"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#hasWord -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#hasWord">
+        <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topObjectProperty"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#hasWordOnFirst -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#hasWordOnFirst">
+        <rdfs:subPropertyOf rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#hasWord"/>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#is -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#is">
+        <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topObjectProperty"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#adjective"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#isFavourite -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#isFavourite">
+        <rdfs:subPropertyOf rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#isRelatedTo"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#isRelatedTo -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#isRelatedTo">
+        <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topObjectProperty"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#maybeHasToPass -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#maybeHasToPass"/>
+    
+
+
+    <!-- http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#needs -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#needs"/>
+    
+
+
+    <!-- http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#usedToBuy -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#usedToBuy">
+        <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topObjectProperty"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#usedToMake -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#usedToMake">
+        <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topObjectProperty"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#usedToTest -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#usedToTest">
+        <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topObjectProperty"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#usuallyHasToPay -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#usuallyHasToPay"/>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Data properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#hasInfinitive -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#hasInfinitive">
+        <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topDataProperty"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Classes
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#ClosedQuestion -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#ClosedQuestion">
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#SentenceInterrogative"/>
+                    <owl:Class>
+                        <owl:unionOf rdf:parseType="Collection">
+                            <owl:Restriction>
+                                <owl:onProperty rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#hasWordOnFirst"/>
+                                <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#modalVerb"/>
+                            </owl:Restriction>
+                            <owl:Restriction>
+                                <owl:onProperty rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#hasWordOnFirst"/>
+                                <owl:someValuesFrom>
+                                    <owl:Restriction>
+                                        <owl:onProperty rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#hasInfinitive"/>
+                                        <owl:hasValue>be</owl:hasValue>
+                                    </owl:Restriction>
+                                </owl:someValuesFrom>
+                            </owl:Restriction>
+                            <owl:Restriction>
+                                <owl:onProperty rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#hasWordOnFirst"/>
+                                <owl:someValuesFrom>
+                                    <owl:Restriction>
+                                        <owl:onProperty rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#hasInfinitive"/>
+                                        <owl:hasValue>do</owl:hasValue>
+                                    </owl:Restriction>
+                                </owl:someValuesFrom>
+                            </owl:Restriction>
+                            <owl:Restriction>
+                                <owl:onProperty rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#hasWordOnFirst"/>
+                                <owl:someValuesFrom>
+                                    <owl:Restriction>
+                                        <owl:onProperty rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#hasInfinitive"/>
+                                        <owl:hasValue>have</owl:hasValue>
+                                    </owl:Restriction>
+                                </owl:someValuesFrom>
+                            </owl:Restriction>
+                        </owl:unionOf>
+                    </owl:Class>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#SentenceInterrogative"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#Mark -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#Mark"/>
+    
+
+
+    <!-- http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#OpenQuestion -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#OpenQuestion">
+        <owl:equivalentClass>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#hasWordOnFirst"/>
+                <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#questionWord"/>
+            </owl:Restriction>
+        </owl:equivalentClass>
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#SentenceInterrogative"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#Sentence -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#Sentence"/>
+    
+
+
+    <!-- http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#SentenceExclamations -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#SentenceExclamations">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#Sentence"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#SentenceFromUser -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#SentenceFromUser">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#Sentence"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#SentenceImperative -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#SentenceImperative">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#Sentence"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#SentenceInterrogative -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#SentenceInterrogative">
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#Sentence"/>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#hasWord"/>
+                        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#verb"/>
+                    </owl:Restriction>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#SentenceStatement -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#SentenceStatement">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#Sentence"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#User -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#User"/>
+    
+
+
+    <!-- http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#Word -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#Word"/>
+    
+
+
+    <!-- http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#actionVerb -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#actionVerb">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#verb"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#actor -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#actor">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#person"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#adjective -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#adjective">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#Word"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#adverb -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#adverb">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#Word"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#article -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#article">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#adjective"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#attributiveAdjective -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#attributiveAdjective">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#adjective"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#auxiliaryVerb -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#auxiliaryVerb">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#verb"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#chemical_element -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#chemical_element">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#element"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#conjunction -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#conjunction">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#Word"/>
+        <rdfs:comment>Conjunctions are for connecting thoughts, actions, and ideas as well as nouns, clauses, and other parts of speech</rdfs:comment>
+        <rdfs:comment>Conjunctions are useful for making lists.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#conjunctionAdverbs -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#conjunctionAdverbs">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#conjunction"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#coordinateAdjective -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#coordinateAdjective">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#adjective"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#coordinatingConjunction -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#coordinatingConjunction">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#conjunction"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#correlativeConjunction -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#correlativeConjunction">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#conjunction"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#cubordinatingConjunction -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#cubordinatingConjunction">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#conjunction"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#demonstrativeAdjective -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#demonstrativeAdjective">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#adjective"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#demonstrativePronoun -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#demonstrativePronoun">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#pronoun"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#directionPrepositions -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#directionPrepositions">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#preposition"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#element -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#element">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#knowledge"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#english_language -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#english_language">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#language"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#eye -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#eye">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#observer"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#helpVerb -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#helpVerb">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#verb"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#idea -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#idea">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#immaterial_thing"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#is"/>
+                <owl:hasValue rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#interesting"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#immaterial_thing -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#immaterial_thing">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#thing"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#indefiniteAdjective -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#indefiniteAdjective">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#adjective"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#indefinitePronoun -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#indefinitePronoun">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#pronoun"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#intensivePronoun -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#intensivePronoun">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#pronoun"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#interjection -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#interjection">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#Word"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#interrogativeAdjective -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#interrogativeAdjective">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#adjective"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#interrogativePronoun -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#interrogativePronoun">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#pronoun"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#irregularVerb -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#irregularVerb">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#verb"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#knowledge -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#knowledge"/>
+    
+
+
+    <!-- http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#language -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#language">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#knowledge"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#license -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#license">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#physical_thing"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#usuallyHasToPay"/>
+                <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#money"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#maybeHasToPass"/>
+                <owl:minQualifiedCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:minQualifiedCardinality>
+                <owl:onClass rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#test"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#linkingVerb -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#linkingVerb">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#verb"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#machine -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#machine">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#observer"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#material -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#material">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#physical_thing"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#usedToMake"/>
+                <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#physical_thing"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#mentalVerb -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#mentalVerb">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#verb"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#modalVerb -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#modalVerb">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#verb"/>
+        <rdfs:comment>type of auxiliary (helping) verb that is used to express
 abillity
 possibillity
 permission
 obligation</rdfs:comment>
-    <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#WordVerb"/>
-  </owl:Class>
-  <owl:Class rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#ReciprocalPronoun">
-    <rdfs:subClassOf>
-      <owl:Class rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#WordPronoun"/>
-    </rdfs:subClassOf>
-  </owl:Class>
-  <owl:Class rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#CorrelativeConjunction">
-    <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#WordConjunction"/>
-  </owl:Class>
-  <owl:Class rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#immaterial_thing">
-    <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#thing"/>
-  </owl:Class>
-  <owl:Class rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#HelpVerb">
-    <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#WordVerb"/>
-  </owl:Class>
-  <owl:Class rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#material">
-    <rdfs:subClassOf>
-      <owl:Restriction>
-        <owl:someValuesFrom>
-          <owl:Class rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#physical_thing"/>
-        </owl:someValuesFrom>
-        <owl:onProperty>
-          <owl:ObjectProperty rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#usedToMake"/>
-        </owl:onProperty>
-      </owl:Restriction>
-    </rdfs:subClassOf>
-    <rdfs:subClassOf>
-      <owl:Class rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#physical_thing"/>
-    </rdfs:subClassOf>
-  </owl:Class>
-  <owl:Class rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#DemonstrativePronoun">
-    <rdfs:subClassOf>
-      <owl:Class rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#WordPronoun"/>
-    </rdfs:subClassOf>
-  </owl:Class>
-  <owl:Class rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#ProperNoun">
-    <rdfs:subClassOf>
-      <owl:Class rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#WordNoun"/>
-    </rdfs:subClassOf>
-  </owl:Class>
-  <owl:Class rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#properNoun"/>
-  <owl:Class rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#license">
-    <rdfs:subClassOf>
-      <owl:Restriction>
-        <owl:onClass>
-          <owl:Class rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#test"/>
-        </owl:onClass>
-        <owl:minQualifiedCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger"
-        >1</owl:minQualifiedCardinality>
-        <owl:onProperty>
-          <owl:ObjectProperty rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#maybeHasToPass"/>
-        </owl:onProperty>
-      </owl:Restriction>
-    </rdfs:subClassOf>
-    <rdfs:subClassOf>
-      <owl:Restriction>
-        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#money"/>
-        <owl:onProperty>
-          <owl:ObjectProperty rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#usuallyHasToPay"/>
-        </owl:onProperty>
-      </owl:Restriction>
-    </rdfs:subClassOf>
-    <rdfs:subClassOf>
-      <owl:Class rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#physical_thing"/>
-    </rdfs:subClassOf>
-  </owl:Class>
-  <owl:Class rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#Mark"/>
-  <owl:Class rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#WordNoun">
-    <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#Word"/>
-  </owl:Class>
-  <owl:Class rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#PersonalPronoun">
-    <rdfs:subClassOf>
-      <owl:Class rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#WordPronoun"/>
-    </rdfs:subClassOf>
-  </owl:Class>
-  <owl:Class rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#SentenceInterrogative">
-    <owl:equivalentClass>
-      <owl:Class>
-        <owl:intersectionOf rdf:parseType="Collection">
-          <owl:Class rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#Sentence"/>
-          <owl:Restriction>
-            <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#WordVerb"/>
-            <owl:onProperty>
-              <owl:ObjectProperty rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#hasWord"/>
-            </owl:onProperty>
-          </owl:Restriction>
-        </owl:intersectionOf>
-      </owl:Class>
-    </owl:equivalentClass>
-  </owl:Class>
-  <owl:Class rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#language">
-    <rdfs:subClassOf>
-      <owl:Class rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#physical_thing"/>
-    </rdfs:subClassOf>
-  </owl:Class>
-  <owl:Class rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#IndefiniteAdjective">
-    <rdfs:subClassOf>
-      <owl:Class rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#WordAdjective"/>
-    </rdfs:subClassOf>
-  </owl:Class>
-  <owl:Class rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#Number">
-    <rdfs:subClassOf>
-      <owl:Class rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#WordAdjective"/>
-    </rdfs:subClassOf>
-  </owl:Class>
-  <owl:Class rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#CoordinatingConjunction">
-    <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#WordConjunction"/>
-  </owl:Class>
-  <owl:Class rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#StativeVerb">
-    <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#WordVerb"/>
-  </owl:Class>
-  <owl:Class rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#german">
-    <owl:disjointWith>
-      <owl:Class rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#spanish"/>
-    </owl:disjointWith>
-    <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#language"/>
-  </owl:Class>
-  <owl:Class rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#WordPreposition">
-    <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#Word"/>
-  </owl:Class>
-  <owl:Class rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#LinkingVerb">
-    <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#WordVerb"/>
-  </owl:Class>
-  <owl:Class rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#DirectionPrepositions">
-    <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#WordPreposition"/>
-  </owl:Class>
-  <owl:Class rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#machine">
-    <rdfs:subClassOf>
-      <owl:Class rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#observer"/>
-    </rdfs:subClassOf>
-  </owl:Class>
-  <owl:Class rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#AuxiliaryVerb">
-    <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#WordVerb"/>
-  </owl:Class>
-  <owl:Class rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#view">
-    <rdfs:subClassOf>
-      <owl:Class rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#physical_thing"/>
-    </rdfs:subClassOf>
-  </owl:Class>
-  <owl:Class rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#noun"/>
-  <owl:Class rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#IrregularVerb">
-    <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#WordVerb"/>
-  </owl:Class>
-  <owl:Class rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#ClosedQuestion">
-    <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#SentenceInterrogative"/>
-    <owl:equivalentClass>
-      <owl:Class>
-        <owl:intersectionOf rdf:parseType="Collection">
-          <owl:Class rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#SentenceInterrogative"/>
-          <owl:Class>
-            <owl:unionOf rdf:parseType="Collection">
-              <owl:Restriction>
-                <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#ModalVerb"/>
-                <owl:onProperty>
-                  <owl:FunctionalProperty rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#hasWordOnFirst"/>
-                </owl:onProperty>
-              </owl:Restriction>
-              <owl:Restriction>
-                <owl:someValuesFrom>
-                  <owl:Restriction>
-                    <owl:hasValue>be</owl:hasValue>
-                    <owl:onProperty>
-                      <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#hasInfinitive"/>
-                    </owl:onProperty>
-                  </owl:Restriction>
-                </owl:someValuesFrom>
-                <owl:onProperty>
-                  <owl:FunctionalProperty rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#hasWordOnFirst"/>
-                </owl:onProperty>
-              </owl:Restriction>
-              <owl:Restriction>
-                <owl:someValuesFrom>
-                  <owl:Restriction>
-                    <owl:hasValue>do</owl:hasValue>
-                    <owl:onProperty>
-                      <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#hasInfinitive"/>
-                    </owl:onProperty>
-                  </owl:Restriction>
-                </owl:someValuesFrom>
-                <owl:onProperty>
-                  <owl:FunctionalProperty rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#hasWordOnFirst"/>
-                </owl:onProperty>
-              </owl:Restriction>
-              <owl:Restriction>
-                <owl:someValuesFrom>
-                  <owl:Restriction>
-                    <owl:hasValue>have</owl:hasValue>
-                    <owl:onProperty>
-                      <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#hasInfinitive"/>
-                    </owl:onProperty>
-                  </owl:Restriction>
-                </owl:someValuesFrom>
-                <owl:onProperty>
-                  <owl:FunctionalProperty rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#hasWordOnFirst"/>
-                </owl:onProperty>
-              </owl:Restriction>
-            </owl:unionOf>
-          </owl:Class>
-        </owl:intersectionOf>
-      </owl:Class>
-    </owl:equivalentClass>
-  </owl:Class>
-  <owl:Class rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#PhrasalVerb">
-    <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#WordVerb"/>
-  </owl:Class>
-  <owl:Class rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#ActionVerb">
-    <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#WordVerb"/>
-  </owl:Class>
-  <owl:Class rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#idea">
-    <rdfs:subClassOf>
-      <owl:Restriction>
-        <owl:hasValue>
-          <j.0:WordAdjective rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#interesting">
-            <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
-          </j.0:WordAdjective>
-        </owl:hasValue>
-        <owl:onProperty>
-          <j.0:AuxiliaryVerb rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#is">
-            <j.0:hasInfinitive>be</j.0:hasInfinitive>
-            <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
-            <rdfs:range>
-              <owl:Class rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#WordAdjective"/>
-            </rdfs:range>
-            <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topObjectProperty"/>
-            <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
-          </j.0:AuxiliaryVerb>
-        </owl:onProperty>
-      </owl:Restriction>
-    </rdfs:subClassOf>
-    <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#immaterial_thing"/>
-  </owl:Class>
-  <owl:Class rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#physical_thing">
-    <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#thing"/>
-  </owl:Class>
-  <owl:Class rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#PlacePrepositions">
-    <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#WordPreposition"/>
-  </owl:Class>
-  <owl:Class rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#PossessiveAdjective">
-    <rdfs:subClassOf>
-      <owl:Class rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#WordAdjective"/>
-    </rdfs:subClassOf>
-  </owl:Class>
-  <owl:Class rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#person">
-    <rdfs:subClassOf>
-      <owl:Class rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#observer"/>
-    </rdfs:subClassOf>
-  </owl:Class>
-  <owl:Class rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#OpenQuestion">
-    <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#SentenceInterrogative"/>
-    <owl:equivalentClass>
-      <owl:Restriction>
-        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#QuestionWord"/>
-        <owl:onProperty>
-          <owl:FunctionalProperty rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#hasWordOnFirst"/>
-        </owl:onProperty>
-      </owl:Restriction>
-    </owl:equivalentClass>
-  </owl:Class>
-  <owl:Class rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#observer">
-    <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#physical_thing"/>
-  </owl:Class>
-  <owl:Class rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#WordAdjective">
-    <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#Word"/>
-  </owl:Class>
-  <owl:Class rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#spanish">
-    <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#language"/>
-  </owl:Class>
-  <owl:Class rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#WordAdverb">
-    <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#Word"/>
-  </owl:Class>
-  <owl:Class rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#PhysicalVerb">
-    <rdfs:comment>describe specific physical actions
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#money -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#money">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#physical_thing"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#usedToBuy"/>
+                <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#thing"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#noun -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#noun">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#Word"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#number -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#number">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#adjective"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#numeral -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#numeral">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#Word"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#observer -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#observer">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#physical_thing"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#person -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#person">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#observer"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#personalPronoun -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#personalPronoun">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#pronoun"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#phrasalVerb -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#phrasalVerb">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#verb"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#physicalVerb -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#physicalVerb">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#verb"/>
+        <rdfs:comment>describe specific physical actions
 create a motion with your body
 use a tool to complete an action</rdfs:comment>
-    <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#WordVerb"/>
-  </owl:Class>
-  <owl:Class rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#StatesOfBeing">
-    <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#WordVerb"/>
-  </owl:Class>
-  <owl:Class rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#MentalVerb">
-    <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#WordVerb"/>
-  </owl:Class>
-  <owl:Class rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#test">
-    <rdfs:subClassOf>
-      <owl:Restriction>
-        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#person"/>
-        <owl:onProperty>
-          <owl:ObjectProperty rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#usedToTest"/>
-        </owl:onProperty>
-      </owl:Restriction>
-    </rdfs:subClassOf>
-    <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#physical_thing"/>
-  </owl:Class>
-  <owl:Class rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#WordPronoun">
-    <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#Word"/>
-  </owl:Class>
-  <owl:Class rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#AttributiveAdjective">
-    <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#WordAdjective"/>
-  </owl:Class>
-  <owl:ObjectProperty rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#usedToMake">
-    <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topObjectProperty"/>
-  </owl:ObjectProperty>
-  <owl:ObjectProperty rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#usedToBuy">
-    <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topObjectProperty"/>
-  </owl:ObjectProperty>
-  <owl:ObjectProperty rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#canBeMeasuredFrom">
-    <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topObjectProperty"/>
-  </owl:ObjectProperty>
-  <owl:ObjectProperty rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#isRelatedTo">
-    <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topObjectProperty"/>
-  </owl:ObjectProperty>
-  <owl:ObjectProperty rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#isFavourite">
-    <rdfs:subPropertyOf rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#isRelatedTo"/>
-  </owl:ObjectProperty>
-  <owl:ObjectProperty rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#canBeTouchedFrom">
-    <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topObjectProperty"/>
-  </owl:ObjectProperty>
-  <owl:ObjectProperty rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#canBeSeenFrom">
-    <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topObjectProperty"/>
-  </owl:ObjectProperty>
-  <owl:ObjectProperty rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#has">
-    <rdfs:range rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#WordNoun"/>
-    <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topObjectProperty"/>
-  </owl:ObjectProperty>
-  <owl:ObjectProperty rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#usedToTest">
-    <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topObjectProperty"/>
-  </owl:ObjectProperty>
-  <owl:ObjectProperty rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#hasWord">
-    <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topObjectProperty"/>
-  </owl:ObjectProperty>
-  <owl:ObjectProperty rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#hasFirstname">
-    <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topObjectProperty"/>
-  </owl:ObjectProperty>
-  <owl:ObjectProperty rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#hasSurname">
-    <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topObjectProperty"/>
-  </owl:ObjectProperty>
-  <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#hasInfinitive">
-    <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topDataProperty"/>
-  </owl:DatatypeProperty>
-  <owl:FunctionalProperty rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#hasWordOnFirst">
-    <rdfs:subPropertyOf rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#hasWord"/>
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
-  </owl:FunctionalProperty>
-  <j.0:WordNoun rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#room">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
-  </j.0:WordNoun>
-  <j.0:person rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#UserMe">
-    <j.0:isFavourite>
-      <j.0:scientist rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#Person2">
-        <j.0:hasSurname>
-          <j.0:ProperNoun rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#einstein">
-            <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
-          </j.0:ProperNoun>
-        </j.0:hasSurname>
-        <j.0:hasFirstname>
-          <j.0:ProperNoun rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#albert">
-            <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
-          </j.0:ProperNoun>
-        </j.0:hasFirstname>
-        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
-      </j.0:scientist>
-    </j.0:isFavourite>
-    <j.0:isFavourite>
-      <j.0:actor rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#Person1">
-        <j.0:hasSurname>
-          <j.0:ProperNoun rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#smith">
-            <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
-          </j.0:ProperNoun>
-        </j.0:hasSurname>
-        <j.0:hasFirstname>
-          <j.0:ProperNoun rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#will">
-            <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
-          </j.0:ProperNoun>
-        </j.0:hasFirstname>
-        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
-      </j.0:actor>
-    </j.0:isFavourite>
-    <j.0:is>
-      <j.0:WordAdjective rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#hungry">
-        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
-      </j.0:WordAdjective>
-    </j.0:is>
-    <j.0:has>
-      <j.0:view rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#myView">
-        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
-      </j.0:view>
-    </j.0:has>
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
-  </j.0:person>
-  <owl:AllDisjointClasses>
-    <owl:members rdf:parseType="Collection">
-      <owl:Class rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#DemonstrativePronoun"/>
-      <owl:Class rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#IndefinitePronoun"/>
-      <owl:Class rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#IntensivePronoun"/>
-      <owl:Class rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#InterrogativePronoun"/>
-      <owl:Class rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#PersonalPronoun"/>
-      <owl:Class rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#PossessivePronoun"/>
-      <owl:Class rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#ReciprocalPronoun"/>
-      <owl:Class rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#ReflexivePronoun"/>
-      <owl:Class rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#RelativePronoun"/>
-    </owl:members>
-  </owl:AllDisjointClasses>
-  <j.0:WordNoun rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#sister">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
-  </j.0:WordNoun>
-  <j.0:WordAdjective rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#favourite">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
-  </j.0:WordAdjective>
-  <j.0:WordAdjective rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#flat">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
-  </j.0:WordAdjective>
-  <j.0:WordNoun rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#car">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
-  </j.0:WordNoun>
-  <j.0:WordVerb rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#talk">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
-  </j.0:WordVerb>
-  <j.0:WordPreposition rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#from">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
-  </j.0:WordPreposition>
-  <j.0:LinkingVerb rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#grow">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
-  </j.0:LinkingVerb>
-  <owl:AllDisjointClasses>
-    <owl:members rdf:parseType="Collection">
-      <owl:Class rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#ConjunctionAdverbs"/>
-      <owl:Class rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#CoordinatingConjunction"/>
-      <owl:Class rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#CorrelativeConjunction"/>
-      <owl:Class rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#SubordinatingConjunction"/>
-    </owl:members>
-  </owl:AllDisjointClasses>
-  <j.0:LinkingVerb rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#become">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
-  </j.0:LinkingVerb>
-  <j.0:WordNoun rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#location">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
-  </j.0:WordNoun>
-  <j.0:LinkingVerb rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#stay">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
-  </j.0:LinkingVerb>
-  <j.0:WordPreposition rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#at">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
-  </j.0:WordPreposition>
-  <j.0:LinkingVerb rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#seem">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
-  </j.0:LinkingVerb>
-  <j.0:properNoun rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#Trgovite">
-    <j.0:is>
-      <j.0:noun rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#city">
-        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
-      </j.0:noun>
-    </j.0:is>
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
-  </j.0:properNoun>
-  <owl:NamedIndividual rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#?"/>
-  <owl:NamedIndividual rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#living"/>
-  <j.0:LinkingVerb rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#feel">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
-  </j.0:LinkingVerb>
-  <j.0:QuestionWord rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#which">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
-  </j.0:QuestionWord>
-  <j.0:WordPreposition rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#to">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
-  </j.0:WordPreposition>
-  <j.0:LinkingVerb rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#appear">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
-  </j.0:LinkingVerb>
-  <j.0:WordVerb rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#do">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
-    <rdfs:range rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#WordVerb"/>
-    <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topObjectProperty"/>
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
-  </j.0:WordVerb>
-  <j.0:QuestionWord rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#why">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
-  </j.0:QuestionWord>
-  <j.0:WordVerb rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#live">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
-  </j.0:WordVerb>
-  <owl:AllDisjointClasses>
-    <owl:members rdf:parseType="Collection">
-      <owl:Class rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#SentenceExclamations"/>
-      <owl:Class rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#SentenceImperative"/>
-      <owl:Class rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#SentenceInterrogative"/>
-      <owl:Class rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#SentenceStatement"/>
-    </owl:members>
-  </owl:AllDisjointClasses>
-  <owl:AllDisjointClasses>
-    <owl:members rdf:parseType="Collection">
-      <owl:Class rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#ActionVerb"/>
-      <owl:Class rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#HelpVerb"/>
-      <owl:Class rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#IrregularVerb"/>
-      <owl:Class rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#MentalVerb"/>
-      <owl:Class rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#ModalVerb"/>
-      <owl:Class rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#PhrasalVerb"/>
-      <owl:Class rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#PhysicalVerb"/>
-      <owl:Class rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#StatesOfBeing"/>
-      <owl:Class rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#StativeVerb"/>
-    </owl:members>
-  </owl:AllDisjointClasses>
-  <j.0:QuestionWord rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#when">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
-  </j.0:QuestionWord>
-  <j.0:LinkingVerb rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#taste">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
-  </j.0:LinkingVerb>
-  <j.0:WordAdjective rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#correct">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
-  </j.0:WordAdjective>
-  <j.0:LinkingVerb rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#remain">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
-  </j.0:LinkingVerb>
-  <j.0:LinkingVerb rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#look">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
-  </j.0:LinkingVerb>
-  <j.0:QuestionWord rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#who">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
-  </j.0:QuestionWord>
-  <j.0:QuestionWord rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#what">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
-  </j.0:QuestionWord>
-  <owl:NamedIndividual rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#we"/>
-  <j.0:WordVerb rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#see">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
-  </j.0:WordVerb>
-  <owl:AllDisjointClasses>
-    <owl:members rdf:parseType="Collection">
-      <owl:Class rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#DirectionPrepositions"/>
-      <owl:Class rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#PlacePrepositions"/>
-      <owl:Class rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#TimePrepositions"/>
-    </owl:members>
-  </owl:AllDisjointClasses>
-  <j.0:WordPronoun rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#your">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
-  </j.0:WordPronoun>
-  <j.0:QuestionWord rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#where">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
-  </j.0:QuestionWord>
-  <owl:AnnotationProperty rdf:about="http://purl.org/dc/elements/1.1/creator"/>
-  <j.0:WordVerb rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#am">
-    <j.0:hasInfinitive>be</j.0:hasInfinitive>
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
-  </j.0:WordVerb>
-  <j.0:LinkingVerb rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#smell">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
-  </j.0:LinkingVerb>
-  <j.0:QuestionWord rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#how">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
-  </j.0:QuestionWord>
-  <j.0:WordPronoun rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#you">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
-  </j.0:WordPronoun>
-  <j.0:person rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#Person3">
-    <j.0:needs>
-      <j.0:noun rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#oxygen">
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#physical_thing -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#physical_thing">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#thing"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#placePrepositions -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#placePrepositions">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#preposition"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#possessiveAdjective -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#possessiveAdjective">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#adjective"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#possessivePronoun -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#possessivePronoun">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#pronoun"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#preposition -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#preposition">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#Word"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#pronoun -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#pronoun">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#Word"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#properNoun -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#properNoun">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#noun"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#questionWord -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#questionWord">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#adverb"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#reciprocalPronoun -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#reciprocalPronoun">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#pronoun"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#reflexivePronoun -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#reflexivePronoun">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#pronoun"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#relativePronoun -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#relativePronoun">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#pronoun"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#scientist -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#scientist">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#person"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#statesOfBeing -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#statesOfBeing">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#verb"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#stativeVerb -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#stativeVerb">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#verb"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#substance -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#substance">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#physical_thing"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#canBeMeasuredFrom"/>
+                <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#observer"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#canBeSeenFrom"/>
+                <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#eye"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#canBeTouchedFrom"/>
+                <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#physical_thing"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#test -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#test">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#physical_thing"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#usedToTest"/>
+                <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#person"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#thing -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#thing">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#knowledge"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#timePrepositions -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#timePrepositions">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#preposition"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#verb -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#verb">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#Word"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#view -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#view">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#physical_thing"/>
+    </owl:Class>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Individuals
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#Person1 -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#Person1">
+        <rdf:type rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#actor"/>
+        <hasFirstname rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#will"/>
+        <hasSurname rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#smith"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#Person2 -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#Person2">
+        <rdf:type rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#scientist"/>
+        <hasFirstname rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#albert"/>
+        <hasSurname rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#einstein"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#Person3 -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#Person3">
+        <rdf:type rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#person"/>
+        <hasFirstname rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#rico"/>
+        <hasSurname rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#uttinger"/>
+        <is rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#cool"/>
+        <needs rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#oxygen"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#UserMe -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#UserMe">
+        <rdf:type rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#person"/>
+        <has rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#myView"/>
+        <is rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#hungry"/>
+        <isFavourite rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#Person1"/>
+        <isFavourite rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#Person2"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#actor -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#actor">
+        <rdf:type rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#noun"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#albert -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#albert">
+        <rdf:type rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#properNoun"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#am -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#am">
+        <rdf:type rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#verb"/>
+        <hasInfinitive>be</hasInfinitive>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#an -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#an">
+        <rdf:type rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#article"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#appear -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#appear">
+        <rdf:type rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#linkingVerb"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#at -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#at">
+        <rdf:type rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#preposition"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#become -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#become">
+        <rdf:type rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#linkingVerb"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#car -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#car">
+        <rdf:type rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#noun"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#city -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#city">
+        <rdf:type rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#noun"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#commune -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#commune">
+        <rdf:type rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#properNoun"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#cool -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#cool"/>
+    
+
+
+    <!-- http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#correct -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#correct">
+        <rdf:type rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#adjective"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#do -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#do">
+        <rdf:type rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#verb"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#earth -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#earth">
+        <rdf:type rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#noun"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#einstein -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#einstein">
+        <rdf:type rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#properNoun"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#favourite -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#favourite">
+        <rdf:type rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#adjective"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#feel -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#feel">
+        <rdf:type rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#linkingVerb"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#flat -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#flat">
+        <rdf:type rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#adjective"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#from -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#from">
+        <rdf:type rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#preposition"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#greeting -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#greeting">
+        <rdf:type rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#noun"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#grow -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#grow">
+        <rdf:type rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#linkingVerb"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#hello -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#hello">
+        <rdf:type rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#english_language"/>
+        <rdf:type rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#interjection"/>
+        <is rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#greeting"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#how -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#how">
+        <rdf:type rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#questionWord"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#hungry -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#hungry">
+        <rdf:type rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#adjective"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#i -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#i">
+        <rdf:type rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#pronoun"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#in -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#in">
+        <rdf:type rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#preposition"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#interesting -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#interesting">
+        <rdf:type rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#adjective"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#is -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#is">
+        <rdf:type rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#auxiliaryVerb"/>
+        <hasInfinitive>be</hasInfinitive>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#live -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#live">
+        <rdf:type rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#verb"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#living -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#living"/>
+    
+
+
+    <!-- http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#location -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#location">
+        <rdf:type rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#noun"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#look -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#look">
+        <rdf:type rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#linkingVerb"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#my -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#my">
+        <rdf:type rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#pronoun"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#myView -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#myView">
+        <rdf:type rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#view"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#oxygen -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#oxygen">
         <rdf:type rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#chemical_element"/>
-      </j.0:noun>
-    </j.0:needs>
-    <j.0:is>
-      <j.0:adjective rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#cool">
-        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
-      </j.0:adjective>
-    </j.0:is>
-    <j.0:hasSurname>
-      <j.0:ProperNoun rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#uttinger">
-        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
-      </j.0:ProperNoun>
-    </j.0:hasSurname>
-    <j.0:hasFirstname>
-      <j.0:ProperNoun rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#rico">
-        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
-      </j.0:ProperNoun>
-    </j.0:hasFirstname>
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
-  </j.0:person>
-  <j.0:WordNoun rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#earth">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
-  </j.0:WordNoun>
-  <j.0:noun rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#Sagas">
-    <j.0:are>
-      <j.0:noun rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#stories">
-        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
-      </j.0:noun>
-    </j.0:are>
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
-  </j.0:noun>
-  <owl:AnnotationProperty rdf:about="http://purl.org/dc/elements/1.1/title"/>
-  <j.0:LinkingVerb rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#turn">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
-  </j.0:LinkingVerb>
-  <j.0:WordPronoun rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#i">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
-  </j.0:WordPronoun>
-  <owl:AnnotationProperty rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#are"/>
-  <j.0:WordPreposition rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#in">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
-  </j.0:WordPreposition>
-  <j.0:Article rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#an">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
-  </j.0:Article>
-  <rdf:Description>
-    <j.0:hasWordOnFirst>How</j.0:hasWordOnFirst>
-  </rdf:Description>
-  <j.0:WordPronoun rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#my">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
-  </j.0:WordPronoun>
-  <j.0:properNoun rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#Jaunac">
-    <j.0:is>
-      <j.0:properNoun rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#commune">
-        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
-      </j.0:properNoun>
-    </j.0:is>
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
-  </j.0:properNoun>
-  <j.0:WordAdjective rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#verbal">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
-  </j.0:WordAdjective>
-  <rdf:Description rdf:about="http://example/book3">
-    <dc:creator>A.N.Other</dc:creator>
-    <dc:title>A new book</dc:title>
-  </rdf:Description>
-  <j.0:LinkingVerb rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#sound">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
-  </j.0:LinkingVerb>
-  <j.0:WordNoun rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#actor">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
-    <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#person"/>
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
-  </j.0:WordNoun>
-  <j.0:WordNoun rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#scientist">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
-    <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#person"/>
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
-  </j.0:WordNoun>
+        <rdf:type rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#noun"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#remain -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#remain">
+        <rdf:type rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#linkingVerb"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#rico -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#rico">
+        <rdf:type rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#properNoun"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#room -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#room">
+        <rdf:type rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#noun"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#scientist -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#scientist">
+        <rdf:type rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#noun"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#see -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#see">
+        <rdf:type rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#verb"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#seem -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#seem">
+        <rdf:type rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#linkingVerb"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#sister -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#sister">
+        <rdf:type rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#noun"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#smell -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#smell">
+        <rdf:type rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#linkingVerb"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#smith -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#smith">
+        <rdf:type rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#properNoun"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#sound -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#sound">
+        <rdf:type rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#linkingVerb"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#stay -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#stay">
+        <rdf:type rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#linkingVerb"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#stories -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#stories">
+        <rdf:type rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#noun"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#talk -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#talk">
+        <rdf:type rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#verb"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#taste -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#taste">
+        <rdf:type rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#linkingVerb"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#to -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#to">
+        <rdf:type rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#preposition"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#turn -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#turn">
+        <rdf:type rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#linkingVerb"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#uttinger -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#uttinger">
+        <rdf:type rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#properNoun"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#verbal -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#verbal">
+        <rdf:type rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#adjective"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#we -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#we"/>
+    
+
+
+    <!-- http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#what -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#what">
+        <rdf:type rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#questionWord"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#when -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#when">
+        <rdf:type rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#questionWord"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#where -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#where">
+        <rdf:type rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#questionWord"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#which -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#which">
+        <rdf:type rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#questionWord"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#who -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#who">
+        <rdf:type rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#questionWord"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#why -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#why">
+        <rdf:type rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#questionWord"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#will -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#will">
+        <rdf:type rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#properNoun"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#you -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#you">
+        <rdf:type rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#pronoun"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#your -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#your">
+        <rdf:type rdf:resource="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#pronoun"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#? -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#?"/>
+    <rdf:Description>
+        <hasWordOnFirst>How</hasWordOnFirst>
+    </rdf:Description>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Annotations
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    <rdf:Description rdf:about="http://example/book3">
+        <dc:title>A new book</dc:title>
+        <dc:creator>A.N.Other</dc:creator>
+    </rdf:Description>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // General axioms
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    <rdf:Description>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AllDisjointClasses"/>
+        <owl:members rdf:parseType="Collection">
+            <rdf:Description rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#SentenceExclamations"/>
+            <rdf:Description rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#SentenceImperative"/>
+            <rdf:Description rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#SentenceInterrogative"/>
+            <rdf:Description rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#SentenceStatement"/>
+        </owl:members>
+    </rdf:Description>
+    <rdf:Description>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AllDisjointClasses"/>
+        <owl:members rdf:parseType="Collection">
+            <rdf:Description rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#actionVerb"/>
+            <rdf:Description rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#helpVerb"/>
+            <rdf:Description rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#irregularVerb"/>
+            <rdf:Description rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#mentalVerb"/>
+            <rdf:Description rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#modalVerb"/>
+            <rdf:Description rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#phrasalVerb"/>
+            <rdf:Description rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#physicalVerb"/>
+            <rdf:Description rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#statesOfBeing"/>
+            <rdf:Description rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#stativeVerb"/>
+        </owl:members>
+    </rdf:Description>
+    <rdf:Description>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AllDisjointClasses"/>
+        <owl:members rdf:parseType="Collection">
+            <rdf:Description rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#conjunctionAdverbs"/>
+            <rdf:Description rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#coordinatingConjunction"/>
+            <rdf:Description rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#correlativeConjunction"/>
+            <rdf:Description rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#cubordinatingConjunction"/>
+        </owl:members>
+    </rdf:Description>
+    <rdf:Description>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AllDisjointClasses"/>
+        <owl:members rdf:parseType="Collection">
+            <rdf:Description rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#demonstrativePronoun"/>
+            <rdf:Description rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#indefinitePronoun"/>
+            <rdf:Description rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#intensivePronoun"/>
+            <rdf:Description rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#interrogativePronoun"/>
+            <rdf:Description rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#personalPronoun"/>
+            <rdf:Description rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#possessivePronoun"/>
+            <rdf:Description rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#reciprocalPronoun"/>
+            <rdf:Description rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#reflexivePronoun"/>
+            <rdf:Description rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#relativePronoun"/>
+        </owl:members>
+    </rdf:Description>
+    <rdf:Description>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AllDisjointClasses"/>
+        <owl:members rdf:parseType="Collection">
+            <rdf:Description rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#directionPrepositions"/>
+            <rdf:Description rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#placePrepositions"/>
+            <rdf:Description rdf:about="http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#timePrepositions"/>
+        </owl:members>
+    </rdf:Description>
 </rdf:RDF>
+
+
+
+<!-- Generated by the OWL API (version 4.2.8.20170104-2310) https://github.com/owlcs/owlapi -->
+

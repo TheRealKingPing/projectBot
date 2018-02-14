@@ -43,9 +43,13 @@ public class answer {
 		
 		
 		return null;
+	}		
+	
+	private static List<Word> transformWQuestionToSentence(List<Word> question) {
+		return null;
 	}
 	
-	private static List<Word> transformQuestionToSentence(List<Word> question) {
+	private static List<Word> transformYNQuestionToSentence(List<Word> question) {
 		//You to I
 		for(Word w : question) {
 			if(w.getValue().toLowerCase().equals("you")) {
@@ -82,7 +86,9 @@ public class answer {
 		return respond;
 	}
 	
-	public static List<UsableStatement> getUsableStatement(List<Word> sentence) {
+	public static List<UsableStatement> getUsableStatement(List<Word> sentence) {			
+		//todo: check if it has a verb
+		
 		//fill empty type list with "properNoun"	
 		int counter = 0;
 		List<WordType> typeList = new ArrayList<WordType>();
@@ -95,6 +101,16 @@ public class answer {
 			counter++;
 		}
 		
+		//todo: delete me
+		for(Word w : sentence) {
+			String output = "\"" + w.getValue() + "\" -> | ";
+			for(WordType wt : w.getWordTypes()) {
+				output = output + wt.toString() + " | ";
+			}
+			System.out.print(output + "\n");
+		}
+		System.out.print("---------------------------\n");
+						
 		List<UsableStatement> respondStatements = new ArrayList<UsableStatement>();
 		
 		//cut unnecessary parts
@@ -146,7 +162,7 @@ public class answer {
 						}
 				}				
 			}			
-		}			
+		}						
 		
 		//find adjective-noun constructions, create new statement and cut adjective
 		List<Word> removableAdj = new ArrayList<Word>();
@@ -159,12 +175,12 @@ public class answer {
 				dataInstance.insertClass(w.getValue(), null);
 				dataInstance.insertClass(lW.getValue() + "_" + w.getValue(), w.getValue());
 				
-				/*UsableStatement adjNounStatement = new UsableStatement();
+				UsableStatement adjNounStatement = new UsableStatement();
 				adjNounStatement.subjects.add(w);
 				adjNounStatement.predicate = "is";
 				adjNounStatement.objects.add(lW);
 				
-				respondStatements.add(adjNounStatement);*/
+				respondStatements.add(adjNounStatement);
 				removableAdj.add(lW);
 				
 				//define potential noun as noun
@@ -372,12 +388,14 @@ public class answer {
 		for (Word w : cuttedSentence) {
 			//todo: adj. !
 			//todo: preposition !
-			if(w.getWordTypes().get(0) == WordType.adjective 
+			/*if(w.getWordTypes().get(0) == WordType.adjective 
 			|| w.getWordTypes().get(0) == WordType.preposition			
 			|| w.getWordTypes().get(0) == WordType.prossessivePronoun) {
 				modifier.add(w);
-			}
-			if(w.getWordTypes().get(0) == WordType.noun 
+			}*/
+			if(w.getWordTypes().get(0) == WordType.adjective
+					
+			|| w.getWordTypes().get(0) == WordType.noun 
 			|| w.getWordTypes().get(0) == WordType.properNoun 
 			|| w.getWordTypes().get(0) == WordType.pronoun) {				
 				for(Word m : modifier) {
@@ -528,7 +546,7 @@ public class answer {
 	}*/
 	
 	private static String closedAnswer(List<Word> questionWords) {				
-		List<UsableStatement> statement = getUsableStatement(transformQuestionToSentence(questionWords));
+		List<UsableStatement> statement = getUsableStatement(questionWords);
 		
 		for(UsableStatement uS : statement) {
 			if(dataInstance.searchRestrictionExist(uS.subjects.get(0), uS.predicate, uS.objects.get(0)) == true) {
@@ -538,7 +556,8 @@ public class answer {
 		return "No";
 	}	
 	
-	private static String openAnswer(List<Word> questionWords) {		
+	//todo: delete
+	/*private static String openAnswer(List<Word> questionWords) {		
 		for(Word w : questionWords) {
 			if(w.getWordTypes().get(0) == WordType.questionWord) {
 				List<UsableStatement> uS = new ArrayList<UsableStatement>();
@@ -560,10 +579,73 @@ public class answer {
 		}
 		
 		return null;
+	}*/
+	
+	private static SentenceType getSentenceType(List<Word> sentence) {
+		//is it a question?
+		//closed Question / yes/no question
+		if(sentence.get(0).getWordTypes().contains(WordType.verb)) {
+			String baseVerb = dataInstance.getBaseOfVerb(sentence.get(0).getValue());
+			if(
+					sentence.get(0).getWordTypes().contains(WordType.modalVerb) ||			
+					sentence.get(0).getValue().equals("be") ||
+					baseVerb.equals("be") ||
+					sentence.get(0).getValue().equals("do") ||
+					baseVerb.equals("do") ||
+					sentence.get(0).getValue().equals("have") ||
+					baseVerb.equals("have")
+					
+				) {
+				return SentenceType.ClosedQuestion;					
+			}
+		}		
+		//open Question / wh- question
+		if(
+				sentence.get(0).getWordTypes().contains(WordType.questionWord)
+			) {
+			return SentenceType.OpenQuestion;
+		}
+		return SentenceType.Statement;
+	}
+	
+	private static String readSentence(List<Word> sentence) {
+		List<UsableStatement> statement = new ArrayList<UsableStatement>();
+		
+		SentenceType sentenceType = getSentenceType(sentence);
+		switch(sentenceType) {
+			case Statement:
+				statement = getUsableStatement(sentence);
+				String respond = "";
+				for(UsableStatement uS : statement) {
+					for(int sCounter = 0; sCounter < uS.subjects.size(); sCounter++) {					
+						for(int oCounter = 0; oCounter < uS.objects.size(); oCounter++) {
+							//dataInstance.insertRestriction(uS.subjects.get(sCounter), uS.predicate, uS.objects.get(oCounter));
+							respond = respond + uS.subjects.get(sCounter).getValue() + " " + uS.predicate + " " + uS.objects.get(oCounter).getValue() + "\n";
+						}			
+					}
+				}
+				
+				return respond;
+			case OpenQuestion:
+				transformWQuestionToSentence(sentence);
+				return null;
+			case ClosedQuestion:
+				statement = getUsableStatement(transformYNQuestionToSentence(sentence));
+				
+				//todo: restriction with opposite meaning (to say "no") else say "I don't know" 
+				for(UsableStatement uS : statement) {
+					if(dataInstance.searchRestrictionExist(uS.subjects.get(0), uS.predicate, uS.objects.get(0)) == true) {
+						return "Yes";
+					}
+				}	
+				return "I don't know";				
+			default:
+				return "I don't understand"; 				
+		}								
 	}
 	
 	public static void main (String[] args) {
-		String state = "ok";
+		/*String state = "ok";
 		
 		SearchWiki a = new SearchWiki();
 		try {
@@ -571,16 +653,12 @@ public class answer {
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			System.out.print(e.getMessage());
-		} 
-		
-		/*QuestionType type = QuestionType.closed;
+		} */			
 		
 		dataInstance.openData("src/projectBot/new.xml", "RDF/XML");
 			
-		
-		//get question
 		Scanner scan = new Scanner(System.in);
-		System.out.println("Enter a question:");
+		System.out.println("Enter a sentence:");
 		String input = scan.nextLine();		
 		
 		List<Word> wordList = new ArrayList();
@@ -590,13 +668,8 @@ public class answer {
 		    wordList.add(new Word(words[i], dataInstance.getType(words[i]), i));
 		}
 		
-		if(type == QuestionType.open) {
-			System.out.print(openAnswer(wordList));
-		}
-		else if(type == QuestionType.closed) {										
-			System.out.print(closedAnswer(wordList));
-		}
+		System.out.print(readSentence(wordList));
 		
-		dataInstance.closeData();*/
+		dataInstance.closeData();
 	}	
 }

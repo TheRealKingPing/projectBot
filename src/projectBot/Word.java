@@ -9,7 +9,7 @@ public class Word {
 	private int index;
 	
 	public Word(String _value, List<WordType> _types, int _index) {				
-		value = _value;		
+		value = _value.toLowerCase();		
 		types = _types;
 		index = _index;
 	}

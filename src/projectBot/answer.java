@@ -5,6 +5,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Objects;
 import java.util.Scanner;
 
 import org.apache.jena.ontology.OntClass;
@@ -172,13 +173,13 @@ public class answer {
 			Word lW = cuttedSentence.get(c - 1);
 			if(lW.getWordTypes().contains(WordType.adjective) && w.getWordTypes().contains(WordType.noun)) {
 				//create this construct in database
-				dataInstance.insertClass(w.getValue(), null);
-				dataInstance.insertClass(lW.getValue() + "_" + w.getValue(), w.getValue());
+				//dataInstance.insertClass(w.getValue(), null);
+				//dataInstance.insertClass(lW.getValue() + "_" + w.getValue(), w.getValue());
 				
-				UsableStatement adjNounStatement = new UsableStatement();
-				adjNounStatement.subjects.add(w);
+				UsableStatement adjNounStatement = new UsableStatement();				
+				adjNounStatement.subjects.add(new Word(lW.getValue(), lW.getWordTypes()));
 				adjNounStatement.predicate = "is";
-				adjNounStatement.objects.add(lW);
+				adjNounStatement.objects.add(new Word(w.getValue(), w.getWordTypes()));
 				
 				respondStatements.add(adjNounStatement);
 				removableAdj.add(lW);
@@ -187,7 +188,7 @@ public class answer {
 				List<WordType> nounType = new ArrayList<WordType>();
 				nounType.add(WordType.noun);
 				w.setWordTypes(nounType);
-				w.setValue(lW.getValue() + "_" + w.getValue());
+				w.setValue(lW.getValue());
 			}
 		}
 		
@@ -217,6 +218,40 @@ public class answer {
 		for(Word w : removableArt) {
 			cuttedSentence.remove(w);
 		}				
+		
+		//todo: find better solution for every preposition
+		//preposition
+		List<Word> removablePrep = new ArrayList<Word>();
+		
+		for(int c = 1; c < cuttedSentence.size(); c++) {
+			Word w = cuttedSentence.get(c);
+			if(w.getWordTypes().contains(WordType.preposition)) {
+				if(
+						cuttedSentence.get(c - 1) != null &&
+						cuttedSentence.get(c + 1) != null					
+						) {
+					Word lW = cuttedSentence.get(c - 1);
+					Word nW = cuttedSentence.get(c + 1);
+					if(						
+							lW.getWordTypes().contains(WordType.noun) &&
+							nW.getWordTypes().contains(WordType.noun)
+							) {
+						UsableStatement prepStatement = new UsableStatement();				
+						prepStatement.subjects.add(new Word(lW.getValue(), lW.getWordTypes()));
+						prepStatement.predicate = "is";
+						prepStatement.objects.add(new Word(nW.getValue(), nW.getWordTypes()));
+						
+						respondStatements.add(prepStatement);
+						removablePrep.add(w);
+						removablePrep.add(nW);
+					}
+				}	
+			}				
+		}		
+		//remove preposition
+		for(Word w : removablePrep) {
+			cuttedSentence.remove(w);
+		}
 		
 		//find verb with "to" in front (infinitives)
 		List<Word> infinitives = new ArrayList<Word>();
@@ -414,6 +449,7 @@ public class answer {
 		
 		//todo: is in front of the object (, and or..) => make new statement
 		
+		//todo: delete?
 		//arange predicate
 		String predicate = "";
 		if(inFrontOfMainVerb != null) {
@@ -601,11 +637,43 @@ public class answer {
 		}		
 		//open Question / wh- question
 		if(
-				sentence.get(0).getWordTypes().contains(WordType.questionWord)
+			sentence.get(0).getWordTypes().contains(WordType.questionWord)
 			) {
 			return SentenceType.OpenQuestion;
+		}		
+		
+		//todo: anyMatch wäre bessere Lösung?
+		//statement sentence
+		for(Word w : sentence) {
+			if(w.getWordTypes().contains(WordType.interjection)) {				
+				return SentenceType.Greeting;
+			}
 		}
-		return SentenceType.Statement;
+		
+		//todo: anyMatch wäre bessere Lösung?
+		//statement sentence
+		for(Word w : sentence) {
+			if(w.getWordTypes().contains(WordType.verb)) {				
+				return SentenceType.Statement;
+			}
+		}		
+		
+		return null;
+	}
+	
+	private static String generateQuestion(String person) {
+		//Ask for a Name
+		//todo: Not rly random yet
+		if(person == "") {
+			return "What is your Name";
+		}
+		
+		//search for name in database
+		//dataInstance.getPersonByName(firstname, surname)
+		
+		
+		
+		return null;
 	}
 	
 	private static String readSentence(List<Word> sentence) {
@@ -638,7 +706,16 @@ public class answer {
 						return "Yes";
 					}
 				}	
-				return "I don't know";				
+				return "I don't know";	
+			case Greeting:	
+				//todo: delete insert
+				if(
+						sentence.get(0).getWordTypes().contains(WordType.interjection) ||
+						sentence.get(0).getWordTypes().contains(WordType.noun)
+						) {					
+					dataInstance.insertInstance(sentence.get(0), "greeting");
+				}				
+				return dataInstance.getRandomIndividual("greeting");
 			default:
 				return "I don't understand"; 				
 		}								

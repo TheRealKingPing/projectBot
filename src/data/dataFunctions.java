@@ -10,6 +10,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import java.util.regex.*;
 
 import org.apache.http.protocol.ResponseDate;
@@ -829,6 +830,55 @@ public class dataFunctions {
 			//todo: delete me
 			System.out.print("\"" + className.toLowerCase() + "\" with super class \"" + subClassOf.toLowerCase() + "\"\n");
 		}				
+	}
+	
+	public void insertInstance(Word instanceName, String subClassOf) {
+		if(instanceName != null && subClassOf != null) {						
+			GraphStore graphStore = GraphStoreFactory.create(m);
+			String updateString =
+					prefixUri + prefixRdf + prefixOwl +		
+					"INSERT DATA { \r\n" +		
+					"uri:" + instanceName.getValue().toLowerCase() + " rdf:type owl:NamedIndividual . \r\n" +
+					"uri:" + instanceName.getValue().toLowerCase() + " rdf:type uri:" + instanceName.getWordTypes().get(0) + " . \r\n" +	
+					"uri:" + instanceName.getValue().toLowerCase() + " rdf:type uri:" + subClassOf.toLowerCase() + " . \r\n" +				
+					"}";					
+			
+			UpdateRequest request = UpdateFactory.create(updateString);			
+			
+			//Execute the update
+			UpdateProcessor proc = UpdateExecutionFactory.create(request, graphStore);		
+			proc.execute();		
+			
+			//todo: delete me
+			System.out.print("Individual: \"" + instanceName.getValue().toLowerCase() + "\" with super class \"" + subClassOf.toLowerCase() + "\"\n");
+		}	
+	}
+	
+	public String getRandomIndividual(String className) {
+		String queryString =
+				prefixUri +	prefixRdf + prefixOwl +				
+				"SELECT ?individual WHERE { \r\n" + 								
+				"?individual rdf:type uri:" + className + " . \r\n" +
+				"}";		
+		Query query = QueryFactory.create(queryString);
+				 
+		// Execute the query and obtain results
+		QueryExecution qe = QueryExecutionFactory.create(query, m);
+		ResultSet results = qe.execSelect();
+		
+		// return query results 
+		List<String> allIndividuals = new ArrayList<String>();
+		while(results.hasNext()) {										
+			allIndividuals.add(results.next().get("individual").toString().replaceAll(uri, ""));				
+		}		
+		qe.close();				
+		
+		if(!allIndividuals.isEmpty()) {
+			//Return random Individual
+			Random randomGenerator = new Random();
+			return allIndividuals.get(randomGenerator.nextInt(allIndividuals.size()));
+		}
+		return null;
 	}
 }
 

@@ -14,6 +14,12 @@ public class Word {
 		index = _index;
 	}
 	
+	//todo same but different
+	public Word(String _value, List<WordType> _types) {				
+		value = _value.toLowerCase();		
+		types = _types;		
+	}
+	
 	//set
 	public void setValue(String _value) {
 		value = _value;

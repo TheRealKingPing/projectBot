@@ -45,23 +45,26 @@ public class listen {
 			}	
 			Scanner scan = new Scanner(System.in);
 			System.out.println("Save? Yes/No");
-			String input = scan.nextLine();	
+			String input = scan.nextLine();						
 			
 			if (input.toLowerCase().equals("yes")) {
 				for(UsableStatement uS : usableStatements) {
 					for(int sCounter = 0; sCounter < uS.subjects.size(); sCounter++) {					
 						for(int oCounter = 0; oCounter < uS.objects.size(); oCounter++) {
-							dataInstance.insertRestriction(uS.subjects.get(sCounter), uS.predicate, uS.objects.get(oCounter));
-							System.out.print(uS.subjects.get(sCounter).getValue() + " " + uS.predicate + " " + uS.objects.get(oCounter).getValue() + " - inserted\n");
+							if(uS.predicate == "is") {
+								dataInstance.insertClass(uS.subjects.get(sCounter).getValue(), uS.objects.get(oCounter).getValue());
+								System.out.print(uS.subjects.get(sCounter).getValue() + " with super class " + uS.objects.get(oCounter).getValue() + " - inserted\n");
+							}
+							else {
+								dataInstance.insertRestriction(uS.subjects.get(sCounter), uS.predicate, uS.objects.get(oCounter));	
+								System.out.print(uS.subjects.get(sCounter).getValue() + " " + uS.predicate + " " + uS.objects.get(oCounter).getValue() + " - inserted\n");
+							}														
 						}			
 					}
 				}
 				dataInstance.closeData();
-			}		
-		}
-		
-		
-		
+			}	
+		}					
 	}
 	
 	public static void main(String[] args) {
@@ -70,9 +73,7 @@ public class listen {
 		//get statement
 		Scanner scan = new Scanner(System.in);
 		System.out.println("Enter a statement:");
-		String input = scan.nextLine();		
-		
-		
+		String input = scan.nextLine();						
 		
 		if(learnMode == true) {
 			memoriseSentence(input);

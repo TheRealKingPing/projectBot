@@ -669,8 +669,14 @@ public class answer {
 		}
 		
 		//search for name in database
-		//dataInstance.getPersonByName(firstname, surname)
+		String firstname = "Albert";
+		String surname = "Einstein";
 		
+		dataInstance.getPersonByName(firstname, surname);
+		
+		
+		
+		//todo: its from https://www.wikihow.com/Come-Up-with-Good-Conversation-Topics is it good?
 		
 		
 		return null;
@@ -721,6 +727,10 @@ public class answer {
 		}								
 	}
 	
+	private static List<String> splitIntoSentences(String sentences) {
+		return null;
+	}
+	
 	public static void main (String[] args) {
 		/*String state = "ok";
 		
@@ -738,15 +748,18 @@ public class answer {
 		System.out.println("Enter a sentence:");
 		String input = scan.nextLine();		
 		
-		List<Word> wordList = new ArrayList();
-		String[] words = input.split("\\s+");		
-		for (int i = 0; i < words.length; i++) {			    
-			words[i] = words[i].replaceAll("[^\\w]", "");		    
-		    wordList.add(new Word(words[i], dataInstance.getType(words[i]), i));
+		for(String s : splitIntoSentences(input)) {
+			List<Word> wordList = new ArrayList();
+			String[] words = input.split("\\s+");		
+			for (int i = 0; i < words.length; i++) {			    
+				words[i] = words[i].replaceAll("[^\\w]", "");		    
+			    wordList.add(new Word(words[i], dataInstance.getType(words[i]), i));
+			}
+			
+			System.out.print(readSentence(wordList));
+			
+			dataInstance.closeData();
 		}
 		
-		System.out.print(readSentence(wordList));
-		
-		dataInstance.closeData();
 	}	
 }

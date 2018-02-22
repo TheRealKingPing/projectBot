@@ -44,7 +44,7 @@ import projectBot.WordType;
 
 public class dataFunctions {	
 	private static String uri = "http://www.semanticweb.org/z003da4t/ontologies/2017/7/untitled-ontology-3#";
-	private static OntModel m = ModelFactory.createOntologyModel(OntModelSpec.OWL_MEM_MICRO_RULE_INF);
+	private static OntModel m = null;
 	private String fileSource = "";
 	private String type = "RDF/XML";
 	private String prefixUri = "prefix uri: <" + uri + "> ";
@@ -53,35 +53,11 @@ public class dataFunctions {
 	private String prefixOwl = "prefix owl:<http://www.w3.org/2002/07/owl#>";
 	private String prefixFoaf = "prefix foaf:<http://xmlns.com/foaf/0.1/>";	
 	
-	//todo: not only infinitive => every verb
-	//get subject name by infinitive todo: delete
-	public String getPropertyName(String infinitive) {
-		switch(infinitive) {
-			case "be":
-				return "is";
-			case "have":
-				return "has";
-			default:
-				return null;
-		}		
-	}
-	
-	//get subject name by pronoun tdodo: delete
-	public String getSubjectName(String pronoun) {
-		switch(pronoun) {
-			case "you":
-				return "UserMe";				
-			case "your":
-				return "UserMe";
-			default:
-				return null;
-		}
-	}	
-	
 	public void openData(String _fileSource, String _type) {
 		fileSource = _fileSource;
 		type = _type;
 		
+		m = ModelFactory.createOntologyModel(OntModelSpec.OWL_MEM_MICRO_RULE_INF);
 		m.read(fileSource, type);
 		m.setStrictMode(false);		
 	}
@@ -195,54 +171,15 @@ public class dataFunctions {
 					break;
 			}				
 		}		
-		qe.close();
-		//todo: search everything or not ?
-		/*if(respondTypes.size() == 0) {
-			//search in dictionary
-			List<WordType> dictonaryType = getWordTypeViaDictionary(word);
-			if (dictonaryType != null) {
-				return dictonaryType;
-			}
-			else {
-				//search again with base verb
-				String baseVerb = getBaseOfVerb(word);
-				
-				if(baseVerb != null) {
-					dictonaryType = getWordTypeViaDictionary(baseVerb);
-					if (dictonaryType != null) {
-						return dictonaryType;
-					}
-				}		
-				else {
-					//search again with adjective
-					String adjective = getAdjectiveOfAdverb(word);
-					if(adjective != null) {
-						dictonaryType = getWordTypeViaDictionary(adjective);											
-						if (dictonaryType != null) {
-							List<WordType> respond = new ArrayList<WordType>();
-							respond.add(WordType.adverb);
-							return respond;
-						}						
-					}
-					else {
-						//search again with singular noun
-						String singularNoun = getSingularOfPlural(word);
-						if(singularNoun != null) {
-							dictonaryType = getWordTypeViaDictionary(singularNoun);											
-							if (dictonaryType != null) {
-								return dictonaryType;
-							}
-						}
-					}
-				}
-			}
-		}	*/	
+		qe.close();		
 												
 		//get base verb
-		String baseVerb = getBaseOfVerb(word);
-	    				
-		//todo: dk bout that
+		String baseVerb = getBaseOfVerb(word);	    
+		if(baseVerb != null) {
+			System.out.print("The base verb of '" + word + "' is '" + baseVerb + "'\n");	
+		}
 		
+		//todo: dk bout that		
 		//search again with adjective
 		/*String adjective = getAdjectiveOfAdverb(word);
 		if(adjective != null) {
@@ -256,6 +193,10 @@ public class dataFunctions {
 			
 		//get singular noun
 		String singularNoun = getSingularOfPlural(word);	
+		//ToDo: delete System.out.print
+		if(singularNoun != null) {
+			System.out.print("The singular noun of '" + word + "' is '" + singularNoun + "'\n");	
+		}		
 
 		//search in dictionary
 		List<WordType> dictionaryList = new ArrayList<WordType>();
@@ -274,31 +215,7 @@ public class dataFunctions {
 		}
 					
 		return respondTypes;
-	}
-	
-	//Bind pronoun and noun todo: delete
-	public String bindPronounAndNoun(String userName, String nounName) {						
-		String propertyName = getPropertyName("have");
-		Property property = m.getProperty(uri + propertyName);			
-		
-		OntClass pronoun = m.getOntClass(uri + userName);				
-		
-		ExtendedIterator<OntClass> pronounSuperC = pronoun.listSuperClasses();												
-		
-		while(pronounSuperC.hasNext()) {	
-			OntClass sc = pronounSuperC.next();
-			if (sc.isRestriction()) {
-				Restriction r = sc.asRestriction();					
-				if(property.equals(r.getOnProperty())) {													
-					String scNounName = r.asSomeValuesFromRestriction().getSomeValuesFrom().getURI().toString().replaceAll(uri, "");							
-					if(scNounName.equals(nounName)) {
-						return scNounName;						
-					}
-				}
-			}
-		}												
-		return null;
-	}
+	}	
 	
 	public void insertRestriction(Word subjectName, String propertyName, Word objectName) {						
 		String updateString =
@@ -611,7 +528,7 @@ public class dataFunctions {
 		    String zeile = null;		    
 		    while ((zeile = in.readLine()) != null) { 		    	
 		    	
-		    	if(zeile.contains(" " + sWord)) {
+		    	if(zeile.equals(" " + sWord)) {
 		    		int firstSpaceIndex = zeile.indexOf(" ");
 		    		return zeile.substring(0, firstSpaceIndex);
 		    	}		    			        			        			      
@@ -809,18 +726,42 @@ public class dataFunctions {
 	
 	//insert a class with the specific superclass (if <null> => Knowledge)
 	public void insertClass(String className, String subClassOf) {
+		String subClassOfSuperClass = null;
+		
+		//superclass exist? else create it with superclass knowledge
+		String queryString =
+				prefixUri +	prefixRdfs +
+				"SELECT ?superclass WHERE { \r\n" + 								
+				"uri:" + subClassOf + " rdfs:subClassOf ?superclass . \r\n" +
+				"}";		
+		Query query = QueryFactory.create(queryString);
+				 
+		// Execute the query and obtain results
+		QueryExecution qe = QueryExecutionFactory.create(query, m);
+		ResultSet results = qe.execSelect();
+		
+		// return query results 
+		List<String> allIndividuals = new ArrayList<String>();
+		while(results.hasNext()) {										
+			subClassOfSuperClass = results.next().get("superclass").toString().replaceAll(uri, "");				
+		}		
+		qe.close();				
+		
 		if(className != null) {
 			if(subClassOf == null) {
-				subClassOf = "Knowledge";
+				subClassOf = "knowledge";
 			}		
 			
 			GraphStore graphStore = GraphStoreFactory.create(m);
 			String updateString =
 					prefixUri +	prefixRdfs +			
-					"INSERT DATA { \r\n" +
-					"uri:" + className.toLowerCase() + " rdfs:subClassOf uri:" + subClassOf.toLowerCase() + " . \r\n" +				
-					"}";					
+					"INSERT DATA { \r\n";
+										
+			if(subClassOfSuperClass == null || subClassOfSuperClass == "knowledge") {
+				updateString = updateString + "uri:" + subClassOf.toLowerCase() + " rdfs:subClassOf uri:knowledge . \r\n";
+			}
 			
+			updateString = updateString + "uri:" + className.toLowerCase() + " rdfs:subClassOf uri:" + subClassOf.toLowerCase() + " . \r\n }";
 			UpdateRequest request = UpdateFactory.create(updateString);			
 			
 			//Execute the update

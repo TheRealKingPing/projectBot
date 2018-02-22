@@ -33,18 +33,7 @@ import data.dataFunctions;
 
 public class answer {	
 	private static dataFunctions dataInstance = new dataFunctions();		
-	
-	private static void wordNotFound(String word) {
-		System.out.print("'" + word + "' not found");
-	}
-	
-	public static List<Word> getSentence(UsableStatement statement) {
-		
-		
-		
-		
-		return null;
-	}		
+	private static Boolean memorise = true;
 	
 	private static List<Word> transformWQuestionToSentence(List<Word> question) {
 		return null;
@@ -165,6 +154,59 @@ public class answer {
 			}			
 		}						
 		
+		//todo: create findconstruction method
+		//find article-noun construction and cut article
+		List<Word> removableArt = new ArrayList<Word>();	
+		
+		for(int c = 0; c < cuttedSentence.size() - 1; c++) {
+			Word w = cuttedSentence.get(c);
+			Word nW = cuttedSentence.get(c + 1);
+			
+			//todo: make it better cause it is pretty much the same as the next construction code block
+			//with a adjective
+			if(
+					c + 2 <= cuttedSentence.size() &&
+					w.getWordTypes().contains(WordType.article) &&
+					nW.getWordTypes().contains(WordType.adjective) &&					
+					cuttedSentence.get(c + 2).getWordTypes().contains(WordType.noun)						
+					
+					) {
+				removableArt.add(w);				
+				removableArt.add(cuttedSentence.get(c + 2));
+				
+				//define potential adjective as adjective
+				List<WordType> adjType = new ArrayList<WordType>();
+				adjType.add(WordType.adjective);
+				nW.setWordTypes(adjType);
+				
+				//create new adjective + noun construct
+				UsableStatement adjNounStatement = new UsableStatement();								
+				adjNounStatement.subjects.add(new Word(nW.getValue(), nW.getWordTypes()));
+				adjNounStatement.predicate = "is";
+				adjNounStatement.objects.add(new Word(cuttedSentence.get(c + 2).getValue(), cuttedSentence.get(c + 2).getWordTypes()));
+				
+				respondStatements.add(adjNounStatement);				
+			}
+			//without a adjective
+			else if(
+					w.getWordTypes().contains(WordType.article) &&
+					nW.getWordTypes().contains(WordType.noun)
+					
+					) {
+				removableArt.add(w);
+				
+				//define potential noun as noun
+				List<WordType> nounType = new ArrayList<WordType>();
+				nounType.add(WordType.noun);
+				nW.setWordTypes(nounType);
+			}				
+		}
+		
+		//remove article
+		for(Word w : removableArt) {
+			cuttedSentence.remove(w);
+		}		
+		
 		//find adjective-noun constructions, create new statement and cut adjective
 		List<Word> removableAdj = new ArrayList<Word>();
 		
@@ -195,29 +237,7 @@ public class answer {
 		//remove adj.
 		for(Word w : removableAdj) {
 			cuttedSentence.remove(w);
-		}	
-		
-		//todo: create findconstruction method
-		//find article-noun construction and cut article
-		List<Word> removableArt = new ArrayList<Word>();	
-		
-		for(int c = 1; c < cuttedSentence.size(); c++) {
-			Word w = cuttedSentence.get(c);
-			Word lW = cuttedSentence.get(c - 1);
-			if(lW.getWordTypes().contains(WordType.article) && w.getWordTypes().contains(WordType.noun)) {
-				removableArt.add(lW);
-				
-				//define potential noun as noun
-				List<WordType> nounType = new ArrayList<WordType>();
-				nounType.add(WordType.noun);
-				w.setWordTypes(nounType);
-			}			
-		}
-		
-		//remove article
-		for(Word w : removableArt) {
-			cuttedSentence.remove(w);
-		}				
+		}							
 		
 		//todo: find better solution for every preposition
 		//preposition
@@ -674,6 +694,7 @@ public class answer {
 		
 		dataInstance.getPersonByName(firstname, surname);
 		
+		//Question about the Job
 		
 		
 		//todo: its from https://www.wikihow.com/Come-Up-with-Good-Conversation-Topics is it good?
@@ -693,7 +714,16 @@ public class answer {
 				for(UsableStatement uS : statement) {
 					for(int sCounter = 0; sCounter < uS.subjects.size(); sCounter++) {					
 						for(int oCounter = 0; oCounter < uS.objects.size(); oCounter++) {
-							//dataInstance.insertRestriction(uS.subjects.get(sCounter), uS.predicate, uS.objects.get(oCounter));
+							if(memorise == true) {
+								if(uS.predicate == "is") {
+									dataInstance.insertClass(uS.subjects.get(sCounter).getValue(), uS.objects.get(oCounter).getValue());
+									respond = respond + uS.subjects.get(sCounter).getValue() + " with super class " + uS.objects.get(oCounter).getValue() + " - inserted\n";
+								}
+								else {
+									dataInstance.insertRestriction(uS.subjects.get(sCounter), uS.predicate, uS.objects.get(oCounter));	
+									respond = respond + uS.subjects.get(sCounter).getValue() + " " + uS.predicate + " " + uS.objects.get(oCounter).getValue() + " - inserted\n";
+								}																	
+							}														
 							respond = respond + uS.subjects.get(sCounter).getValue() + " " + uS.predicate + " " + uS.objects.get(oCounter).getValue() + "\n";
 						}			
 					}
@@ -727,8 +757,98 @@ public class answer {
 		}								
 	}
 	
-	private static List<String> splitIntoSentences(String sentences) {
-		return null;
+	private static List<List<Word>> splitIntoSentences(String sentences) {
+		List<List<Word>> respondSentences = new ArrayList<List<Word>>();
+		
+		//An apple is a sweet, edible fruit produced by an apple tree
+		List<Word> wordList = new ArrayList();
+		List<List<Word>> unfinishedSentences = new ArrayList<List<Word>>(); 
+		String[] words = sentences.split("\\s+");	
+		int counter = 0;
+		for (String w : words) {			
+			String tW = w.replaceAll("[^\\w]", "");		 
+			List<WordType> wordTypes = dataInstance.getType(tW);			
+			
+			//commas https://en.oxforddictionaries.com/punctuation/comma	
+			if(w.contains(",")) {				
+				//in lists
+				//as adjective		
+				//todo: verbessern für mehrere
+				if(wordTypes.contains(WordType.adjective)) {																	
+					List<Word> tempWordList = new ArrayList<Word>(wordList);
+					
+					tempWordList.add(new Word(tW, wordTypes, 0));					
+					unfinishedSentences.add(tempWordList);									
+								
+					tempWordList = new ArrayList<Word>(wordList);
+					
+					String nW = words[counter + 1].replaceAll("[^\\w]", "");		 					
+					tempWordList.add(new Word(nW, dataInstance.getType(nW), 0));
+					
+					unfinishedSentences.add(tempWordList);
+					
+					counter++;
+				}				
+			}				
+			wordList.add(new Word(tW, wordTypes, 0));
+		    		
+			counter++;
+		}		
+		if(unfinishedSentences.size() != 0) {								
+			List<Word> longestSentence = unfinishedSentences.get(unfinishedSentences.size() - 1);						
+
+			List<Word> endSentence = new ArrayList<Word>();
+			for(int c = 0; c < wordList.size(); c++) {
+				if(
+						endSentence.size() != 0 ||
+						(c != 0 &&
+						longestSentence.get(longestSentence.size() - 1).getValue() == wordList.get(c - 1).getValue())						
+						
+						) {
+					endSentence.add(wordList.get(c));
+				}				
+			}
+			
+			for(List<Word> uS : unfinishedSentences) {																																	
+				for(Word w : endSentence) {
+					uS.add(w);
+				}												
+				respondSentences.add(uS);
+			}								
+		}
+		else {
+			respondSentences.add(wordList);
+		}		
+		
+		//Oxford comma
+		//Todo: implement
+		
+		//direct speech
+		//Todo: implement
+		
+		//separate clauses
+		//Todo: implement
+		
+		//mark off parts of a sentence
+		//Todo: implement
+		
+		//Using a comma with 'however'
+		//Todo: implement
+		
+		//todo: delete index?        
+		List<List<Word>> tempRList = new ArrayList<List<Word>>();
+		for(List<Word> rS : respondSentences) {
+			int c = 0;
+			List<Word> tempSList = new ArrayList<Word>();
+			for(Word rW : rS) {
+				tempSList.add(new Word(rW.getValue(), rW.getWordTypes(), c));								
+				c++;
+			}
+			tempRList.add(tempSList);
+		}
+		respondSentences = new ArrayList<List<Word>>(tempRList);
+		
+		return respondSentences;
 	}
 	
 	public static void main (String[] args) {
@@ -742,24 +862,27 @@ public class answer {
 			System.out.print(e.getMessage());
 		} */			
 		
-		dataInstance.openData("src/projectBot/new.xml", "RDF/XML");
+		while(true) {						
+			dataInstance.openData("src/projectBot/new.xml", "RDF/XML");		
 			
-		Scanner scan = new Scanner(System.in);
-		System.out.println("Enter a sentence:");
-		String input = scan.nextLine();		
-		
-		for(String s : splitIntoSentences(input)) {
-			List<Word> wordList = new ArrayList();
-			String[] words = input.split("\\s+");		
-			for (int i = 0; i < words.length; i++) {			    
-				words[i] = words[i].replaceAll("[^\\w]", "");		    
-			    wordList.add(new Word(words[i], dataInstance.getType(words[i]), i));
+			Scanner scan = new Scanner(System.in);
+			System.out.println("Enter a sentence:");
+			String input = scan.nextLine();		
+			
+			//List<Word> wordList = new ArrayList();
+			//String[] words = input.split("\\s+");		
+			//for (int i = 0; i < words.length; i++) {	
+				//if(words[i].contains(",")) {
+					//wordList.add(new Word())
+				//}
+				//words[i] = words[i].replaceAll("[^\\w]", "");		    
+			    //wordList.add(new Word(words[i], dataInstance.getType(words[i]), i));
+			//}
+			
+			for(List<Word> s : splitIntoSentences(input)) {												
+				System.out.print(readSentence(s) + "\n");						
 			}
-			
-			System.out.print(readSentence(wordList));
-			
 			dataInstance.closeData();
-		}
-		
+		}			
 	}	
 }

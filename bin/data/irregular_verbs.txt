@@ -277,3 +277,4 @@ uses used used used used
 wake wakes woke/waked woke/waked woken/waked/woke
 wear wears wore wore worn
 write writes wrote wrote written
+die died

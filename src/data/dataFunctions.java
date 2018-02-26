@@ -131,8 +131,9 @@ public class dataFunctions {
 		ResultSet results = qe.execSelect();
 				
 		// return query results 
-		while(results.hasNext()) {					
-			switch(results.next().getResource("type").getURI().toString().replaceAll(uri, "")) {
+		while(results.hasNext()) {		
+			String type = results.next().getResource("type").getURI().toString().replaceAll(uri, "");
+			switch(type) {
 				case "verb":					
 					respondTypes.add(WordType.verb);					
 					break;
@@ -166,6 +167,8 @@ public class dataFunctions {
 				case "preposition":					
 					respondTypes.add(WordType.preposition);
 					break;
+				case "interjection":
+					respondTypes.add(WordType.interjection);	
 				default:		
 					System.out.print("'" + word + "' not found in the database\n--\n");
 					break;
@@ -221,7 +224,7 @@ public class dataFunctions {
 		String updateString =
 				prefixUri +	prefixRdf + prefixOwl +
 				"INSERT DATA { \r\n" +
-				"uri:" + propertyName.toLowerCase() + " rdf:type owl:ObjectProperty . \r\n" +
+				"uri:" + propertyName + " rdf:type owl:ObjectProperty . \r\n" +
 				"uri:" + subjectName.getValue().toLowerCase() + " uri:" + propertyName + " uri:" + objectName.getValue().toLowerCase() + " . \r\n" +
 				"uri:" + subjectName.getValue().toLowerCase() + " rdf:type uri:" + subjectName.getWordTypes().get(0) + " . \r\n" +
 				"uri:" + objectName.getValue().toLowerCase() + " rdf:type uri:" + objectName.getWordTypes().get(0) + " . \r\n" +
@@ -315,9 +318,9 @@ public class dataFunctions {
 		}		
 		qe.close();				
 		return null;
-	}
+	}	
 	
-	public String getObject(String subject, String predicate) {
+	public List<String> getObjects(String subject, String predicate) {
 		String queryString =
 				prefixUri +	prefixRdf +				
 				"SELECT ?object WHERE { \r\n" + 								
@@ -329,14 +332,39 @@ public class dataFunctions {
 		QueryExecution qe = QueryExecutionFactory.create(query, m);
 		ResultSet results = qe.execSelect();
 		
+		List<String> obejcts = new ArrayList<String>();
 		// return query results 
 		while(results.hasNext()) {							
-			String object = results.next().get("object").toString().replaceAll(uri, "");
-			qe.close();
-			return object;
+			obejcts.add(results.next().get("object").toString().replaceAll(uri, ""));					
 		}		
 		qe.close();				
-		return null;
+		return obejcts;
+	}
+	
+	public List<String> getSuperClass(String value) {
+		String queryString =
+				prefixUri +	prefixRdf + prefixRdfs +				
+				"SELECT ?superClass WHERE { \r\n" + 	
+				"?superClass rdfs:subClassOf uri:knowledge . \r\n" +		
+				"{ uri:" + value + " rdfs:subClassOf ?superClass} \r\n" +
+				"UNION { uri:" + value + " rdf:type ?superClass } \r\n" +
+				"}";		
+		Query query = QueryFactory.create(queryString);
+				 
+		// Execute the query and obtain results
+		QueryExecution qe = QueryExecutionFactory.create(query, m);
+		ResultSet results = qe.execSelect();
+		
+		List<String> respond = new ArrayList<String>();
+		// return query results 
+		while(results.hasNext()) {							
+			String superClass = results.next().get("superClass").toString().replaceAll(uri, "");
+			if(!superClass.equals("knowledge")) {
+				respond.add(superClass);
+			}									
+		}		
+		qe.close();				
+		return respond;
 	}
 	
 	public int createNewPersonID (String _firstname, String _surname) {		
@@ -359,8 +387,8 @@ public class dataFunctions {
 		// return query results 
 		while(results.hasNext()) {			
 			String resultPerson = results.next().get("person").toString().replaceAll(uri, "");
-			if(resultPerson.contains("Person")) {
-				int personID = Integer.parseInt(resultPerson.replaceAll("Person", ""));
+			if(resultPerson.contains("person")) {
+				int personID = Integer.parseInt(resultPerson.replaceAll("person", ""));
 				if(newID < personID) {
 					newID = personID;
 				}			
@@ -374,13 +402,13 @@ public class dataFunctions {
 				prefixUri +	prefixRdf +	prefixOwl +			
 				"INSERT DATA { \r\n" +
 				"uri:" + firstname.toLowerCase() + " rdf:type owl:NamedIndividual . \r\n" +
-				"uri:" + firstname.toLowerCase() + " rdf:type uri:ProperNoun . \r\n" +
+				"uri:" + firstname.toLowerCase() + " rdf:type uri:properNoun . \r\n" +
 				"uri:" + surname.toLowerCase() + " rdf:type owl:NamedIndividual . \r\n" +
-				"uri:" + surname.toLowerCase() + " rdf:type uri:ProperNoun . \r\n" +
-				"uri:Person" + newID + " rdf:type owl:NamedIndividual . \r\n" +
-				"uri:Person" + newID + " rdf:type uri:person . \r\n" +
-				"uri:Person" + newID + " uri:hasFirstname uri:" + firstname.toLowerCase() + " . \r\n" +
-				"uri:Person" + newID + " uri:hasSurname uri:" + surname.toLowerCase() + " . \r\n" +				
+				"uri:" + surname.toLowerCase() + " rdf:type uri:properNoun . \r\n" +
+				"uri:person" + newID + " rdf:type owl:NamedIndividual . \r\n" +
+				"uri:person" + newID + " rdf:type uri:person . \r\n" +
+				"uri:person" + newID + " uri:hasFirstname uri:" + firstname.toLowerCase() + " . \r\n" +
+				"uri:person" + newID + " uri:hasSurname uri:" + surname.toLowerCase() + " . \r\n" +				
 				"}";
 		UpdateRequest request = UpdateFactory.create(updateString);			
 		

@@ -36,7 +36,13 @@ public class answer {
 	private static Boolean memorise = true;
 	
 	private static List<Word> transformWQuestionToSentence(List<Word> question) {
-		return null;
+		//what is... oxygen
+		//delete wh word
+		if(question.get(0).getWordTypes().contains(WordType.questionWord)) {
+			question.remove(0);
+		}
+		//todo: delete
+		return transformYNQuestionToSentence(question);				
 	}
 	
 	private static List<Word> transformYNQuestionToSentence(List<Word> question) {
@@ -52,9 +58,9 @@ public class answer {
 		int subjectEndIndex = 0;
 		
 		for(int c = 1; c < question.size(); c++) {
-			Word w = question.get(c);
-			Word nW = question.get(c + 1);
-			if(w.getWordTypes().get(0) == WordType.noun && nW.getWordTypes().get(0) != WordType.coordinatingConjunction) {
+			Word w = question.get(c);			
+			//todo: dinne gha:  && nW.getWordTypes().get(0) != WordType.coordinatingConjunction
+			if(w.getWordTypes().get(0) == WordType.noun) {
 				subjectEndIndex = c;
 				break;
 			}
@@ -79,11 +85,11 @@ public class answer {
 	public static List<UsableStatement> getUsableStatement(List<Word> sentence) {			
 		//todo: check if it has a verb
 		
-		//fill empty type list with "properNoun"	
+		//fill empty type list with "properNoun"
 		int counter = 0;
 		List<WordType> typeList = new ArrayList<WordType>();
 		typeList.add(WordType.properNoun);
-		for(Word w : sentence) {					
+		for(Word w : sentence) {
 			if(w.getWordTypes().size() == 0) {
 				w.setWordTypes(typeList);
 				sentence.set(counter, w);
@@ -100,7 +106,7 @@ public class answer {
 			System.out.print(output + "\n");
 		}
 		System.out.print("---------------------------\n");
-						
+		
 		List<UsableStatement> respondStatements = new ArrayList<UsableStatement>();
 		
 		//cut unnecessary parts
@@ -125,7 +131,7 @@ public class answer {
 							String personID = dataInstance.getPersonByName(wFn.getValue(), wSn.getValue());
 							//create new person id
 							if(personID == null) {
-								personID = "Person" + dataInstance.createNewPersonID(wFn.getValue(), wSn.getValue());
+								personID = "person" + dataInstance.createNewPersonID(wFn.getValue(), wSn.getValue());
 							}
 								
 							//überprüfen ob id wirklich erstellt!
@@ -153,6 +159,30 @@ public class answer {
 				}				
 			}			
 		}						
+		
+		//find noun-numeral construction and cut noun
+		List<Word> removableNoun = new ArrayList<Word>();	
+		
+		for(int c = 0; c < cuttedSentence.size() - 1; c++) {
+			Word w = cuttedSentence.get(c);
+			Word nW = cuttedSentence.get(c + 1);
+				
+			if(w.getWordTypes().contains(WordType.noun) && nW.getWordTypes().contains(WordType.numeral)) {
+				removableNoun.add(w);
+								
+				UsableStatement nounNumeralStatement = new UsableStatement();								
+				nounNumeralStatement.subjects.add(new Word(nW.getValue(), nW.getWordTypes()));
+				nounNumeralStatement.predicate = "is";
+				nounNumeralStatement.objects.add(new Word(w.getValue(), w.getWordTypes()));
+				
+				respondStatements.add(nounNumeralStatement);		
+			}
+		}
+		
+		//remove noun
+		for(Word w : removableNoun) {
+			cuttedSentence.remove(w);
+		}		
 		
 		//todo: create findconstruction method
 		//find article-noun construction and cut article
@@ -187,10 +217,11 @@ public class answer {
 				
 				respondStatements.add(adjNounStatement);				
 			}
-			//without a adjective
+			//without a adjective or create noun if only article
+			//todo: nW.getWordTypes().contains(WordType.noun) rausgenommen!
 			else if(
-					w.getWordTypes().contains(WordType.article) &&
-					nW.getWordTypes().contains(WordType.noun)
+					w.getWordTypes().contains(WordType.article)
+					
 					
 					) {
 				removableArt.add(w);
@@ -638,6 +669,23 @@ public class answer {
 	}*/
 	
 	private static SentenceType getSentenceType(List<Word> sentence) {
+		//todo: anyMatch wäre bessere Lösung?
+		//statement sentence
+		for(Word w : sentence) {
+			if(w.getWordTypes().contains(WordType.interjection)) {
+				for(String c : dataInstance.getSuperClass(w.getValue())) {
+					switch(c) {
+						case "greeting":
+							return SentenceType.Greeting;
+						case "parting":
+							return SentenceType.Parting;
+						default:
+							break;
+					}
+				}														
+			}
+		}
+		
 		//is it a question?
 		//closed Question / yes/no question
 		if(sentence.get(0).getWordTypes().contains(WordType.verb)) {
@@ -660,15 +708,7 @@ public class answer {
 			sentence.get(0).getWordTypes().contains(WordType.questionWord)
 			) {
 			return SentenceType.OpenQuestion;
-		}		
-		
-		//todo: anyMatch wäre bessere Lösung?
-		//statement sentence
-		for(Word w : sentence) {
-			if(w.getWordTypes().contains(WordType.interjection)) {				
-				return SentenceType.Greeting;
-			}
-		}
+		}					
 		
 		//todo: anyMatch wäre bessere Lösung?
 		//statement sentence
@@ -707,17 +747,36 @@ public class answer {
 		List<UsableStatement> statement = new ArrayList<UsableStatement>();
 		
 		SentenceType sentenceType = getSentenceType(sentence);
+		
+		String respond = "";
 		switch(sentenceType) {
 			case Statement:
-				statement = getUsableStatement(sentence);
-				String respond = "";
-				for(UsableStatement uS : statement) {
+				statement = getUsableStatement(sentence);				
+				
+				for(int uSCounter = 0; uSCounter < statement.size(); uSCounter++) {
+					UsableStatement uS = statement.get(uSCounter); 
 					for(int sCounter = 0; sCounter < uS.subjects.size(); sCounter++) {					
 						for(int oCounter = 0; oCounter < uS.objects.size(); oCounter++) {
 							if(memorise == true) {
-								if(uS.predicate == "is") {
-									dataInstance.insertClass(uS.subjects.get(sCounter).getValue(), uS.objects.get(oCounter).getValue());
-									respond = respond + uS.subjects.get(sCounter).getValue() + " with super class " + uS.objects.get(oCounter).getValue() + " - inserted\n";
+								if(uS.predicate.equals("is")) {
+									Boolean isInstance = false; 
+									for(UsableStatement tUS : statement) {
+										if(tUS.predicate != "is") {
+											for(Word o : tUS.objects) {
+												if(uS.subjects.get(sCounter).getValue() == o.getValue()) {
+													isInstance = true;
+												}
+											}
+										}																				
+									}
+									if(isInstance == true) {
+										dataInstance.insertInstance(uS.subjects.get(sCounter), uS.objects.get(oCounter).getValue());
+										respond = respond + "Instance " + uS.subjects.get(sCounter).getValue() + " with super class " + uS.objects.get(oCounter).getValue() + " - inserted\n";
+									}
+									else {
+										dataInstance.insertClass(uS.subjects.get(sCounter).getValue(), uS.objects.get(oCounter).getValue());
+										respond = respond + uS.subjects.get(sCounter).getValue() + " with super class " + uS.objects.get(oCounter).getValue() + " - inserted\n";	
+									}									
 								}
 								else {
 									dataInstance.insertRestriction(uS.subjects.get(sCounter), uS.predicate, uS.objects.get(oCounter));	
@@ -731,8 +790,18 @@ public class answer {
 				
 				return respond;
 			case OpenQuestion:
-				transformWQuestionToSentence(sentence);
-				return null;
+				statement = getUsableStatement(transformWQuestionToSentence(sentence));														
+				
+				//todo: foreach
+				respond = statement.get(0).subjects.get(0).getValue() + " is ";				
+				
+				if(statement.get(0).predicate.equals("is")) {
+					respond = respond + putItemsTogether(dataInstance.getSuperClass(statement.get(0).subjects.get(0).getValue()));					
+				}
+				else {
+					respond = respond + putItemsTogether(dataInstance.getObjects(statement.get(0).subjects.get(0).getValue(), statement.get(0).predicate));
+				}
+				return respond;						
 			case ClosedQuestion:
 				statement = getUsableStatement(transformYNQuestionToSentence(sentence));
 				
@@ -743,18 +812,80 @@ public class answer {
 					}
 				}	
 				return "I don't know";	
-			case Greeting:	
-				//todo: delete insert
-				if(
-						sentence.get(0).getWordTypes().contains(WordType.interjection) ||
-						sentence.get(0).getWordTypes().contains(WordType.noun)
-						) {					
-					dataInstance.insertInstance(sentence.get(0), "greeting");
-				}				
+			case Greeting:								
 				return dataInstance.getRandomIndividual("greeting");
+			case Parting:	
+				//todo: delete insert							
+				return dataInstance.getRandomIndividual("parting");
 			default:
 				return "I don't understand"; 				
 		}								
+	}
+	
+	//Todo: split! or rename
+	private static String createItemList(List<String> words, String coordinatingConjunction) {				
+		//create Item List
+		String respond = "";
+		for(int c = 0; c < words.size() - 1; c++) {
+			if(c != words.size() - 2) {				
+				respond = respond + words.get(c) +  ", ";
+			}
+			else {				
+				respond = respond + words.get(c) + " " + coordinatingConjunction + " " + words.get(c + 1);				
+			}						
+		}
+		return respond;
+	}
+	
+	private static String putItemsTogether(List<String> words) {
+		List<String> adjList = new ArrayList<String>();
+		List<String> nounList = new ArrayList<String>();
+		//putTogether			
+		for(String w : words) {
+			List<WordType> wT = dataInstance.getType(w);	
+			if (wT.contains(WordType.adjective)) {
+				adjList.add(w);
+			}
+			else if(wT.contains(WordType.noun)) {
+				nounList.add(w);
+			}
+		}		
+		
+		String respond = "";
+		for(String adj : adjList) {
+			respond = respond + adj + " ";
+		}
+			
+		for(String noun : nounList) {
+			respond = respond + noun + " ";
+		}
+		
+		return addArticle(respond, false);
+	}
+	
+	private static String addArticle(String word, Boolean isdefinite) {		
+		String article = "";
+		
+		if(isdefinite == true) {
+			article = "the";
+		}
+		else {
+			if(
+					word.substring(0, 1).equals("a") &&
+					word.substring(0, 1).equals("e") &&
+					word.substring(0, 1).equals("i") &&
+					word.substring(0, 1).equals("o") &&
+					word.substring(0, 1).equals("u")
+					
+					) {
+				article = "an";
+			}
+			else {
+				article = "a";
+			}
+		}
+		
+		return article + " " + word;
 	}
 	
 	private static List<List<Word>> splitIntoSentences(String sentences) {

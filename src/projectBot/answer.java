@@ -991,8 +991,8 @@ public class answer {
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			System.out.print(e.getMessage());
-		} */			
-		
+		} */								
+				
 		while(true) {						
 			dataInstance.openData("src/projectBot/new.xml", "RDF/XML");		
 			
@@ -1014,6 +1014,6 @@ public class answer {
 				System.out.print(readSentence(s) + "\n");						
 			}
 			dataInstance.closeData();
-		}			
+		}
 	}	
 }

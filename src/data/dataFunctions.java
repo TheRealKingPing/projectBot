@@ -59,7 +59,7 @@ public class dataFunctions {
 		
 		m = ModelFactory.createOntologyModel(OntModelSpec.OWL_MEM_MICRO_RULE_INF);
 		m.read(fileSource, type);
-		m.setStrictMode(false);		
+		m.setStrictMode(false);
 	}
 	
 	public void closeData() {					
@@ -159,7 +159,10 @@ public class dataFunctions {
 					respondTypes.add(WordType.properNoun);
 					break;
 				case "article":					
-					respondTypes.add(WordType.article);
+					respondTypes.add(WordType.article);				
+					break;
+				case "adverb":
+					respondTypes.add(WordType.adverb);
 					break;
 				case "coordinatingConjunction":					
 					respondTypes.add(WordType.coordinatingConjunction);
